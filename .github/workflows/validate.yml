@@ -61,6 +61,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      - name: The Playwright image ships without unzip, which setup-bun needs
+        run: apt-get update -qq && apt-get install -y -qq unzip >/dev/null
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: package.json
