@@ -1,0 +1,372 @@
+/* The daylight drafting room. Reading pages are quiet; the specimens carry the brand.
+   Every value is a token; the only literal on this page is the grid alpha. */
+:root {
+  --docs-gutter: 16px;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--ww-ground);
+  color: var(--ww-ink);
+  font: var(--ww-text-1) / var(--ww-leading-body) var(--ww-font-working);
+}
+a {
+  color: var(--ww-link);
+  text-underline-offset: 0.18em;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+:focus-visible {
+  outline: 3px solid var(--ww-focus);
+  outline-offset: 3px;
+}
+code {
+  font-family: var(--ww-font-plate);
+  font-size: 0.875em;
+  background: var(--ww-ground-code);
+  padding: 0.05em 0.35em;
+  border-radius: var(--ww-radius-xs);
+}
+pre {
+  margin: 0;
+  padding: var(--ww-space-4);
+  background: var(--ww-code-bg);
+  color: var(--ww-code-fg);
+  border: 1px solid var(--ww-hairline);
+  border-radius: var(--ww-radius-sm);
+  font-family: var(--ww-font-plate);
+  font-size: var(--ww-text-0);
+  line-height: 1.7;
+  overflow-x: auto;
+}
+pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--ww-font-engraved);
+  font-weight: 600;
+  line-height: var(--ww-leading-tight);
+  letter-spacing: var(--ww-heading-tracking);
+  text-wrap: balance;
+}
+h1 {
+  font-size: var(--ww-text-5);
+}
+h2 {
+  font-size: var(--ww-text-4);
+}
+h3 {
+  font-size: var(--ww-text-3);
+}
+p {
+  margin: 0;
+  max-width: var(--ww-measure);
+}
+ul,
+ol {
+  margin: 0;
+  padding-left: 1.25em;
+  max-width: var(--ww-measure);
+}
+li {
+  margin-bottom: var(--ww-space-1);
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: var(--ww-text-0);
+}
+th,
+td {
+  text-align: left;
+  padding: var(--ww-space-2) var(--ww-space-3);
+  border-bottom: 1px solid var(--ww-hairline);
+  vertical-align: top;
+}
+th {
+  font-family: var(--ww-font-plate);
+  font-size: 0.625rem;
+  font-weight: var(--ww-plate-weight);
+  letter-spacing: var(--ww-plate-tracking);
+  text-transform: uppercase;
+  color: var(--ww-ink-muted);
+}
+.scroll {
+  overflow-x: auto;
+}
+.frame {
+  padding-inline: var(--docs-gutter);
+}
+.wrap {
+  max-width: var(--ww-size-content);
+  margin: 0 auto;
+}
+.prose {
+  max-width: var(--ww-size-prose);
+}
+.plate {
+  font-family: var(--ww-font-plate);
+  font-size: var(--ww-plate-size);
+  font-weight: var(--ww-plate-weight);
+  letter-spacing: var(--ww-plate-tracking);
+  text-transform: uppercase;
+}
+.tag {
+  font-family: var(--ww-font-working);
+  font-size: var(--ww-text--1);
+  font-weight: var(--ww-tag-weight);
+  letter-spacing: var(--ww-tag-tracking);
+  text-transform: uppercase;
+  color: var(--ww-ink-muted);
+}
+.muted {
+  color: var(--ww-ink-muted);
+}
+.stack {
+  display: grid;
+  gap: var(--ww-space-4);
+}
+.stack-lg {
+  display: grid;
+  gap: var(--ww-space-6);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ww-space-3);
+  align-items: center;
+}
+/* header: the title plate */
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ww-space-4);
+  padding-block: var(--ww-space-3);
+  border-bottom: 1px solid var(--ww-hairline);
+  box-shadow: 0 1px 0 var(--ww-well-light);
+}
+.lockup {
+  display: flex;
+  align-items: center;
+  gap: var(--ww-space-3);
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+}
+.lockup .well {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--ww-radius-sm);
+  background: var(--ww-well);
+  box-shadow: var(--ww-depth-recess-quiet);
+}
+.lockup .name {
+  font-family: var(--ww-font-engraved);
+  font-size: var(--ww-text-2);
+  line-height: 1.1;
+}
+.lockup .sub {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--ww-ink-muted);
+  font-size: 0.625rem;
+}
+.dot {
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: 50%;
+  background: var(--ww-signal);
+  box-shadow: 0 0 0 1px var(--ww-signal-edge);
+}
+nav.primary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ww-space-1) var(--ww-space-4);
+  font-size: var(--ww-text-0);
+}
+nav.primary a {
+  color: var(--ww-ink);
+  text-decoration: none;
+  padding: var(--ww-space-1) 0;
+  border-bottom: 2px solid transparent;
+}
+nav.primary a[aria-current="page"] {
+  border-bottom-color: var(--ww-signal);
+}
+nav.primary a:hover {
+  border-bottom-color: var(--ww-hairline-strong);
+}
+main {
+  padding-block: var(--ww-space-7) var(--ww-space-8);
+  display: grid;
+  gap: var(--ww-space-8);
+}
+/* the stage: Field Paper with a drafting grid, for objects and specimens only */
+.stage {
+  position: relative;
+  background-color: var(--ww-ground-stage);
+  border-radius: var(--ww-radius-md);
+  padding: var(--ww-space-5);
+  box-shadow: var(--ww-depth-recess-quiet);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--ww-edge) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ww-edge) 8%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+[data-ww-env="night"] .stage {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--ww-ink) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ww-ink) 6%, transparent) 1px, transparent 1px);
+}
+.stage .label {
+  position: absolute;
+  left: var(--ww-space-3);
+  bottom: var(--ww-space-2);
+  color: var(--ww-ink-muted);
+  font-size: 0.625rem;
+}
+.card {
+  background: var(--ww-surface);
+  border: 1px solid var(--ww-hairline);
+  border-radius: var(--ww-radius-md);
+  box-shadow: var(--ww-depth-quiet);
+  padding: var(--ww-space-5);
+  display: grid;
+  gap: var(--ww-space-3);
+  align-content: start;
+}
+.grid-2 {
+  display: grid;
+  gap: var(--ww-space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+.grid-3 {
+  display: grid;
+  gap: var(--ww-space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+.hero {
+  display: grid;
+  gap: var(--ww-space-6);
+  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 56rem) {
+  .hero {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+}
+.hero h1 {
+  font-style: italic;
+  font-weight: 500;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ww-space-2);
+  padding: 0.3rem 0.7rem 0.3rem 0.4rem;
+  border-radius: var(--ww-radius-pill);
+  border: 1px solid var(--ww-hairline);
+  background: var(--ww-surface);
+  font-size: var(--ww-text-0);
+  color: var(--ww-ink);
+  text-decoration: none;
+}
+.chip i {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  box-shadow:
+    var(--ww-depth-rim),
+    0 0 0 2px var(--ww-metal);
+}
+.section-plate {
+  display: flex;
+  align-items: center;
+  gap: var(--ww-space-3);
+}
+.section-plate .rule {
+  flex: 1;
+  height: 1px;
+  background: var(--ww-hairline);
+}
+.stamp {
+  display: inline-block;
+  font-family: var(--ww-font-plate);
+  font-size: 0.625rem;
+  font-weight: var(--ww-plate-weight);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.6rem;
+  background: var(--ww-gilt);
+  color: var(--ww-accent-ink);
+  transform: rotate(-2deg);
+  box-shadow: var(--ww-depth-stamp);
+  border-radius: var(--ww-radius-xs);
+}
+footer.foot {
+  margin-top: var(--ww-space-8);
+  padding-block: var(--ww-space-4) var(--ww-space-6);
+  border-top: 1px solid var(--ww-hairline);
+  color: var(--ww-ink-muted);
+  font-size: var(--ww-text--1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ww-space-2) var(--ww-space-5);
+  justify-content: space-between;
+}
+figure.diagram {
+  margin: 0;
+  display: grid;
+  gap: var(--ww-space-2);
+}
+figure.diagram svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  color: var(--ww-ink);
+  font-family: var(--ww-font-working);
+}
+figcaption {
+  font-size: var(--ww-text-0);
+  color: var(--ww-ink-muted);
+}
+.skip {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 50;
+  padding: 0.5rem 1rem;
+  background: var(--ww-accent);
+  color: var(--ww-accent-ink);
+  border-radius: var(--ww-radius-sm);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+.skip:focus {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

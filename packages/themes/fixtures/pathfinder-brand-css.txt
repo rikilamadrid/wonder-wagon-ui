@@ -1,0 +1,39 @@
+# Fixture: the --ww-* semantic declarations Pathfinder ships in site/src/styles/brand.css
+# at rikilamadrid/pathfinder@163e589c0c801140f3d698da5fbd5cd84a86d9f3 (main, 2026-09-23). Copied by script, comments stripped.
+# Format: <env>	<name>	<value>. The proof regenerates every row from
+# @wonder-wagon/tokens + @wonder-wagon/themes/pathfinder and requires every name to
+# resolve and every value to match. Never edit by hand; re-copy from Pathfinder.
+night	--ww-ground	#17191C
+night	--ww-ground-side	#1F2226
+night	--ww-ground-code	#23272C
+night	--ww-ink	#F7F0DF
+night	--ww-ink-muted	#CDC2AA
+night	--ww-hairline	#33383F
+night	--ww-hairline-shade	#3E444C
+night	--ww-signal	#E0611F
+night	--ww-link	#F0A97E
+night	--ww-accent	#B34A13
+night	--ww-accent-low	#3A1607
+night	--ww-focus	#FFF2A8
+night	--ww-metal	#A96E2D
+night	--ww-well	#23272C
+night	--ww-well-shade	rgb(0 0 0 / 0.55)
+night	--ww-well-light	rgb(255 255 255 / 0.06)
+night	--ww-signal-edge	transparent
+day	--ww-ground	#FBF3DE
+day	--ww-ground-side	#F9EFD6
+day	--ww-ground-code	#F1E3BF
+day	--ww-ink	#2A160D
+day	--ww-ink-muted	#6E5740
+day	--ww-hairline	#D9C79C
+day	--ww-hairline-shade	#C9B48A
+day	--ww-signal	#E0611F
+day	--ww-link	#9E3F0F
+day	--ww-accent	#B34A13
+day	--ww-accent-low	#FBDCC9
+day	--ww-focus	#2A160D
+day	--ww-metal	#A96E2D
+day	--ww-well	#FFFAEB
+day	--ww-well-shade	rgb(85 51 22 / 0.22)
+day	--ww-well-light	rgb(255 255 255 / 0.7)
+day	--ww-signal-edge	#553316

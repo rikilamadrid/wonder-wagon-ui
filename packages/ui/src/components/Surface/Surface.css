@@ -1,0 +1,83 @@
+/* @ww-tier physics */
+.ww-surface {
+  position: relative;
+  min-width: 0;
+  color: var(--ww-ink);
+}
+.ww-surface[data-variant="ground"] {
+  background: var(--ww-ground);
+}
+.ww-surface[data-variant="stage"] {
+  background-color: var(--ww-ground-stage);
+  border-radius: var(--ww-radius-md);
+  box-shadow: var(--ww-depth-recess-quiet);
+}
+.ww-surface[data-variant="stage"][data-grid] {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--ww-edge) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ww-edge) 8%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.ww-surface[data-variant="stage"][data-grid][data-ww-env="night"] {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--ww-ink) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ww-ink) 6%, transparent) 1px, transparent 1px);
+}
+.ww-surface[data-variant="quiet"] {
+  background: var(--ww-surface);
+  border: 1px solid var(--ww-hairline);
+  border-radius: var(--ww-radius-md);
+  box-shadow: var(--ww-depth-quiet);
+}
+.ww-surface[data-variant="plate"] {
+  background: var(--ww-surface-2);
+  border-bottom: 1px solid var(--ww-hairline);
+  border-radius: var(--ww-radius-xs);
+  box-shadow: var(--ww-depth-rim);
+}
+.ww-surface[data-variant="well"] {
+  background: var(--ww-well);
+  border-radius: var(--ww-radius-sm);
+  box-shadow: var(--ww-depth-recess-quiet);
+}
+.ww-surface[data-variant="well"][data-depth="object"] {
+  background: var(--ww-ground-code);
+  border-radius: var(--ww-radius-sm);
+  box-shadow: var(--ww-depth-recess-object);
+}
+.ww-surface[data-variant="case"] {
+  background: var(--ww-surface-2);
+  border: 3px solid var(--ww-metal);
+  border-radius: var(--ww-radius-object);
+  box-shadow:
+    inset 0 0 0 1px var(--ww-metal-shade),
+    var(--ww-depth-rim),
+    var(--ww-depth-cast);
+}
+.ww-surface[data-padding="0"] {
+  padding: 0;
+}
+.ww-surface[data-padding="1"] {
+  padding: var(--ww-space-1);
+}
+.ww-surface[data-padding="2"] {
+  padding: var(--ww-space-2);
+}
+.ww-surface[data-padding="3"] {
+  padding: var(--ww-space-3);
+}
+.ww-surface[data-padding="4"] {
+  padding: var(--ww-space-4);
+}
+.ww-surface[data-padding="5"] {
+  padding: var(--ww-space-5);
+}
+.ww-surface[data-padding="6"] {
+  padding: var(--ww-space-6);
+}
+.ww-surface[data-padding="7"] {
+  padding: var(--ww-space-7);
+}
+.ww-surface[data-padding="8"] {
+  padding: var(--ww-space-8);
+}

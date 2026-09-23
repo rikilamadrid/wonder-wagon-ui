@@ -1,0 +1,37 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ObjectQuietSpecimen } from "./specimens/specimens";
+
+<Meta title="Workshop/Welcome" />
+
+# Maker 047's bench
+
+This is the workshop where the Wonder Wagon tools are made, and the reference objects
+they are measured against. Wonder Wagon UI is **tokens-first**: `@wonder-wagon/tokens`
+is the contract every product in the family builds on — Pathfinder's Starlight docs,
+Forge's Node CLI, Lorekeeper's kit — and this React library is one consumer of it.
+
+Every story sits in a **specimen tray** on the bench. The toolbar throws three levers:
+the **environment** (day, night, auto), the **product theme** (the bench itself, or one
+of the four products), and the **ground** behind the specimen. Nothing in a component
+knows which product it is in; the theme sets six variables and everything follows.
+
+## The one rule
+
+Important things are objects with material, edge and thickness. Supporting things are
+quiet paper and plain type. If a component appears more than three times on one
+screen, it is quiet. Objects are singular.
+
+<ObjectQuietSpecimen />
+
+The library ships the **physics** — rim, recess, the raised signature action, the
+lever with a throw, plate type — and the quiet components. It never ships a product's
+hero object. Two mechanical gates hold the line: no material literal in any component
+stylesheet, and no depth or plate type in a quiet one.
+
+## Where to look
+
+- **Foundations** — colour, type, space, radius, depth, motion, focus, breakpoints, code: as specimens, not tables.
+- **Primitives · Controls** — the six Phase A components, every state, keyboard walkthroughs as tests.
+- **Patterns** — the split, the dark panel in day, one signature action per screen.
+- **Theming** — the contract a product fills, and all five reference themes on one composite.
+- **Accessibility** — what is measured, what is gated, what is still by hand.

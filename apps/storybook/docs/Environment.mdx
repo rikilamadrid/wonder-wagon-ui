@@ -1,0 +1,20 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { FocusSpecimen } from "./specimens/specimens";
+
+<Meta title="Workshop/Environment" />
+
+# Day and night are physics
+
+Both environments are first class. Day is the base on `:root`; night sits on
+`[data-ww-env="night"]` and follows the system under `[data-ww-env="auto"]`. Every
+product's enamel has a **day value and a night value** because the day values fail the
+3:1 boundary against Workshop Night — a measured fact, not a stylistic preference.
+
+The environment attribute works on **any element**, not only the root. A dark panel in
+day sets `data-ww-env="night"` on itself and every token inside re-scopes: ink, the
+focus ring, the enamel. That is how a component re-scopes without carrying a literal.
+
+<FocusSpecimen />
+
+Use the toolbar's Environment lever to flip the whole bench; use `Surface tone="dark"`
+to flip one panel.

@@ -1,0 +1,65 @@
+---
+import "@wonder-wagon/tokens/css";
+import "@wonder-wagon/themes/wonder-wagon.css";
+import "@wonder-wagon/ui/styles.css";
+import "../styles/docs.css";
+import { EnvLever } from "../islands/EnvLever";
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const nav = [
+  ["/start", "Start"],
+  ["/foundations", "Foundations"],
+  ["/theming", "Theming"],
+  ["/engineering", "Engineering"],
+  ["/products", "Products"],
+  ["/tokens", "Tokens"],
+];
+---
+<!doctype html>
+<html lang="en" data-ww-env="day">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title === "Wonder Wagon UI" ? title : `${title} · Wonder Wagon UI`}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#285A1C" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Apply a remembered environment before paint so the page does not flash. The
+      // attribute on <html> is the truth; storage is a convenience.
+      try { var e = localStorage.getItem("ww-docs-env"); if (e === "night" || e === "day") document.documentElement.setAttribute("data-ww-env", e); } catch (_) {}
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="frame">
+      <header class="wrap bar">
+        <a class="lockup" href="/">
+          <span class="well" aria-hidden="true">
+            <svg viewBox="0 0 32 20" width="26" height="16"><rect x="1" y="4" width="30" height="14" rx="2" fill="#2B2622"/><rect x="2.5" y="5.5" width="27" height="8" rx="1.5" fill="#285A1C"/><rect x="2.5" y="5.5" width="27" height="1" fill="#FFF7E6" opacity=".35"/><rect x="1" y="4" width="4" height="4" fill="#C8863A"/><rect x="27" y="4" width="4" height="4" fill="#C8863A"/><rect x="1" y="14" width="4" height="4" fill="#C8863A"/><rect x="27" y="14" width="4" height="4" fill="#C8863A"/><rect x="13" y="13" width="6" height="3" rx=".5" fill="#A96E2D"/></svg>
+          </span>
+          <span>
+            <span class="name">Wonder Wagon UI</span><br />
+            <span class="sub plate"><span>Reference</span><span class="dot" aria-hidden="true"></span><span aria-hidden="true">WW-047</span></span>
+          </span>
+        </a>
+        <nav class="primary" aria-label="Primary">
+          {nav.map(([href, label]) => <a href={href} aria-current={path === href ? "page" : undefined}>{label}</a>)}
+        </nav>
+        <EnvLever client:load />
+      </header>
+      <main id="main" class="wrap">
+        <slot />
+        <footer class="foot">
+          <span>Wonder Wagon UI · Maker 047's bench · MIT</span>
+          <span class="plate" style="font-size:.625rem">Storybook is the night workshop · every ratio measured · WW-047</span>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

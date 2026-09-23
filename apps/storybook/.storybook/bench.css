@@ -1,0 +1,114 @@
+/* The bench stage every story sits on. Tokens only; this is the workshop's own furniture. */
+html,
+body,
+#storybook-root {
+  min-height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--ww-ground);
+  color: var(--ww-ink);
+  font-family: var(--ww-font-working);
+}
+.sb-bench {
+  min-height: 100vh;
+  padding: var(--ww-space-6) var(--ww-space-4);
+  background-color: var(--ww-ground);
+}
+.sb-bench[data-ground="stage"] {
+  background-color: var(--ww-ground-stage);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--ww-edge) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ww-edge) 8%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+[data-ww-env="night"] .sb-bench[data-ground="stage"] {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--ww-ink) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ww-ink) 6%, transparent) 1px, transparent 1px);
+}
+.sb-bench[data-docs] {
+  min-height: 0;
+  padding: var(--ww-space-4);
+}
+/* The specimen tray: a quiet recess with a plate. */
+.sb-tray {
+  position: relative;
+  max-width: var(--ww-size-content);
+  margin: 0 auto;
+  padding: var(--ww-space-6) var(--ww-space-5) var(--ww-space-5);
+  border-radius: var(--ww-radius-md);
+  background: var(--ww-surface);
+  box-shadow: var(--ww-depth-recess-quiet);
+}
+.sb-tray__plate {
+  position: absolute;
+  top: var(--ww-space-2);
+  left: var(--ww-space-3);
+  font-family: var(--ww-font-plate);
+  font-size: 0.625rem;
+  font-weight: var(--ww-plate-weight);
+  letter-spacing: var(--ww-plate-tracking);
+  text-transform: uppercase;
+  color: var(--ww-ink-muted);
+}
+.sb-tray[data-tier="physics"] .sb-tray__plate::before {
+  content: "";
+  display: inline-block;
+  width: 0.35rem;
+  height: 0.35rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background: var(--ww-signal);
+  box-shadow: 0 0 0 1px var(--ww-signal-edge);
+  vertical-align: middle;
+}
+.sb-tray__specimen {
+  min-width: 0;
+}
+/* Docs pages read quietly. */
+.sbdocs.sbdocs-wrapper {
+  background: var(--ww-ground) !important;
+  color: var(--ww-ink) !important;
+  font-family: var(--ww-font-working) !important;
+}
+.sbdocs.sbdocs-content {
+  max-width: 68rem !important;
+}
+.sbdocs h1,
+.sbdocs h2,
+.sbdocs h3 {
+  font-family: var(--ww-font-engraved) !important;
+  color: var(--ww-ink) !important;
+  letter-spacing: var(--ww-heading-tracking) !important;
+}
+.sbdocs p,
+.sbdocs li,
+.sbdocs td,
+.sbdocs th {
+  color: var(--ww-ink) !important;
+  font-family: var(--ww-font-working) !important;
+}
+.sbdocs code {
+  font-family: var(--ww-font-plate) !important;
+}
+.sbdocs a {
+  color: var(--ww-link) !important;
+}
+.sbdocs .docblock-source,
+.sbdocs pre {
+  background: var(--ww-ground-code) !important;
+  border: 1px solid var(--ww-hairline) !important;
+}
+.sbdocs table {
+  border-color: var(--ww-hairline) !important;
+}
+.sbdocs .docblock-argstable th,
+.sbdocs .docblock-argstable td {
+  border-color: var(--ww-hairline) !important;
+  background: var(--ww-surface) !important;
+}
+.sbdocs .sb-story,
+.docs-story {
+  background: transparent !important;
+}

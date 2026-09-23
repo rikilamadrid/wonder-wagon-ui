@@ -1,0 +1,14 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { SpaceSpecimen } from "./specimens/specimens";
+
+<Meta title="Foundations/Spacing" />
+
+# Spacing
+
+Eight steps, `.25rem` to `4rem`. Pathfinder's renderer and Lorekeeper's tokens chose
+this identical scale independently, which is why it needed no decision.
+
+<SpaceSpecimen />
+
+`Stack gap={n}` takes a step, never a length. The measure is 68ch; the content width
+1180px; every control's minimum target 44px.

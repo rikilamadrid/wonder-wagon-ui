@@ -1,0 +1,31 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ProductsSpecimen } from "./specimens/specimens";
+
+<Meta title="Theming/Products" />
+
+# Theming
+
+```
+@wonder-wagon/tokens      the family: grounds, ink, hairlines, focus, depth, space, type
+        ↓
+shared semantics          ground · surface · ink · hairline · focus · well · status · accent · link · signal
+        ↓
+product theme             fills six slots + enamel + object radius + serial, inside @layer ww.theme
+        ↓
+product adapter / UI      React components here; regenerated CSS or a committed terminal module elsewhere
+```
+
+A theme **must** set `accent`, `accent-low`, `accent-ink`, `link`, `signal`,
+`signal-edge`, its enamel day/night, and a four-value object radius. It **must not**
+touch grounds, ink, hairlines, focus, depth or space — those are the family. The
+contract is validated and every pairing measured on every build.
+
+## Five reference themes, one composite
+
+Same components, same layout. Only the six slots differ. Pathfinder is approved and
+reproduces its shipped `--ww-*` block declaration for declaration; the bench and Forge
+are pilots; Lorekeeper and Lama are drafts carrying only their Feature 02 values.
+
+<ProductsSpecimen />
+
+Use the toolbar's Product lever to run any story under any theme.

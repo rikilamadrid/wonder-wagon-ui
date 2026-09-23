@@ -1,0 +1,106 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    name: Gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Changesets compares against the base branch
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install (frozen lockfile)
+        run: bun install --frozen-lockfile
+      - name: Build tokens, themes, ui
+        run: bun run build
+      - name: G1 · typecheck
+        run: bun run typecheck
+      - name: G2 · lint and format
+        run: bun run lint
+      - name: G3 · tokens and themes are current, every pairing clears its bar, Pathfinder proof
+        run: bun run --filter '@wonder-wagon/tokens' check && bun run --filter '@wonder-wagon/themes' check
+      - name: G3 · tokens and themes unit tests
+        run: bun run --filter '@wonder-wagon/tokens' test && bun run --filter '@wonder-wagon/themes' test
+      - name: G6 · G7 · literal and tier gates, generated exports
+        run: bun run --filter '@wonder-wagon/ui' test
+      - name: G8 · publint, are-the-types-wrong, size budgets
+        run: |
+          bun run --filter '@wonder-wagon/ui' publint
+          bun run --filter '@wonder-wagon/ui' attw
+          bun run --filter '@wonder-wagon/ui' size
+      - name: G10 · changeset present for package changes
+        if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'no-release')
+        run: bunx changeset status --since=origin/${{ github.base_ref }}
+
+  stories:
+    name: Stories in a browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - name: Playwright Chromium
+        run: bunx playwright install --with-deps chromium
+        working-directory: apps/storybook
+      - name: G4 · every story renders, play functions pass, axe is clean
+        run: bun run test
+        working-directory: apps/storybook
+      - name: G11 · Storybook builds
+        run: bun run build
+        working-directory: apps/storybook
+      - name: G5 · visual snapshots
+        run: bun run visual
+        working-directory: apps/storybook
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: visual-diffs
+          path: |
+            apps/storybook/test-results
+            apps/storybook/playwright-report
+          retention-days: 7
+
+  docs:
+    name: Docs build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - name: G11 · docs build
+        run: bun run build
+        working-directory: apps/docs
+      - name: Require static output
+        run: test -s apps/docs/dist/index.html

@@ -1,0 +1,71 @@
+/* @ww-tier quiet */
+.ww-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ww-space-4);
+  min-width: 0;
+}
+.ww-stack[data-inline] {
+  display: inline-flex;
+}
+.ww-stack[data-direction="row"] {
+  flex-direction: row;
+  align-items: center;
+}
+.ww-stack[data-wrap] {
+  flex-wrap: wrap;
+}
+.ww-stack[data-gap="0"] {
+  gap: 0;
+}
+.ww-stack[data-gap="1"] {
+  gap: var(--ww-space-1);
+}
+.ww-stack[data-gap="2"] {
+  gap: var(--ww-space-2);
+}
+.ww-stack[data-gap="3"] {
+  gap: var(--ww-space-3);
+}
+.ww-stack[data-gap="4"] {
+  gap: var(--ww-space-4);
+}
+.ww-stack[data-gap="5"] {
+  gap: var(--ww-space-5);
+}
+.ww-stack[data-gap="6"] {
+  gap: var(--ww-space-6);
+}
+.ww-stack[data-gap="7"] {
+  gap: var(--ww-space-7);
+}
+.ww-stack[data-gap="8"] {
+  gap: var(--ww-space-8);
+}
+.ww-stack[data-align="start"] {
+  align-items: flex-start;
+}
+.ww-stack[data-align="center"] {
+  align-items: center;
+}
+.ww-stack[data-align="end"] {
+  align-items: flex-end;
+}
+.ww-stack[data-align="stretch"] {
+  align-items: stretch;
+}
+.ww-stack[data-align="baseline"] {
+  align-items: baseline;
+}
+.ww-stack[data-justify="start"] {
+  justify-content: flex-start;
+}
+.ww-stack[data-justify="center"] {
+  justify-content: center;
+}
+.ww-stack[data-justify="end"] {
+  justify-content: flex-end;
+}
+.ww-stack[data-justify="between"] {
+  justify-content: space-between;
+}

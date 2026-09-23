@@ -1,0 +1,70 @@
+---
+import {
+  breakpoints,
+  depth,
+  material,
+  motion,
+  semanticColor,
+  space,
+  type as typeTokens,
+} from "@wonder-wagon/tokens";
+import Base from "../layouts/Base.astro";
+
+const steps: Array<[string, string]> = [
+  ["text-5", typeTokens["text-5"].value],
+  ["text-4", typeTokens["text-4"].value],
+  ["text-3", typeTokens["text-3"].value],
+  ["text-2", typeTokens["text-2"].value],
+  ["text-1", typeTokens["text-1"].value],
+  ["text-0", typeTokens["text-0"].value],
+  ["text--1", typeTokens["text--1"].value],
+];
+---
+<Base title="Foundations" description="Colour, type, space, radius, depth, motion, focus and breakpoints as specimens.">
+  <div class="stack"><span class="plate muted">Foundations</span><h1>The reference objects</h1><p class="muted prose">Nine chapters, each a specimen you can hold against a component. The exhaustive versions live in the workshop; these are the drafting-room summaries.</p></div>
+
+  <section class="stack"><div class="section-plate"><h2>Colour</h2><span class="rule"></span><span class="plate muted">material → semantic</span></div>
+    <div class="row">{Object.entries(material).map(([n, hex]) => <span class="chip" title={hex}><i style={`background:${hex}`}></i>{n}</span>)}</div>
+    <div class="grid-2">
+      {(["day", "night"] as const).map((env) => (
+        <div data-ww-env={env} style="background:var(--ww-ground);padding:var(--ww-space-4);border-radius:var(--ww-radius-md);border:1px solid var(--ww-hairline);display:grid;gap:var(--ww-space-2)">
+          <span class="plate muted" style="font-size:.625rem">{env}</span>
+          {["ink", "ink-muted", "link", "status-ok", "status-warn", "status-no"].map((role) => <span style={`color:var(--ww-${role});font-size:var(--ww-text-0)`}>{role} · {semanticColor[role as keyof typeof semanticColor]?.value[env] ?? "theme"}</span>)}
+          <span style="padding:var(--ww-space-2) var(--ww-space-3);background:var(--ww-accent);color:var(--ww-accent-ink);border-radius:var(--ww-radius-sm);width:fit-content" class="plate">accent-ink on accent</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="stack"><div class="section-plate"><h2>Typography</h2><span class="rule"></span><span class="plate muted">three roles · seven steps</span></div>
+    <div class="card">
+      {steps.map(([n, v], i) => (
+        <div style="display:grid;grid-template-columns:6rem 1fr;gap:var(--ww-space-4);align-items:baseline;padding:var(--ww-space-2) 0;border-bottom:1px dashed var(--ww-hairline)">
+          <span class="plate muted" style="font-size:.625rem">{n}</span>
+          <span style={`font-size:${v};font-family:${i < 3 ? "var(--ww-font-engraved)" : "var(--ww-font-working)"};line-height:1.2;${i === 0 ? "font-style:italic" : ""}`}>{i < 3 ? "Reference objects for a family of tools" : "Body copy stays on the quiet ground."}</span>
+        </div>
+      ))}
+      <div style="display:grid;grid-template-columns:6rem 1fr;gap:var(--ww-space-4);align-items:baseline;padding:var(--ww-space-2) 0"><span class="plate muted" style="font-size:.625rem">plate</span><span class="plate">Labels on objects · WW-047 · never a sentence</span></div>
+    </div>
+  </section>
+
+  <section class="stack"><div class="section-plate"><h2>Spacing</h2><span class="rule"></span><span class="plate muted">eight steps, converged</span></div>
+    <div class="card">{Object.entries(space).map(([n, v]) => (
+      <div style="display:grid;grid-template-columns:5rem 1fr 4rem;gap:var(--ww-space-3);align-items:center"><span class="plate muted" style="font-size:.625rem">{n}</span><span style={`height:.6rem;width:calc(${v} * 6);max-width:100%;border-radius:2px;background:linear-gradient(160deg,var(--ww-metal-lit),var(--ww-metal) 55%,var(--ww-metal-shade));box-shadow:var(--ww-depth-rim),var(--ww-depth-cast-contact)`}></span><span class="muted" style="font-size:var(--ww-text--1);font-variant-numeric:tabular-nums">{v}</span></div>
+    ))}</div>
+  </section>
+
+  <section class="stack"><div class="section-plate"><h2>Depth</h2><span class="rule"></span><span class="plate muted">stacks shipped whole</span></div>
+    <div class="grid-3">{(["rim", "quiet", "recess-quiet", "recess-object", "cast", "raised-rest"] as const).map((n) => (
+      <div style="display:grid;gap:var(--ww-space-2)"><span style={`display:block;height:4rem;border-radius:var(--ww-radius-sm);background:${n === "recess-object" ? "var(--ww-ground-code)" : n === "raised-rest" ? "var(--ww-accent)" : "var(--ww-surface)"};box-shadow:var(--ww-depth-${n})`}></span><span class="plate muted" style="font-size:.625rem">depth-{n}</span><span class="muted" style="font-size:var(--ww-text--1)">{(depth as Record<string, { about: string }>)[n]?.about}</span></div>
+    ))}</div>
+  </section>
+
+  <section class="stack"><div class="section-plate"><h2>Motion · Focus · Breakpoints</h2><span class="rule"></span></div>
+    <div class="grid-3">
+      <div class="card"><span class="tag">Motion</span><p style="font-size:var(--ww-text-0)">Throw {motion["motion-throw"]} on <code>{motion["ease-throw"]}</code>; settle <code>{motion["ease-settle"]}</code>; detent in {motion["motion-detent-steps"]} steps. Reduced motion collapses every duration to 1ms by token.</p></div>
+      <div class="card"><span class="tag">Focus</span><p style="font-size:var(--ww-text-0)">A 3px ring at 3px offset, ink on paper and pale in the dark. It follows the ground behind the control; a dark panel in day re-scopes it by setting <code>data-ww-env="night"</code>.</p><span style="outline:3px solid var(--ww-focus);outline-offset:3px;width:fit-content;padding:.4rem .8rem;border:1px solid var(--ww-hairline-strong);border-radius:var(--ww-radius-sm);font-size:var(--ww-text-0)">Focused control</span></div>
+      <div class="card"><span class="tag">Breakpoints</span><p style="font-size:var(--ww-text-0)">{Object.entries(breakpoints).map(([n, v]) => `${n} ${v}`).join(" · ")}. The floor is 320px with no horizontal overflow.</p></div>
+    </div>
+  </section>
+</Base>

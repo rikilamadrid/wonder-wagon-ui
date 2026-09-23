@@ -1,0 +1,22 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Accessibility/What is gated" />
+
+# Accessibility
+
+Character never buys out quality. What is measured mechanically, on every change:
+
+- **Contrast** — every declared pairing, 4.5:1 text and 3:1 non-text, computed with the
+  WCAG 2.x formula from the token source. The record is `CONTRAST.md` in the tokens
+  package and `CONTRACT.md` in the themes package.
+- **axe** — every story in this Storybook runs in Chromium through the Vitest addon with
+  the a11y addon in `error` mode; a violation fails the run.
+- **Keyboard** — play functions tab to controls, press Space and Enter, and assert
+  `aria-checked`, `aria-invalid`, `aria-describedby`, focus and accessible names.
+- **Focus** — the environment-scoped ring, verified in the Focus foundation and in the
+  dark-panel story.
+- **Target size** — every control is at least 44px tall by token.
+- **Reduced motion** — durations collapse to 1ms by token; state stays in text.
+
+Still by hand, per release: a screen-reader pass, 200% zoom at 320px, and
+`forced-colors`, where the depth stacks vanish and the borders must carry the shape.

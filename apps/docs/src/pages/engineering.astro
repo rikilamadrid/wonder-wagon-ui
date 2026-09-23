@@ -1,0 +1,44 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Engineering" description="How Wonder Wagon UI is built, tested and released.">
+  <div class="stack"><span class="plate muted">Engineering</span><h1>How it was built</h1><p class="muted prose">The architecture is the portfolio. Everything here is readable in the repository.</p></div>
+  <section class="stack" id="tokens-first"><div class="section-plate"><h2>Tokens first</h2><span class="rule"></span></div>
+    <figure class="diagram">
+      <svg viewBox="0 0 760 300" role="img" aria-label="Package graph: tokens at the top; themes depends on tokens; ui has tokens as a peer; Lama depends on ui, themes and tokens; Pathfinder, Lorekeeper and Forge take tokens and themes as dev dependencies and regenerate committed files; docs and Storybook are workspace apps.">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="currentColor"/></marker></defs>
+        <g fill="none" stroke="currentColor" stroke-width="1.2">
+          <rect x="300" y="14" width="160" height="44" rx="6" stroke="var(--ww-accent)" stroke-width="2"/><rect x="140" y="110" width="160" height="44" rx="6"/><rect x="460" y="110" width="160" height="44" rx="6"/>
+          <rect x="20" y="230" width="150" height="44" rx="6" stroke-dasharray="5 4"/><rect x="190" y="230" width="150" height="44" rx="6" stroke-dasharray="5 4"/><rect x="360" y="230" width="150" height="44" rx="6" stroke-dasharray="5 4"/><rect x="530" y="230" width="150" height="44" rx="6" stroke-dasharray="5 4"/><rect x="600" y="14" width="140" height="44" rx="6" opacity=".6"/>
+        </g>
+        <g fill="currentColor" font-size="12" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-weight="800" letter-spacing="1">
+          <text x="380" y="32">@WONDER-WAGON/TOKENS</text><text x="220" y="128">@WONDER-WAGON/THEMES</text><text x="540" y="128">@WONDER-WAGON/UI</text>
+          <text x="95" y="248">LAMA · LATER</text><text x="265" y="248">PATHFINDER</text><text x="435" y="248">LOREKEEPER</text><text x="605" y="248">FORGE</text><text x="670" y="32" opacity=".8">DOCS · STORYBOOK</text>
+        </g>
+        <g fill="currentColor" font-size="10.5" text-anchor="middle" font-family="system-ui, sans-serif">
+          <text x="380" y="49">json → css · ts · dtcg · gate</text><text x="220" y="145">five css + json mappings</text><text x="540" y="145">react 19 · css files · stories</text>
+          <text x="95" y="265">Next · imports all three</text><text x="265" y="265">brand.css block regenerated</text><text x="435" y="265">tokens.json pulls</text><text x="605" y="265">identity.ts regenerated</text><text x="670" y="49" opacity=".8">workspace, consume all</text>
+        </g>
+        <g fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"><path d="M340 58 L240 108"/><path d="M420 58 L520 108"/><path d="M180 154 L110 228"/><path d="M500 154 L130 228"/><path d="M240 154 L262 228"/><path d="M280 154 L420 228"/><path d="M300 138 L600 228"/><path d="M380 58 L380 100 L440 100 L440 228" stroke-dasharray="5 4"/></g>
+      </svg>
+      <figcaption>Solid boxes install at run time. Dashed boxes pin a devDependency and commit the generated file; their runtimes never see node_modules. Forge is the first proof; Lama comes later.</figcaption>
+    </figure>
+  </section>
+  <section class="stack prose" id="one-rule"><h2>One rule for components</h2>
+    <p>Components read <code>var(--ww-*)</code> from the semantic tier and nothing else. Two tests make it mechanical: <b>G6</b> fails any component stylesheet carrying a hex colour, an <code>rgb()</code>, a material variable, a literal font stack, a hand-written shadow or a literal duration; <b>G7</b> fails a component annotated <code>quiet</code> that reaches for raised or cast depth, the object recess, Plate type, or the accent as a fill.</p></section>
+  <section class="stack" id="gates"><div class="section-plate"><h2>The gates</h2><span class="rule"></span></div>
+    <div class="scroll"><table><thead><tr><th>#</th><th>Gate</th><th>Protects</th></tr></thead><tbody>
+      <tr><td>G1</td><td>Typecheck</td><td>Public types across three packages</td></tr>
+      <tr><td>G2</td><td>Biome lint + format</td><td>One style, no debate</td></tr>
+      <tr><td>G3</td><td>Tokens and themes <code>--check</code></td><td>Stale outputs; any pairing under its WCAG bar; a theme outside the contract; the Pathfinder proof</td></tr>
+      <tr><td>G4</td><td>Stories as tests</td><td>Every story renders in Chromium, play functions pass, axe finds nothing</td></tr>
+      <tr><td>G5</td><td>Playwright snapshots</td><td>Every story, day and night, two widths; baselines committed</td></tr>
+      <tr><td>G6 · G7</td><td>Literal and tier gates</td><td>The token contract and the object/quiet split</td></tr>
+      <tr><td>G8</td><td>publint · attw · size-limit</td><td>Exports resolve; types match; gzipped budgets hold</td></tr>
+      <tr><td>G9</td><td>Consumer proof</td><td>Forge regenerates and checks its identity module</td></tr>
+      <tr><td>G10</td><td>Changeset present</td><td>Every package change is a release note</td></tr>
+      <tr><td>G11</td><td>Docs and Storybook build</td><td>The two public surfaces</td></tr>
+    </tbody></table></div></section>
+  <section class="stack prose" id="release"><h2>Release</h2>
+    <p>Changesets version the three packages independently under the 0.x rule (minor is breaking). Merging the "Version Packages" pull request publishes through GitHub Actions with <b>npm trusted publishing</b>: an OIDC token minted for the run, provenance attached, no long-lived secret anywhere. The tag is pushed only after the registry serves the version.</p></section>
+</Base>

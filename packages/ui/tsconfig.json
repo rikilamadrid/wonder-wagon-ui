@@ -1,0 +1,15 @@
+{
+  "extends": "../../tooling/tsconfig/react.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "composite": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["src/**/*.stories.tsx", "src/**/*.test.*"],
+  "references": [{ "path": "../tokens" }, { "path": "../themes" }]
+}

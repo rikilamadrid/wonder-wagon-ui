@@ -1,0 +1,84 @@
+/* @ww-tier physics
+   Text carries the three type roles, including Plate, so it is vocabulary rather than
+   a quiet component; a quiet surface simply never asks it for the plate role. */
+.ww-text {
+  margin: 0;
+  font-family: var(--ww-font-working);
+  font-size: var(--ww-text-1);
+  line-height: var(--ww-leading-body);
+  color: var(--ww-ink);
+}
+.ww-text[data-face="engraved"] {
+  font-family: var(--ww-font-engraved);
+  font-weight: 600;
+  line-height: var(--ww-leading-tight);
+  letter-spacing: var(--ww-heading-tracking);
+  text-wrap: balance;
+}
+.ww-text[data-face="plate"] {
+  font-family: var(--ww-font-plate);
+  font-weight: var(--ww-plate-weight);
+  font-size: var(--ww-plate-size);
+  line-height: 1.2;
+  letter-spacing: var(--ww-plate-tracking);
+  text-transform: uppercase;
+}
+.ww-text[data-face="tag"] {
+  font-weight: var(--ww-tag-weight);
+  font-size: var(--ww-text--1);
+  line-height: 1.3;
+  letter-spacing: var(--ww-tag-tracking);
+  text-transform: uppercase;
+  color: var(--ww-ink-muted);
+}
+.ww-text[data-size="-1"] {
+  font-size: var(--ww-text--1);
+}
+.ww-text[data-size="0"] {
+  font-size: var(--ww-text-0);
+}
+.ww-text[data-size="1"] {
+  font-size: var(--ww-text-1);
+}
+.ww-text[data-size="2"] {
+  font-size: var(--ww-text-2);
+}
+.ww-text[data-size="3"] {
+  font-size: var(--ww-text-3);
+}
+.ww-text[data-size="4"] {
+  font-size: var(--ww-text-4);
+}
+.ww-text[data-size="5"] {
+  font-size: var(--ww-text-5);
+}
+.ww-text[data-face="plate"][data-size] {
+  font-size: var(--ww-plate-size);
+}
+.ww-text[data-tone="muted"] {
+  color: var(--ww-ink-muted);
+}
+.ww-text[data-tone="link"] {
+  color: var(--ww-link);
+}
+.ww-text[data-tone="ok"] {
+  color: var(--ww-status-ok);
+}
+.ww-text[data-tone="warn"] {
+  color: var(--ww-status-warn);
+}
+.ww-text[data-tone="no"] {
+  color: var(--ww-status-no);
+}
+.ww-text[data-tone="on-accent"] {
+  color: var(--ww-accent-ink);
+}
+.ww-text[data-italic] {
+  font-style: italic;
+}
+.ww-text[data-measure] {
+  max-width: var(--ww-measure);
+}
+.ww-text[data-nums] {
+  font-variant-numeric: tabular-nums;
+}

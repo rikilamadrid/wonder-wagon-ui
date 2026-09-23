@@ -1,0 +1,37 @@
+{
+  "name": "storybook",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006 --no-open",
+    "build": "storybook build",
+    "test": "vitest run",
+    "visual": "playwright test",
+    "visual:update": "playwright test --update-snapshots",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@storybook/addon-a11y": "10.6.0",
+    "@storybook/addon-docs": "10.6.0",
+    "@storybook/addon-vitest": "10.6.0",
+    "@storybook/react-vite": "10.6.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "@vitest/browser": "4.1.11",
+    "@vitest/browser-playwright": "4.1.11",
+    "@wonder-wagon/themes": "0.1.0",
+    "@wonder-wagon/tokens": "0.1.0",
+    "@wonder-wagon/ui": "0.1.0",
+    "http-server": "^14.1.1",
+    "playwright": "1.63.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "storybook": "10.6.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.0",
+    "vitest": "4.1.11"
+  }
+}

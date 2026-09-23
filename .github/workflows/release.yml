@@ -1,0 +1,73 @@
+name: release
+
+# Changesets opens and maintains a "Version Packages" pull request. Merging it publishes
+# the changed packages to npm through trusted publishing: an OIDC token minted for this
+# run, provenance attached, and no long-lived npm token anywhere in this repository.
+#
+# Lessons carried from Pathfinder's release workflow, which fixed three failed releases:
+#   - no `registry-url` on setup-node: it writes an .npmrc with an empty _authToken that npm
+#     prefers over the OIDC exchange, and the publish fails with a 404/403 that says nothing
+#   - npm >= 11.5.1 is required for OIDC publishing
+#   - publish first; tags and GitHub Releases are created by the Changesets action only after
+#
+# Prerequisites (human, once): the npm organisation exists; each package name exists on the
+# registry (a first publish bootstraps it); each package lists this repository and this
+# workflow file as a trusted publisher.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+concurrency: release-${{ github.ref }}
+
+jobs:
+  release:
+    name: Version or publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          # Deliberately NO registry-url. This omission is load-bearing; see above.
+      - name: Ensure npm supports trusted publishing
+        run: |
+          set -euo pipefail
+          npm install --global npm@latest
+          echo "npm $(npm --version), node $(node --version)"
+          if [ "$(printf '11.5.1\n%s\n' "$(npm --version)" | sort -V | head -1)" != "11.5.1" ]; then
+            echo "::error::npm $(npm --version) is older than 11.5.1 and cannot publish via OIDC"
+            exit 1
+          fi
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - name: Every gate, again, on the exact commit that publishes
+        run: |
+          bun run typecheck
+          bun run lint
+          bun run --filter '@wonder-wagon/tokens' check
+          bun run --filter '@wonder-wagon/themes' check
+          bun run test
+          bun run --filter '@wonder-wagon/ui' publint
+      - name: Version packages or publish
+        uses: changesets/action@v1
+        with:
+          # `publish` runs only when there are no pending changesets on main, i.e. the
+          # Version Packages PR has just merged. npm, not bun: OIDC is verified for npm.
+          publish: bun run release:npm
+          title: "chore: version packages"
+          commit: "chore: version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"

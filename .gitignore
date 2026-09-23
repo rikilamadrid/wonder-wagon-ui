@@ -1,0 +1,11 @@
+node_modules/
+dist/
+storybook-static/
+.astro/
+.vercel/
+*.log
+.DS_Store
+test-results/
+playwright-report/
+coverage/
+# committed on purpose: **/__screenshots__ (visual baselines)

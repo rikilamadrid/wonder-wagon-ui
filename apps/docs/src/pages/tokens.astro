@@ -1,0 +1,44 @@
+---
+import {
+  breakpoints,
+  code,
+  depth,
+  material,
+  motion,
+  radius,
+  semanticColor,
+  size,
+  space,
+  type as typeTokens,
+} from "@wonder-wagon/tokens";
+import Base from "../layouts/Base.astro";
+
+const rows: Array<[string, string, string, string]> = [];
+for (const [n, t] of Object.entries(semanticColor))
+  rows.push([`--ww-${n}`, t.value.day, t.value.night, t.about]);
+for (const [n, v] of Object.entries(material)) rows.push([`--ww-m-${n}`, v, v, "material"]);
+for (const [n, t] of Object.entries(depth))
+  rows.push([
+    `--ww-depth-${n}`,
+    typeof t.value === "string" ? t.value : t.value.day,
+    typeof t.value === "string" ? t.value : t.value.night,
+    t.about,
+  ]);
+for (const [n, t] of Object.entries(typeTokens))
+  rows.push([`--ww-${n}`, t.value, t.value, t.about]);
+for (const [n, v] of Object.entries({ ...space, ...size, ...radius, ...motion }))
+  rows.push([`--ww-${n}`, v, v, ""]);
+for (const [n, v] of Object.entries(code)) rows.push([`--ww-${n}`, v.day, v.night, "syntax"]);
+---
+<Base title="Tokens" description="Every token, its value in both environments, and what it is for.">
+  <div class="stack"><span class="plate muted">Tokens · the parts list</span><h1>Every part, by number</h1><p class="muted prose">Generated from the token source at build time. Dense, tabular, no object — this page is the settings test for the site. Breakpoints: {Object.entries(breakpoints).map(([n, v]) => `${n} ${v}`).join(" · ")}.</p></div>
+  <div class="scroll"><table>
+    <thead><tr><th>Token</th><th>Day</th><th>Night</th><th>About</th></tr></thead>
+    <tbody>{rows.map(([n, d, ni, about]) => (
+      <tr><td><code style="font-size:var(--ww-text--1)">{n}</code></td>
+        <td style="font-size:var(--ww-text--1);font-family:var(--ww-font-plate)">{/^#/.test(d) ? <span style={`display:inline-block;width:.8rem;height:.8rem;border-radius:3px;background:${d};vertical-align:middle;margin-right:.35rem;border:1px solid var(--ww-hairline)`}></span> : null}{d}</td>
+        <td style="font-size:var(--ww-text--1);font-family:var(--ww-font-plate)">{/^#/.test(ni) ? <span style={`display:inline-block;width:.8rem;height:.8rem;border-radius:3px;background:${ni};vertical-align:middle;margin-right:.35rem;border:1px solid var(--ww-hairline)`}></span> : null}{ni}</td>
+        <td class="muted" style="font-size:var(--ww-text--1)">{about}</td></tr>
+    ))}</tbody>
+  </table></div>
+</Base>

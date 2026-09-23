@@ -1,0 +1,49 @@
+/* @ww-tier quiet */
+.ww-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ww-space-2);
+  min-width: 0;
+}
+.ww-field__label {
+  font-family: var(--ww-font-working);
+  font-size: var(--ww-text-0);
+  font-weight: 600;
+  line-height: var(--ww-leading-body);
+  color: var(--ww-ink);
+}
+.ww-field__required {
+  margin-inline-start: var(--ww-space-1);
+  font-weight: 400;
+  color: var(--ww-ink-muted);
+}
+.ww-field__hint {
+  margin: 0;
+  font-family: var(--ww-font-working);
+  font-size: var(--ww-text-0);
+  line-height: var(--ww-leading-body);
+  color: var(--ww-ink-muted);
+}
+.ww-field__error {
+  display: flex;
+  align-items: baseline;
+  gap: var(--ww-space-2);
+  margin: 0;
+  font-family: var(--ww-font-working);
+  font-size: var(--ww-text-0);
+  font-weight: 600;
+  line-height: var(--ww-leading-body);
+  color: var(--ww-status-no);
+}
+/* A shape beside the word, so colour is never the sole carrier. */
+.ww-field__error::before {
+  content: "";
+  flex: none;
+  width: 0.5em;
+  height: 0.5em;
+  background: currentColor;
+  transform: translateY(-0.05em) rotate(45deg);
+}
+.ww-field[data-disabled] .ww-field__label {
+  color: var(--ww-ink-muted);
+}

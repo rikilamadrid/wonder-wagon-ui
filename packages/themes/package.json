@@ -1,0 +1,93 @@
+{
+  "name": "@wonder-wagon/themes",
+  "version": "0.1.0",
+  "description": "Product themes for the Wonder Wagon family: the identity mapping each product applies over @wonder-wagon/tokens, as CSS, JSON and typed data, plus adapters for products that regenerate rather than import. No React.",
+  "license": "MIT",
+  "author": "Ricardo Lamadrid",
+  "homepage": "https://github.com/rikilamadrid/wonder-wagon-ui/tree/main/packages/themes#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rikilamadrid/wonder-wagon-ui.git",
+    "directory": "packages/themes"
+  },
+  "bugs": {
+    "url": "https://github.com/rikilamadrid/wonder-wagon-ui/issues"
+  },
+  "keywords": [
+    "design-tokens",
+    "design-system",
+    "theming",
+    "css-variables",
+    "wonder-wagon"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./wonder-wagon": {
+      "types": "./dist/themes/wonder-wagon.d.ts",
+      "default": "./dist/themes/wonder-wagon.js"
+    },
+    "./pathfinder": {
+      "types": "./dist/themes/pathfinder.d.ts",
+      "default": "./dist/themes/pathfinder.js"
+    },
+    "./forge": {
+      "types": "./dist/themes/forge.d.ts",
+      "default": "./dist/themes/forge.js"
+    },
+    "./lorekeeper": {
+      "types": "./dist/themes/lorekeeper.d.ts",
+      "default": "./dist/themes/lorekeeper.js"
+    },
+    "./lama": {
+      "types": "./dist/themes/lama.d.ts",
+      "default": "./dist/themes/lama.js"
+    },
+    "./adapters/pathfinder": {
+      "types": "./dist/adapters/pathfinder.d.ts",
+      "default": "./dist/adapters/pathfinder.js"
+    },
+    "./adapters/terminal": {
+      "types": "./dist/adapters/terminal.d.ts",
+      "default": "./dist/adapters/terminal.js"
+    },
+    "./wonder-wagon.css": "./dist/wonder-wagon.css",
+    "./pathfinder.css": "./dist/pathfinder.css",
+    "./forge.css": "./dist/forge.css",
+    "./lorekeeper.css": "./dist/lorekeeper.css",
+    "./lama.css": "./dist/lama.css",
+    "./*.json": "./dist/*.json",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsc -b && node dist/build.js",
+    "check": "tsc -b && node dist/build.js --check && node dist/proof/pathfinder.js",
+    "proof:pathfinder": "node dist/proof/pathfinder.js",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "engines": {
+    "node": ">=22.12"
+  },
+  "dependencies": {
+    "@wonder-wagon/tokens": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "vitest": "4.1.11"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

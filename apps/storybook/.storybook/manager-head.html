@@ -1,0 +1,25 @@
+<style>
+  /* Drawer plates: section headings in the sidebar take Plate type. Selected items carry a
+     worn-brass inspection dot. These hook Storybook's stable data attributes and degrade to
+     the manager theme if a release renames one. */
+  .sidebar-subheading, [data-nodetype="root"] > button {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace !important;
+    font-weight: 800 !important;
+    font-size: 10px !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+  }
+  [data-selected="true"] { position: relative; }
+  [data-selected="true"]::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #E2B26A;
+    transform: translateY(-50%);
+  }
+  #storybook-explorer-menu .sidebar-item, [data-nodetype] > a, [data-nodetype] > button { border-radius: 4px; }
+</style>

@@ -1,0 +1,23 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Getting started" description="Install the tokens, pick a theme, add the components.">
+  <div class="prose stack-lg">
+    <div class="stack"><span class="plate muted">Start</span><h1>Getting started</h1><p class="muted">Three packages, loaded in cascade-layer order. Your own CSS is unlayered and always wins.</p></div>
+    <section class="stack"><h2>1 · Tokens</h2>
+      <pre><code>@import "@wonder-wagon/tokens/css";   /* day on :root, night on [data-ww-env="night"] */</code></pre>
+      <p>Or, for a document you generate rather than serve, <code>cssText()</code> from <code>@wonder-wagon/tokens</code> returns the same stylesheet as a string.</p></section>
+    <section class="stack"><h2>2 · A theme</h2>
+      <pre><code>@import "@wonder-wagon/themes/forge.css";   /* @layer ww.theme: six slots, enamel, object radius */</code></pre>
+      <p>Without a theme the page is still a Wonder Wagon page — the bench's own values are the defaults.</p></section>
+    <section class="stack"><h2>3 · Components (React)</h2>
+      <pre><code>import "@wonder-wagon/ui/styles.css";
+import &#123; Button, Field, Input, Stack, Surface, Switch, Text &#125; from "@wonder-wagon/ui";</code></pre>
+      <p>Styles are plain CSS beside ESM, never imported from JavaScript, so Next.js App Router, Astro and Vite all load them the same way. Interactive components carry <code>"use client"</code>.</p></section>
+    <section class="stack"><h2>4 · Environment</h2>
+      <pre><code>&lt;html data-ww-env="auto"&gt;   /* day · night · auto follows the system */</code></pre>
+      <p>Set the attribute on any element to re-scope a panel. <code>EnvironmentSwitch</code> is a lever that does this for you.</p></section>
+    <section class="stack"><h2>For a kit with no browser runtime</h2>
+      <p>Regenerate rather than import: <code>@wonder-wagon/themes/adapters/pathfinder</code> renders a Starlight-shaped block; <code>@wonder-wagon/themes/adapters/terminal</code> renders a dependency-free module a CLI commits. Both are deterministic and both have a <code>--check</code>.</p></section>
+  </div>
+</Base>

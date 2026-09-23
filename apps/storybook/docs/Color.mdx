@@ -1,0 +1,27 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { ColorSpecimen, MaterialSpecimen, SemanticTable } from "./specimens/specimens";
+
+<Meta title="Foundations/Color" />
+
+# Colour
+
+Three tiers, referenced one way: **material → semantic → component (later)**.
+Components read the semantic tier only. A product theme overrides six slots —
+`accent`, `accent-low`, `accent-ink`, `link`, `signal`, `signal-edge` — plus its enamel.
+
+## Material — things you could hold
+
+<MaterialSpecimen />
+
+Brass, gilt and edge are hardware: never text, never a ground. Enamel is the product.
+
+## Semantic — roles in context, both environments
+
+Every pairing below is declared beside its token and measured by the gate on every
+build. The ratio shown is the one the gate computed.
+
+<ColorSpecimen />
+
+## The parts list
+
+<SemanticTable />

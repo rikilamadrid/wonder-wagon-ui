@@ -1,0 +1,104 @@
+/* @ww-tier physics */
+.ww-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ww-space-2);
+  min-height: var(--ww-size-target);
+  padding: var(--ww-space-2) var(--ww-space-4);
+  border: 1px solid var(--ww-hairline-strong);
+  border-radius: var(--ww-radius-sm);
+  background: var(--ww-surface);
+  color: var(--ww-ink);
+  font: inherit;
+  font-family: var(--ww-font-working);
+  font-size: var(--ww-text-0);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--ww-motion-throw) var(--ww-ease-throw),
+    box-shadow var(--ww-motion-throw) var(--ww-ease-throw),
+    border-color var(--ww-motion-throw) var(--ww-ease-throw),
+    background-color var(--ww-motion-throw) var(--ww-ease-throw);
+}
+.ww-button:hover {
+  border-color: var(--ww-metal);
+}
+.ww-button:focus-visible {
+  outline: 3px solid var(--ww-focus);
+  outline-offset: 3px;
+}
+.ww-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.ww-button[data-variant="ghost"] {
+  border-color: transparent;
+  background: transparent;
+}
+.ww-button[data-variant="ghost"]:hover {
+  background: var(--ww-surface-2);
+  border-color: transparent;
+}
+
+/* The signature action: fired enamel over the shared metal. */
+.ww-button[data-variant="signature"] {
+  padding: var(--ww-space-3) var(--ww-space-5);
+  border: 1px solid color-mix(in srgb, var(--ww-accent) 45%, black);
+  border-radius: calc(var(--ww-radius-sm) + 1px);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--ww-accent) 78%, white),
+    var(--ww-accent) 45%,
+    color-mix(in srgb, var(--ww-accent) 72%, black)
+  );
+  color: var(--ww-accent-ink);
+  font-family: var(--ww-font-plate);
+  font-size: var(--ww-plate-size);
+  font-weight: var(--ww-plate-weight);
+  letter-spacing: var(--ww-plate-tracking);
+  text-transform: uppercase;
+  box-shadow: var(--ww-depth-raised-rest);
+}
+.ww-button[data-variant="signature"]:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--ww-accent) 45%, black);
+  transform: translateY(-2px);
+  box-shadow: var(--ww-depth-raised-hover);
+}
+.ww-button[data-variant="signature"]:active:not(:disabled),
+.ww-button[data-variant="signature"][data-pressed] {
+  transform: translateY(2px);
+  box-shadow: var(--ww-depth-raised-press);
+}
+.ww-button[data-variant="signature"]:disabled {
+  transform: none;
+}
+
+/* Loading: a detent indicator stepping through twelve positions, never a spinner. */
+.ww-button__detent {
+  display: inline-block;
+  width: 1.5em;
+  height: 0.5em;
+  border-radius: var(--ww-radius-xs);
+  background: linear-gradient(90deg, currentColor 0 50%, transparent 50% 100%);
+  background-size: 200% 100%;
+  animation: ww-detent var(--ww-motion-detent-cycle) steps(var(--ww-motion-detent-steps)) infinite;
+}
+@keyframes ww-detent {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ww-button,
+  .ww-button__detent {
+    transition-duration: 1ms;
+    animation-duration: 1ms;
+  }
+}

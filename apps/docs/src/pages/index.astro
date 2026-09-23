@@ -1,0 +1,62 @@
+---
+import { themes } from "@wonder-wagon/themes";
+import ReferenceCase from "../components/ReferenceCase.astro";
+import { FirstScreen } from "../islands/FirstScreen";
+import Base from "../layouts/Base.astro";
+
+const products = [themes.pathfinder, themes.forge, themes.lorekeeper, themes.lama];
+---
+<Base title="Wonder Wagon UI" description="A tokens-first design system for the Wonder Wagon family of tools: framework-neutral tokens, product themes, and React components as one consumer among several.">
+  <section class="hero">
+    <div class="stack">
+      <span class="plate muted">Wonder Wagon UI · reference objects · v0.1</span>
+      <h1>Reference objects for a family of magical tools.</h1>
+      <p class="muted" style="font-size:var(--ww-text-2)">A tokens-first design system. The contract is framework-neutral CSS and JSON; React is one consumer of it, beside a Node CLI and three Astro sites. Four products keep their own identities by filling six slots.</p>
+      <div class="row">
+        <a class="chip" href="/start"><i style="background:var(--ww-accent)"></i>Get started</a>
+        <a class="chip" href="/storybook/"><i style="background:var(--ww-m-night)"></i>Open the workshop</a>
+        <a class="chip" href="https://github.com/rikilamadrid/wonder-wagon-ui"><i style="background:var(--ww-metal)"></i>GitHub</a>
+      </div>
+    </div>
+    <div class="stage"><ReferenceCase /><span class="label plate">Reference Case · sketch · WW-047</span></div>
+  </section>
+
+  <section class="stack-lg">
+    <div class="section-plate"><h2>Who uses it</h2><span class="rule"></span><span class="plate muted">Four products, one bench</span></div>
+    <div class="grid-3">
+      {products.map((t) => (
+        <div class="card" style={`--ww-accent:${t.accent.day};--ww-accent-ink:${t.accentInk.day};--ww-link:${t.link.day};--ww-signal:${t.signal.day};--ww-signal-edge:${t.signalEdge.day}`}>
+          <div class="row"><span style={`width:1.1rem;height:1.1rem;border-radius:${t.radiusObject};background:linear-gradient(160deg,${t.enamel.night},${t.enamel.day});box-shadow:0 0 0 2px var(--ww-metal)`}></span><h3 style="font-size:var(--ww-text-2)">{t.name}</h3></div>
+          <span class="plate muted" style="font-size:.625rem">{t.serial}-047 · {t.status}</span>
+          <p class="muted" style="font-size:var(--ww-text-0)">{t.product}</p>
+          <p style="font-size:var(--ww-text-0)">Consumes {t.id === "lama" ? "tokens, theme and React components" : "tokens and its theme, regenerated into its own files — no React"}.</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="stack-lg">
+    <div class="section-plate"><h2>Ten lines, doing a real job</h2><span class="rule"></span><span class="plate muted">Phase A · six components</span></div>
+    <div class="grid-2">
+      <FirstScreen client:load />
+      <div class="card">
+        <span class="tag">How it was engineered</span>
+        <ol style="font-size:var(--ww-text-0)">
+          <li><a href="/engineering#tokens-first"><b>Tokens first.</b></a> One source; CSS, TypeScript, DTCG and a contrast record are generated from it, and a stale output fails the build.</li>
+          <li><a href="/engineering#one-rule"><b>One rule for components.</b></a> They read the semantic tier only. A grep-based gate fails any stylesheet that carries a hex, an rgb() or a material variable.</li>
+          <li><a href="/theming"><b>Six slots per product.</b></a> A theme fills accent, link and signal, plus its enamel and object radius, and nothing the family owns.</li>
+          <li><a href="/products#pathfinder"><b>Proven against a shipped product.</b></a> Pathfinder's hand-written semantic block regenerates declaration for declaration.</li>
+          <li><a href="/products#forge"><b>Proven without React.</b></a> Forge, a Node CLI, commits a generated identity module and checks it for drift.</li>
+          <li><a href="/engineering#gates"><b>Eleven gates.</b></a> Types, lint, contrast, stories in a real browser with axe, snapshots, exports, budgets, drift, builds.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <div class="section-plate"><h2>Install</h2><span class="rule"></span></div>
+    <pre><code>npm install @wonder-wagon/tokens @wonder-wagon/themes        # any product, no React
+npm install @wonder-wagon/ui react react-dom                 # a React product</code></pre>
+    <p class="muted" style="font-size:var(--ww-text-0)">Not yet published. The first release lands after the Feature 05 review gate.</p>
+  </section>
+</Base>

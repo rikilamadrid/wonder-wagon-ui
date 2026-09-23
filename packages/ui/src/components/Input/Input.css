@@ -1,0 +1,35 @@
+/* @ww-tier quiet */
+.ww-input {
+  display: block;
+  width: 100%;
+  min-height: var(--ww-size-target);
+  padding: var(--ww-space-2) var(--ww-space-3);
+  border: 1px solid var(--ww-hairline-strong);
+  border-radius: var(--ww-radius-sm);
+  background: var(--ww-surface);
+  color: var(--ww-ink);
+  font: inherit;
+  font-family: var(--ww-font-working);
+  font-size: var(--ww-text-1);
+  line-height: var(--ww-leading-body);
+  transition: border-color var(--ww-motion-throw) var(--ww-ease-throw);
+}
+.ww-input::placeholder {
+  color: var(--ww-ink-muted);
+  opacity: 1;
+}
+.ww-input:hover:not(:disabled) {
+  border-color: var(--ww-metal);
+}
+.ww-input:focus-visible {
+  outline: 3px solid var(--ww-focus);
+  outline-offset: 3px;
+}
+.ww-input[aria-invalid="true"] {
+  border-color: var(--ww-status-no);
+}
+.ww-input:disabled {
+  background: var(--ww-surface-2);
+  color: var(--ww-ink-muted);
+  cursor: not-allowed;
+}

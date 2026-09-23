@@ -1,0 +1,41 @@
+---
+import { themes } from "@wonder-wagon/themes";
+import Base from "../layouts/Base.astro";
+
+const list = Object.values(themes);
+---
+<Base title="Theming" description="The product-theme contract and the five reference themes.">
+  <div class="stack"><span class="plate muted">Theming</span><h1>Six slots and an enamel</h1>
+    <p class="muted prose">A product theme sets exactly what makes it a product and nothing the family owns. The contract is validated and every pairing measured on every build.</p></div>
+  <pre><code>@wonder-wagon/tokens      the family: grounds · ink · hairlines · focus · well · depth · space · type
+        ↓
+shared semantics          --ww-ground · --ww-surface · --ww-ink · --ww-hairline · --ww-focus · --ww-status-* · --ww-accent · --ww-link · --ww-signal
+        ↓
+product theme             accent · accent-low · accent-ink · link · signal · signal-edge · enamel · radius-object · serial   (@layer ww.theme)
+        ↓
+product adapter / UI      React components here; a regenerated Starlight block in Pathfinder; a committed terminal module in Forge</code></pre>
+  <section class="stack"><div class="section-plate"><h2>The five reference themes</h2><span class="rule"></span></div>
+    <div class="scroll"><table>
+      <thead><tr><th>Theme</th><th>Status</th><th>Enamel day / night</th><th>Accent</th><th>Link</th><th>Signal</th><th>Object radius</th><th>Source</th></tr></thead>
+      <tbody>{list.map((t) => (
+        <tr>
+          <td><b>{t.name}</b><br /><span class="plate muted" style="font-size:.625rem">{t.serial}-047</span></td>
+          <td>{t.status}</td>
+          <td><span style={`display:inline-block;width:.9rem;height:.9rem;border-radius:3px;background:${t.enamel.day};vertical-align:middle;margin-right:.3rem`}></span>{t.enamel.day} / <span style={`display:inline-block;width:.9rem;height:.9rem;border-radius:3px;background:${t.enamel.night};vertical-align:middle;margin-right:.3rem`}></span>{t.enamel.night}</td>
+          <td>{t.accent.day} / {t.accent.night}</td>
+          <td>{t.link.day} / {t.link.night}</td>
+          <td>{t.signal.day} / {t.signal.night}</td>
+          <td><code>{t.radiusObject}</code></td>
+          <td class="muted" style="font-size:var(--ww-text--1)">{t.source}</td>
+        </tr>
+      ))}</tbody>
+    </table></div>
+  </section>
+  <section class="stack prose"><h2>Must, may, must not</h2>
+    <ul>
+      <li><b>Must set</b> the six slots, both enamel values, a four-value object radius and a two-letter serial.</li>
+      <li><b>May set</b> <code>--ww-status-warn</code> when its signal collides with the default warn hue.</li>
+      <li><b>Must not set</b> grounds, ink, hairlines, focus, depth or space — a product that changes them is not a sibling any more.</li>
+    </ul>
+    <p>Draft themes carry only the values Feature 02 measured; their object radii are placeholders until each product's own pilot.</p></section>
+</Base>
