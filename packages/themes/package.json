@@ -70,8 +70,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "tsc -b && node dist/build.js",
-    "check": "tsc -b && node dist/build.js --check && node dist/proof/pathfinder.js",
+    "build": "tsc -b --force && node dist/build.js",
+    "check": "tsc -b --force && node dist/build.js --check && node dist/proof/pathfinder.js",
     "proof:pathfinder": "node dist/proof/pathfinder.js",
     "test": "vitest run",
     "clean": "rm -rf dist"

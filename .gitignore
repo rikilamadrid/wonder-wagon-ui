@@ -9,3 +9,4 @@ test-results/
 playwright-report/
 coverage/
 # committed on purpose: **/__screenshots__ (visual baselines)
+*.tsbuildinfo

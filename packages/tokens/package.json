@@ -52,8 +52,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "tsc -b && node dist/build.js",
-    "check": "tsc -b && node dist/build.js --check",
+    "build": "tsc -b --force && node dist/build.js",
+    "check": "tsc -b --force && node dist/build.js --check",
     "test": "vitest run",
     "clean": "rm -rf dist"
   },
