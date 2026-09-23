@@ -85,4 +85,5 @@ Budgets live in `packages/ui/package.json` under `size-limit` and only ratchet d
 GitHub repository settings and branch protection; the `wonder-wagon` npm organisation;
 trusted-publisher configuration per package after its first publish; the Vercel project
 for `apps/docs` (root directory `apps/docs`, include files outside root); GitHub Pages
-enabled for the `storybook-pages` workflow; the docs domain (D10, deferred).
+enabled for the `storybook-pages` workflow (Settings → Pages → Build and deployment →
+Source: GitHub Actions, then re-run the workflow); the docs domain (D10, deferred).
