@@ -52,7 +52,9 @@ not the reviewer.
 Semantic Versioning, independent per package, `0.x` until the human declares 1.0: MINOR
 is breaking, PATCH is everything else. Changesets opens "chore: version packages";
 merging it publishes with npm trusted publishing from `.github/workflows/release.yml`.
-No npm token is stored anywhere. The first publish waits for the Feature 05 review gate.
+No npm token is stored anywhere. The release job is hard-gated on the repository variable
+`RELEASE_ENABLED=true`, which the human sets at the release gate; until then a push to
+`main` publishes nothing.
 
 ## Visual regression
 

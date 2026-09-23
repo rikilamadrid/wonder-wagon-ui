@@ -13,6 +13,11 @@ name: release
 # Prerequisites (human, once): the npm organisation exists; each package name exists on the
 # registry (a first publish bootstraps it); each package lists this repository and this
 # workflow file as a trusted publisher.
+#
+# HARD GATE: this job runs only when the repository variable RELEASE_ENABLED is "true".
+# Changesets treats a version that is not on the registry as unpublished and would publish
+# it on the next push to main, so the human flips the variable at the release gate and
+# nothing reaches npm before then.
 
 on:
   push:
@@ -28,6 +33,7 @@ concurrency: release-${{ github.ref }}
 jobs:
   release:
     name: Version or publish
+    if: vars.RELEASE_ENABLED == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
