@@ -1,0 +1,14 @@
+{
+  "excludeEntrypoints": [
+    "./styles.css",
+    "./styles.unlayered.css",
+    "./button.css",
+    "./field.css",
+    "./input.css",
+    "./stack.css",
+    "./surface.css",
+    "./switch.css",
+    "./text.css",
+    "./package.json"
+  ]
+}

@@ -59,8 +59,16 @@ No npm token is stored anywhere. The release job is hard-gated on the repository
 ## Visual regression
 
 Committed Playwright snapshots are the canonical gate (D8). The reference renderer is
-Linux Chromium in CI; baselines under `apps/storybook/tests/__screenshots__` are updated
-only by a reviewed commit. Chromatic can be added later as a second reporter without
+the `mcr.microsoft.com/playwright:v1.63.0-noble` image, used both by the CI job (as its
+container) and locally through Docker:
+
+```
+docker run --rm -v "$PWD:/work" -w /work/apps/storybook -e CI=1 \
+  mcr.microsoft.com/playwright:v1.63.0-noble \
+  bash -lc 'npx --yes playwright@1.63.0 test --update-snapshots'
+```
+
+Baselines under `apps/storybook/tests/__screenshots__` are updated only by a reviewed commit. Chromatic can be added later as a second reporter without
 replacing the repository-owned baseline.
 
 ## Size budgets (D6)

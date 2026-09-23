@@ -53,6 +53,11 @@ jobs:
   stories:
     name: Stories in a browser
     runs-on: ubuntu-latest
+    # The reference renderer for visual baselines (D8): the same image the baselines are
+    # generated in locally (`docker run … mcr.microsoft.com/playwright:v1.63.0-noble`), so
+    # fonts and Chromium are identical between a developer's Docker run and CI.
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
@@ -64,9 +69,6 @@ jobs:
           node-version: 24
       - run: bun install --frozen-lockfile
       - run: bun run build
-      - name: Playwright Chromium
-        run: bunx playwright install --with-deps chromium
-        working-directory: apps/storybook
       - name: G4 · every story renders, play functions pass, axe is clean
         run: bun run test
         working-directory: apps/storybook
