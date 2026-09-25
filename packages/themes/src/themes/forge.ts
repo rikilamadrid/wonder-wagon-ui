@@ -8,9 +8,10 @@ import type { ProductTheme } from "../contract.js";
  * Ember is the ecosystem's enamel assignment (Atelier Feature 02). Bronze is Forge's
  * shipped hallmark and stays the signal — the mark's colour, exactly as blaze is
  * Pathfinder's. Brass #E0B166 is Forge's shipped link colour and stays the night link.
- * Two questions are open for the human and recorded in Feature 05's report:
- * Forge's Iron ground #17130D versus Workshop Night #17191C, and Ember as a second
- * hue beside the shipped single-accent budget.
+ * Both Feature 05 questions were ruled on 2026-09-23: Forge keeps Iron #17130D as its
+ * product night, owned by its own theme and adapter (Workshop Night #17191C stays the
+ * system night), and Ember is product enamel for objects and larger branded surfaces,
+ * never a competing UI accent beside bronze.
  */
 export const forge: ProductTheme = {
   id: "forge",
