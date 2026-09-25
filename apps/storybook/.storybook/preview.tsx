@@ -78,7 +78,7 @@ const preview: Preview = {
           { value: "wonder-wagon", title: "Wonder Wagon · the bench" },
           { value: "pathfinder", title: "Pathfinder" },
           { value: "forge", title: "Forge" },
-          { value: "lorekeeper", title: "Lorekeeper (draft)" },
+          { value: "lorekeeper", title: "Lorekeeper (pilot)" },
           { value: "lama", title: "Lama (draft)" },
         ],
         dynamicTitle: true,

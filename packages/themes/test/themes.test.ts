@@ -7,6 +7,7 @@ import { renderTerminalModule, terminalIdentity } from "../src/adapters/terminal
 import { allFindings, outputs } from "../src/build.js";
 import { resolveSemantic, validateTheme } from "../src/contract.js";
 import { themes } from "../src/index.js";
+import { proof as lorekeeperProof } from "../src/proof/lorekeeper.js";
 import { proof } from "../src/proof/pathfinder.js";
 import { renderThemeCss } from "../src/render.js";
 
@@ -42,6 +43,25 @@ describe("the Pathfinder proof", () => {
     expect(css).toMatch(/^:root \{\n[\s\S]*--ww-ground: #17191C;/);
     expect(css).toContain(":root[data-theme='light'] {");
     expect(pathfinderSemanticBlock("day")["signal-edge"]).toBe("#553316");
+  });
+});
+
+describe("the Lorekeeper proof", () => {
+  it("restates every mapped Lorekeeper token exactly", () => {
+    const { rows, source } = lorekeeperProof();
+    expect(source).toBe("6ea0c28");
+    expect(rows.length).toBe(9);
+    expect(rows.filter((r) => !r.ok)).toEqual([]);
+  });
+  it("keeps enamel and accent as two roles at night", () => {
+    expect(themes.lorekeeper.enamel.night).toBe("#5D64C3");
+    expect(themes.lorekeeper.accent.night).toBe("#99A2F0");
+    expect(themes.lorekeeper.accentInk.night).toBe("#141521");
+  });
+  it("fails when the theme drifts from the fixture", () => {
+    const drifted = { ...themes.lorekeeper, accent: { day: "#343A8C", night: "#5D64C3" } };
+    const { rows } = lorekeeperProof(undefined, drifted);
+    expect(rows.filter((r) => !r.ok).map((r) => `${r.env}.${r.field}`)).toEqual(["night.accent"]);
   });
 });
 

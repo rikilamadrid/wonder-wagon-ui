@@ -1,0 +1,30 @@
+# Fixture: the colour tokens Lorekeeper ships in brand/tokens/tokens.json
+# at rikilamadrid/lorekeeper@6ea0c283385476fa3b493a6bc4762f49981353e5 (main, 2026-09-24). Copied by script.
+# Format: <env>	<token>	<value>, env being Lorekeeper's own light | dark. The proof requires every
+# value the lorekeeper theme restates to match its token here. Never edit by hand; re-copy from Lorekeeper.
+light	page	#FAF7F1
+light	surface	#FFFFFF
+light	surface-2	#F0EAE0
+light	ink	#1B1C2E
+light	muted	#55566B
+light	line	#E0D8CA
+light	line-strong	#7D7885
+light	accent	#343A8C
+light	accent-ink	#FAF7F1
+light	gold	#8A6212
+light	gold-ink	#FAF7F1
+light	ok	#1C6B46
+light	no	#A32A1F
+dark	page	#141521
+dark	surface	#1C1E2C
+dark	surface-2	#262939
+dark	ink	#EDE7DB
+dark	muted	#ABA7B8
+dark	line	#30334A
+dark	line-strong	#71748F
+dark	accent	#99A2F0
+dark	accent-ink	#141521
+dark	gold	#E2B45C
+dark	gold-ink	#141521
+dark	ok	#6FD6A0
+dark	no	#F2908A

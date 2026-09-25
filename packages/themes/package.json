@@ -71,8 +71,9 @@
   },
   "scripts": {
     "build": "tsc -b --force && node dist/build.js",
-    "check": "tsc -b --force && node dist/build.js --check && node dist/proof/pathfinder.js",
+    "check": "tsc -b --force && node dist/build.js --check && node dist/proof/pathfinder.js && node dist/proof/lorekeeper.js",
     "proof:pathfinder": "node dist/proof/pathfinder.js",
+    "proof:lorekeeper": "node dist/proof/lorekeeper.js",
     "test": "vitest run",
     "clean": "rm -rf dist"
   },
