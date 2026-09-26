@@ -1,5 +1,5 @@
 {
-  "name": "wonder-wagon-ui",
+  "name": "wonder-wagon-ui-workspace",
   "private": true,
   "version": "0.0.0",
   "description": "Wonder Wagon UI \u2014 tokens-first design system for the Wonder Wagon family of tools.",
@@ -15,12 +15,12 @@
   },
   "packageManager": "bun@1.4.2",
   "scripts": {
-    "build": "bun run --filter '@wonder-wagon/tokens' build && bun run --filter '@wonder-wagon/themes' build && bun run --filter '@wonder-wagon/ui' build",
-    "check": "bun run typecheck && bun run lint && bun run --filter '@wonder-wagon/tokens' check && bun run --filter '@wonder-wagon/themes' check",
+    "build": "bun run --filter 'wonder-wagon-ui' build && bun run --filter '@wonder-wagon/tokens' build && bun run --filter '@wonder-wagon/themes' build && bun run --filter '@wonder-wagon/ui' build",
+    "check": "bun run typecheck && bun run lint && bun run --filter 'wonder-wagon-ui' check && bun run --filter '@wonder-wagon/tokens' check && bun run --filter '@wonder-wagon/themes' check",
     "typecheck": "tsc -b tsconfig.json && bun run --filter storybook typecheck",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
-    "test": "bun run --filter '@wonder-wagon/tokens' test && bun run --filter '@wonder-wagon/themes' test && bun run --filter '@wonder-wagon/ui' test",
+    "test": "bun run --filter 'wonder-wagon-ui' test && bun run --filter '@wonder-wagon/tokens' test && bun run --filter '@wonder-wagon/themes' test && bun run --filter '@wonder-wagon/ui' test",
     "storybook": "bun run --filter storybook dev",
     "docs": "bun run --filter docs dev",
     "changeset": "changeset",

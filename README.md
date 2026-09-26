@@ -7,11 +7,14 @@ slots. Maker 047's bench, serial `WW-047`.
 
 | Package | What it is | Runtime deps | Version |
 |---|---|---|---|
+| [`wonder-wagon-ui`](packages/foundation) | React-free foundations. Experimental `wonder-wagon-ui/cli` generates committed, dependency-free terminal identity modules. | none | 0.x (experimental, unpublished) |
 | [`@wonder-wagon/tokens`](packages/tokens) | The contract: colour in two environments, depth stacks, type roles, space, radius, motion, syntax palette, contrast gate. CSS · TS · DTCG. | none | 0.1.0 (unpublished) |
 | [`@wonder-wagon/themes`](packages/themes) | Five product themes as CSS, JSON and data, with the theme contract and adapters for products that regenerate rather than import. | tokens | 0.1.0 (unpublished) |
 | [`@wonder-wagon/ui`](packages/ui) | React 19 components, plain CSS beside ESM. Six in Phase A. | react, tokens (peer) | 0.1.0 (unpublished) |
 
 ```
+wonder-wagon-ui/cli ──── terminal grammar · capability tiers · committed code generation
+
 @wonder-wagon/tokens ─── the family: grounds · ink · hairlines · focus · depth · space · type
         │
         ├── @wonder-wagon/themes ── accent · link · signal · enamel · radius · serial, per product
@@ -55,6 +58,7 @@ Not yet published. After the first release:
 ```sh
 npm install @wonder-wagon/tokens @wonder-wagon/themes          # any product, no React
 npm install @wonder-wagon/ui react react-dom                   # a React product
+npm install --save-dev wonder-wagon-ui                         # build-time CLI generator
 ```
 
 ```css
@@ -92,6 +96,7 @@ apps/storybook    Storybook 10 · react-vite · addon-vitest · addon-a11y · Pl
 packages/tokens   the contract
 packages/themes   product themes, contract, adapters, Pathfinder proof
 packages/ui       React components
+packages/foundation React-free root and experimental cli subpath
 context/          project truth and the twelve recorded decisions
 ```
 
