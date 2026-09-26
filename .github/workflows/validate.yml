@@ -39,6 +39,12 @@ jobs:
         run: bun run --filter '@wonder-wagon/tokens' check && bun run --filter '@wonder-wagon/themes' check
       - name: G3 · tokens and themes unit tests
         run: bun run --filter '@wonder-wagon/tokens' test && bun run --filter '@wonder-wagon/themes' test
+      - name: Foundation · CLI tests, static assets current, packed allowlist and export map
+        working-directory: packages/foundation
+        run: |
+          bun run check
+          bun run test
+          npm pack --dry-run --json | node scripts/verify-pack.mjs
       - name: G6 · G7 · literal and tier gates, generated exports
         run: bun run --filter '@wonder-wagon/ui' test
       - name: G8 · publint, are-the-types-wrong, size budgets

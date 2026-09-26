@@ -1,6 +1,7 @@
 {
   "name": "@wonder-wagon/tokens",
   "version": "0.1.0",
+  "private": true,
   "description": "Wonder Wagon design tokens: the framework-neutral contract every Wonder Wagon product builds on. CSS custom properties, typed constants, DTCG JSON, and a measured contrast gate. No React.",
   "license": "MIT",
   "author": "Ricardo Lamadrid",
