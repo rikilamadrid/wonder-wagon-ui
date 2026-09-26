@@ -63,7 +63,13 @@ jobs:
           fi
           npm pack --dry-run --json | node --input-type=module -e '
             import { readFileSync } from "node:fs";
-            const [report] = JSON.parse(readFileSync(0, "utf8"));
+            const output = JSON.parse(readFileSync(0, "utf8"));
+            // npm 11 returns an array; npm 12 keys reports by package name.
+            const reports = Array.isArray(output) ? output : Object.values(output);
+            if (reports.length !== 1 || reports[0]?.name !== "wonder-wagon-ui") {
+              throw new Error("expected exactly one wonder-wagon-ui pack report");
+            }
+            const [report] = reports;
             const expected = [
               "README.md",
               "dist/cli.d.ts",
