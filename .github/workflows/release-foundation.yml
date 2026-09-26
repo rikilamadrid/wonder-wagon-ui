@@ -4,12 +4,19 @@ name: release foundation
 # workspace is approved and bootstrapped. This workflow deliberately publishes
 # only the React-free foundation package.
 #
-# Convergent, in this order: plan → build and verify → publish (only if npm
-# lacks the version) → registry readback (the exact version, from this
-# commit) → tag (only if absent) → GitHub Release (only if absent). Nothing is
-# tagged or released until the registry serves the version with gitHead equal
-# to this commit, so a run that dies anywhere is repaired by dispatching it
-# again from the same main commit. The steps live in
+# Convergent. `plan` reads the registry and picks a mode:
+#
+#   new       npm lacks the version: build and verify this commit, which must
+#             be the tip of main, publish it, read it back (gitHead == this
+#             commit, integrity == the verified pack), then tag and release it.
+#   recovery  npm has the version: its registry gitHead is the release commit.
+#             Fetch it, require it on main, rebuild it in a detached worktree,
+#             require its pack to equal the registry's integrity, read it back,
+#             then tag and release that commit. Never publishes.
+#
+# The tag and the GitHub Release are each created only if absent, and only
+# after the registry readback. So re-dispatch after any post-publish partial
+# failure is safe even if main has advanced. The steps live in
 # .github/scripts/release-foundation.sh and are exercised by its tests.
 on:
   workflow_dispatch:
@@ -50,7 +57,14 @@ jobs:
         id: plan
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TREE: ${{ runner.temp }}/release-tree
         run: .github/scripts/release-foundation.sh plan
+      - name: Check out the published release commit for recovery
+        if: steps.plan.outputs.complete == 'no' && steps.plan.outputs.mode == 'recovery'
+        env:
+          RELEASE_SHA: ${{ steps.plan.outputs.release_sha }}
+          RELEASE_TREE: ${{ steps.plan.outputs.tree }}
+        run: .github/scripts/release-foundation.sh prepare
       - name: Ensure npm supports trusted publishing
         if: steps.plan.outputs.complete == 'no'
         run: |
@@ -62,9 +76,11 @@ jobs:
             exit 1
           fi
       - if: steps.plan.outputs.complete == 'no'
+        working-directory: ${{ steps.plan.outputs.tree }}
         run: bun install --frozen-lockfile
       - name: Build and verify the exact release commit
         if: steps.plan.outputs.complete == 'no'
+        working-directory: ${{ steps.plan.outputs.tree }}
         run: |
           bun run build
           bun run check
@@ -72,38 +88,30 @@ jobs:
       - name: Verify version and packed allowlist
         id: verify
         if: steps.plan.outputs.complete == 'no'
-        working-directory: packages/foundation
-        run: |
-          set -euo pipefail
-          actual="$(node -p "require('./package.json').version")"
-          if [ "$actual" != "$RELEASE_VERSION" ]; then
-            echo "::error::requested $RELEASE_VERSION but package.json contains $actual"
-            exit 1
-          fi
-          npm pack --dry-run --json > "$RUNNER_TEMP/pack.json"
-          node scripts/verify-pack.mjs < "$RUNNER_TEMP/pack.json"
-          # The pack is deterministic, so the registry must serve these bytes.
-          integrity="$(node -e '
-            const output = JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"));
-            const [report] = Array.isArray(output) ? output : Object.values(output);
-            process.stdout.write(report.integrity);
-          ' "$RUNNER_TEMP/pack.json")"
-          echo "integrity=$integrity" >> "$GITHUB_OUTPUT"
-      # The first irreversible step, and only when npm lacks the version.
+        env:
+          TREE: ${{ steps.plan.outputs.tree }}
+          REGISTRY_INTEGRITY: ${{ steps.plan.outputs.registry_integrity }}
+        run: .github/scripts/release-foundation.sh verify
+      # The first irreversible step, and only for a new release: from the
+      # workspace, which plan proved is the tip of main.
       - name: Publish with npm trusted publishing
-        if: steps.plan.outputs.complete == 'no' && steps.plan.outputs.published == 'no'
+        if: steps.plan.outputs.complete == 'no' && steps.plan.outputs.mode == 'new'
         working-directory: packages/foundation
         run: npm publish --access public --provenance
-      - name: Confirm the registry serves this version from this commit
+      - name: Confirm the registry serves this version from the release commit
         if: steps.plan.outputs.complete == 'no'
         env:
+          RELEASE_SHA: ${{ steps.plan.outputs.release_sha }}
           EXPECTED_INTEGRITY: ${{ steps.verify.outputs.integrity }}
         run: .github/scripts/release-foundation.sh readback
       - name: Tag the release commit
         if: steps.plan.outputs.complete == 'no' && steps.plan.outputs.tagged == 'no'
+        env:
+          RELEASE_SHA: ${{ steps.plan.outputs.release_sha }}
         run: .github/scripts/release-foundation.sh tag
       - name: Create the GitHub Release
         if: steps.plan.outputs.complete == 'no' && steps.plan.outputs.released == 'no'
         env:
           GH_TOKEN: ${{ github.token }}
+          TREE: ${{ steps.plan.outputs.tree }}
         run: .github/scripts/release-foundation.sh release
