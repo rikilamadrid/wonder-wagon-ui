@@ -1,0 +1,106 @@
+name: release foundation
+
+# The portfolio-wide Changesets publisher stays disabled until every public
+# workspace is approved and bootstrapped. This workflow deliberately publishes
+# only the React-free foundation package.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Exact wonder-wagon-ui version already committed on main
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency: release-foundation
+
+jobs:
+  publish:
+    name: Publish wonder-wagon-ui
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          # Deliberately no registry-url: npm exchanges GitHub's OIDC token
+          # directly and an empty generated _authToken would shadow it.
+      - name: Ensure npm supports trusted publishing
+        run: |
+          set -euo pipefail
+          npm install --global npm@latest
+          echo "npm $(npm --version), node $(node --version)"
+          if [ "$(printf '11.5.1\n%s\n' "$(npm --version)" | sort -V | head -1)" != "11.5.1" ]; then
+            echo "::error::npm $(npm --version) is older than 11.5.1 and cannot publish via OIDC"
+            exit 1
+          fi
+      - run: bun install --frozen-lockfile
+      - name: Build and verify the exact release commit
+        run: |
+          bun run build
+          bun run check
+          bun run test
+      - name: Verify version and packed allowlist
+        working-directory: packages/foundation
+        run: |
+          set -euo pipefail
+          actual="$(node -p "require('./package.json').version")"
+          if [ "$actual" != "$RELEASE_VERSION" ]; then
+            echo "::error::requested $RELEASE_VERSION but package.json contains $actual"
+            exit 1
+          fi
+          npm pack --dry-run --json | node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const [report] = JSON.parse(readFileSync(0, "utf8"));
+            const expected = [
+              "README.md",
+              "dist/cli.d.ts",
+              "dist/cli.d.ts.map",
+              "dist/cli.js",
+              "dist/cli.js.map",
+              "dist/index.d.ts",
+              "dist/index.d.ts.map",
+              "dist/index.js",
+              "dist/index.js.map",
+              "package.json",
+            ];
+            const actual = report.files.map(({ path }) => path).sort();
+            if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+              throw new Error(`unexpected tarball files: ${JSON.stringify(actual)}`);
+            }
+            if (report.entryCount !== expected.length || report.bundled.length !== 0) {
+              throw new Error(`unexpected package shape: ${JSON.stringify(report)}`);
+            }
+            const manifest = JSON.parse(readFileSync("package.json", "utf8"));
+            for (const field of ["dependencies", "peerDependencies", "optionalDependencies"]) {
+              if (manifest[field] && Object.keys(manifest[field]).length > 0) {
+                throw new Error(`${field} must stay empty`);
+              }
+            }
+            if (manifest.exports?.["./cli"]?.default !== "./dist/cli.js") {
+              throw new Error("wonder-wagon-ui/cli is missing from the export map");
+            }
+          '
+      - name: Publish with npm trusted publishing
+        working-directory: packages/foundation
+        run: npm publish --access public --provenance
+      - name: Create the package tag and GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "wonder-wagon-ui@$RELEASE_VERSION" \
+            --target "$GITHUB_SHA" \
+            --title "wonder-wagon-ui $RELEASE_VERSION" \
+            --notes-file packages/foundation/CHANGELOG.md
