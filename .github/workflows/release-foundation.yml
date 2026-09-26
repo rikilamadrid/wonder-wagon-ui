@@ -3,6 +3,14 @@ name: release foundation
 # The portfolio-wide Changesets publisher stays disabled until every public
 # workspace is approved and bootstrapped. This workflow deliberately publishes
 # only the React-free foundation package.
+#
+# Convergent, in this order: plan → build and verify → publish (only if npm
+# lacks the version) → registry readback (the exact version, from this
+# commit) → tag (only if absent) → GitHub Release (only if absent). Nothing is
+# tagged or released until the registry serves the version with gitHead equal
+# to this commit, so a run that dies anywhere is repaired by dispatching it
+# again from the same main commit. The steps live in
+# .github/scripts/release-foundation.sh and are exercised by its tests.
 on:
   workflow_dispatch:
     inputs:
@@ -22,7 +30,8 @@ jobs:
     name: Publish wonder-wagon-ui
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Build and verify take a few minutes; registry readback can take ten.
+    timeout-minutes: 30
     env:
       RELEASE_VERSION: ${{ inputs.version }}
     steps:
@@ -37,7 +46,13 @@ jobs:
           node-version: 24
           # Deliberately no registry-url: npm exchanges GitHub's OIDC token
           # directly and an empty generated _authToken would shadow it.
+      - name: Plan the release
+        id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/release-foundation.sh plan
       - name: Ensure npm supports trusted publishing
+        if: steps.plan.outputs.complete == 'no'
         run: |
           set -euo pipefail
           npm install --global npm@latest
@@ -46,13 +61,17 @@ jobs:
             echo "::error::npm $(npm --version) is older than 11.5.1 and cannot publish via OIDC"
             exit 1
           fi
-      - run: bun install --frozen-lockfile
+      - if: steps.plan.outputs.complete == 'no'
+        run: bun install --frozen-lockfile
       - name: Build and verify the exact release commit
+        if: steps.plan.outputs.complete == 'no'
         run: |
           bun run build
           bun run check
           bun run test
       - name: Verify version and packed allowlist
+        id: verify
+        if: steps.plan.outputs.complete == 'no'
         working-directory: packages/foundation
         run: |
           set -euo pipefail
@@ -61,15 +80,30 @@ jobs:
             echo "::error::requested $RELEASE_VERSION but package.json contains $actual"
             exit 1
           fi
-          npm pack --dry-run --json | node scripts/verify-pack.mjs
+          npm pack --dry-run --json > "$RUNNER_TEMP/pack.json"
+          node scripts/verify-pack.mjs < "$RUNNER_TEMP/pack.json"
+          # The pack is deterministic, so the registry must serve these bytes.
+          integrity="$(node -e '
+            const output = JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"));
+            const [report] = Array.isArray(output) ? output : Object.values(output);
+            process.stdout.write(report.integrity);
+          ' "$RUNNER_TEMP/pack.json")"
+          echo "integrity=$integrity" >> "$GITHUB_OUTPUT"
+      # The first irreversible step, and only when npm lacks the version.
       - name: Publish with npm trusted publishing
+        if: steps.plan.outputs.complete == 'no' && steps.plan.outputs.published == 'no'
         working-directory: packages/foundation
         run: npm publish --access public --provenance
-      - name: Create the package tag and GitHub release
+      - name: Confirm the registry serves this version from this commit
+        if: steps.plan.outputs.complete == 'no'
+        env:
+          EXPECTED_INTEGRITY: ${{ steps.verify.outputs.integrity }}
+        run: .github/scripts/release-foundation.sh readback
+      - name: Tag the release commit
+        if: steps.plan.outputs.complete == 'no' && steps.plan.outputs.tagged == 'no'
+        run: .github/scripts/release-foundation.sh tag
+      - name: Create the GitHub Release
+        if: steps.plan.outputs.complete == 'no' && steps.plan.outputs.released == 'no'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create "wonder-wagon-ui@$RELEASE_VERSION" \
-            --target "$GITHUB_SHA" \
-            --title "wonder-wagon-ui $RELEASE_VERSION" \
-            --notes-file packages/foundation/CHANGELOG.md
+        run: .github/scripts/release-foundation.sh release

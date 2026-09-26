@@ -39,6 +39,8 @@ jobs:
         run: bun run --filter '@wonder-wagon/tokens' check && bun run --filter '@wonder-wagon/themes' check
       - name: G3 · tokens and themes unit tests
         run: bun run --filter '@wonder-wagon/tokens' test && bun run --filter '@wonder-wagon/themes' test
+      - name: Release workflow · plan, readback, tag and release convergence
+        run: node --test .github/scripts/release-foundation.test.mjs
       - name: Foundation · CLI tests, static assets current, packed allowlist and export map
         working-directory: packages/foundation
         run: |
