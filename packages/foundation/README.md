@@ -1,6 +1,25 @@
-# wonder-wagon-ui/cli
+# wonder-wagon-ui
 
-Experimental React-free CLI identity foundation for Wonder Wagon products.
+Experimental React-free foundations for Wonder Wagon products: the
+`wonder-wagon-ui/cli` identity generator and static design-token and theme files.
+
+## Tokens and themes
+
+Static CSS and JSON only. The package exports no token or theme JavaScript.
+
+| Subpath | Contents |
+|---|---|
+| `wonder-wagon-ui/tokens/tokens.css` | Family tokens as `--ww-*` custom properties, in a cascade layer |
+| `wonder-wagon-ui/tokens/tokens.unlayered.css` | The same, without the layer |
+| `wonder-wagon-ui/tokens/tokens.dtcg.json` | The tokens in DTCG format |
+| `wonder-wagon-ui/themes/<theme>.css` | One product theme's semantic overrides |
+| `wonder-wagon-ui/themes/<theme>.json` | That theme's values, status and metadata |
+
+`<theme>` is `wonder-wagon`, `pathfinder`, `forge` or `lorekeeper`. Each file is
+listed in the export map explicitly. Theme values can change in any 0.x minor, so
+pin an exact version and regenerate anything you commit from them.
+
+## wonder-wagon-ui/cli
 
 Products import `wonder-wagon-ui/cli` only from their build scripts, generate a
 self-contained `.ts` or `.mjs` module, commit it, and drift-check it in CI. The

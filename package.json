@@ -15,8 +15,8 @@
   },
   "packageManager": "bun@1.4.2",
   "scripts": {
-    "build": "bun run --filter 'wonder-wagon-ui' build && bun run --filter '@wonder-wagon/tokens' build && bun run --filter '@wonder-wagon/themes' build && bun run --filter '@wonder-wagon/ui' build",
-    "check": "bun run typecheck && bun run lint && bun run --filter 'wonder-wagon-ui' check && bun run --filter '@wonder-wagon/tokens' check && bun run --filter '@wonder-wagon/themes' check",
+    "build": "bun run --filter '@wonder-wagon/tokens' build && bun run --filter '@wonder-wagon/themes' build && bun run --filter 'wonder-wagon-ui' build && bun run --filter '@wonder-wagon/ui' build",
+    "check": "bun run typecheck && bun run lint && bun run --filter '@wonder-wagon/tokens' check && bun run --filter '@wonder-wagon/themes' check && bun run --filter 'wonder-wagon-ui' check",
     "typecheck": "tsc -b tsconfig.json && bun run --filter storybook typecheck",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",

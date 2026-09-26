@@ -1,6 +1,7 @@
 {
   "name": "@wonder-wagon/themes",
   "version": "0.1.0",
+  "private": true,
   "description": "Product themes for the Wonder Wagon family: the identity mapping each product applies over @wonder-wagon/tokens, as CSS, JSON and typed data, plus adapters for products that regenerate rather than import. No React.",
   "license": "MIT",
   "author": "Ricardo Lamadrid",
