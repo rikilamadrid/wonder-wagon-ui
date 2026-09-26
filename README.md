@@ -69,8 +69,8 @@ npm install --save-dev wonder-wagon-ui                         # build-time CLI 
 
 ## Browse
 
-- **Storybook — the night workshop.** `bun run storybook`, or the GitHub Pages build once enabled. Every token as a specimen, every component in every state, every story a browser test.
-- **Docs — the daylight drafting room.** `bun run docs`, or the Vercel deployment. What the system is, how it was engineered, how to theme a product.
+- **Storybook — the night workshop.** <https://rikilamadrid.github.io/wonder-wagon-ui/> (GitHub Pages, the canonical host), or `bun run storybook` at :6006. Every token as a specimen, every component in every state, every story a browser test.
+- **Docs — the daylight drafting room.** `bun run docs` at :4321. The Vercel deployment is not configured yet. What the system is, how it was engineered, how to theme a product.
 
 ## How it is tested
 
