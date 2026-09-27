@@ -97,12 +97,17 @@ jobs:
             apps/storybook/playwright-report
           retention-days: 7
 
-  docs:
-    name: Docs build
+  catalog:
+    name: Catalog and Pages artifact
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # The same reference renderer as the Storybook baselines (D8).
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      - name: The Playwright image ships without unzip, which setup-bun needs
+        run: apt-get update -qq && apt-get install -y -qq unzip >/dev/null
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: package.json
@@ -111,11 +116,28 @@ jobs:
           node-version: 24
       - run: bun install --frozen-lockfile
       - run: bun run build
-      - name: G12 · catalog evidence files match their manifests
+      - name: Build the Storybook laboratory
+        run: bun run build
+        working-directory: apps/storybook
+      - name: G12 · evidence files match their manifests; the catalog's claims hold
         run: bun run test
         working-directory: apps/docs
-      - name: G11 · docs build
+      - name: G11 · catalog builds
         run: bun run build
         working-directory: apps/docs
-      - name: Require static output
-        run: test -s apps/docs/dist/index.html
+      - name: G13 · Pages artifact assembles; required files and every internal link resolve
+        working-directory: apps/docs
+        run: |
+          bun run pages
+          bun run pages:check
+      - name: G14 · catalog axe (day and night, desktop and phone), visual snapshots, deep links
+        run: bun run visual
+        working-directory: apps/docs
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: catalog-diffs
+          path: |
+            apps/docs/test-results
+            apps/docs/playwright-report
+          retention-days: 7

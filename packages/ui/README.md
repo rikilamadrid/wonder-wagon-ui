@@ -5,9 +5,11 @@ React components for the Wonder Wagon family. Six in Phase A — `Text`, `Stack`
 Components read `@wonder-wagon/tokens`' semantic layer and nothing else; a theme from
 `@wonder-wagon/themes` re-skins every one of them by setting variables.
 
-```sh
-npm install @wonder-wagon/ui @wonder-wagon/tokens @wonder-wagon/themes react react-dom
-```
+**Experimental. No production consumers yet, and not published.** None of the released
+products runs these components: three of the four don't use React, and the one that
+does, Lama, is unreleased. The package is published only once a real product adopts it,
+as its own package, never as a subpath of the React-free `wonder-wagon-ui`. Until then it
+lives in the [Storybook laboratory](https://rikilamadrid.github.io/wonder-wagon-ui/storybook/).
 
 ```tsx
 import "@wonder-wagon/tokens/css";

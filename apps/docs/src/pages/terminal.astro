@@ -1,0 +1,92 @@
+---
+import Terminal from "../components/Terminal.astro";
+import Base from "../layouts/Base.astro";
+import { byId, ORDER, TIER_LABEL, terminal, url } from "../lib/data";
+
+const family = ORDER.map(byId);
+const tiers = terminal.tiers.map((t) => t.name).filter((t) => t !== "wide");
+const TIER_NOTE: Record<string, string> = {
+  narrow:
+    "Each identity reflows for a 40-column terminal. Pathfinder keeps its frozen one-line fallback; the newer products stack.",
+  ansi256: "No truecolor advertised: each accent snaps to its nearest 256-colour index.",
+  "no-color": "NO_COLOR removes every colour byte and keeps the Unicode geometry.",
+  ascii:
+    "WW_ASCII=1 swaps the mark for its ASCII alphabet for terminals with unreliable glyph widths, and keeps the colour.",
+  dumb: "TERM=dumb: no colour, ASCII geometry.",
+  piped:
+    "Not a terminal, so no identity block. What a script or another program sees is only the output it asked for.",
+};
+---
+<Base title="Terminal family" description="The four released Wonder Wagon command-line identities across every capability tier, captured from their public npm packages.">
+  <header class="page-head">
+    <span class="eyebrow">Terminal family · the strongest evidence in the system</span>
+    <h1>Same universe, different tools</h1>
+    <p class="lede">All four tools draw their identity through one generator, <code>wonder-wagon-ui/cli</code>. Each product imports it at build time, commits the generated module, and fails CI if it drifts. At run time the products need no Wonder Wagon package at all.</p>
+  </header>
+
+  <h2 class="visually-hidden">Who owns what</h2>
+  <section class="ledger" aria-label="Who owns what">
+    <div class="card shared">
+      <h3>Wonder Wagon owns</h3>
+      <ul>
+        <li>Layout grammar<small>Two leading cells, the mark, four cells, a letterspaced name.</small></li>
+        <li>Version and serial placement<small>On the name row: <code>vX.Y.Z · XX-047</code>.</small></li>
+        <li>Capability detection<small>Truecolor, 256 and 16 colours, read only from what the environment says.</small></li>
+        <li><code>NO_COLOR</code> and <code>WW_ASCII</code><small>Independent switches: colour off, and ASCII glyphs.</small></li>
+        <li>Narrow behaviour<small>A layout that reflows instead of wrapping.</small></li>
+        <li>Plain and machine behaviour<small>No identity when piped, for <code>--version</code>, or for JSON.</small></li>
+      </ul>
+    </div>
+    <div class="card owned">
+      <h3>Each product owns</h3>
+      <ul>
+        <li>The mark<small>Trail bars, a star in a frame, a hallmark, a wagon.</small></li>
+        <li>The accent<small>Blaze orange, periwinkle, bronze, Bench Green.</small></li>
+        <li>The tagline<small>One line saying what the tool is for.</small></li>
+        <li>The metaphor<small>What the mark depicts and why.</small></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="wide">
+    <header>
+      <span class="eyebrow">{TIER_LABEL.wide}</span>
+      <h2 id="wide">Four identities, one grammar</h2>
+      <p class="lede">Full captures, exactly as each package prints them in a 100-column truecolor terminal.</p>
+    </header>
+    <div class="grid-4">
+      {family.map((p) => <Terminal product={p.id} tier="wide" />)}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tiers">
+    <header>
+      <span class="eyebrow">Capability tiers</span>
+      <h2 id="tiers">Down the fallback ladder</h2>
+      <p class="lede">The same four packages, the same commands, in every environment the grammar supports.</p>
+    </header>
+    <div>
+      {tiers.map((tier, i) => (
+        <details class="tier" open={i === 0}>
+          <summary>{TIER_LABEL[tier]}<span>{TIER_NOTE[tier]}</span></summary>
+          <div class="grid-4">
+            {family.map((p) => <Terminal product={p.id} tier={tier} />)}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="limits">
+    <header>
+      <span class="eyebrow">Known limits</span>
+      <h2 id="limits">What the grammar can't know</h2>
+    </header>
+    <ul>
+      <li>Terminals don't reliably report a light background. Lorekeeper's and Forge's accents can have low contrast on one; <code>NO_COLOR=1</code> removes the colour.</li>
+      <li>Box-drawing and block glyphs can render double-width under CJK ambiguous-width settings. <code>WW_ASCII=1</code> selects the ASCII mark.</li>
+      <li>16-colour output takes its actual colours from the user's terminal theme; these pages draw it with xterm's defaults.</li>
+    </ul>
+    <p class="muted">How these were captured: <a href={url("evidence#captures")}>the capture manifest</a>.</p>
+  </section>
+</Base>

@@ -5,15 +5,30 @@ import { ObjectQuietSpecimen } from "./specimens/specimens";
 
 # Maker 047's bench
 
-This is the workshop where the Wonder Wagon tools are made, and the reference objects
-they are measured against. Wonder Wagon UI is **tokens-first**: `@wonder-wagon/tokens`
-is the contract every product in the family builds on — Pathfinder's Starlight docs,
-Forge's Node CLI, Lorekeeper's kit — and this React library is one consumer of it.
+This Storybook is the **laboratory**: foundations as specimens, token visualisations,
+component states and experiments. The system's story — which products use what, and the
+public evidence for it — is the <a href="https://rikilamadrid.github.io/wonder-wagon-ui/" target="_top">Wonder Wagon Catalog</a>.
 
-Every story sits in a **specimen tray** on the bench. The toolbar throws three levers:
-the **environment** (day, night, auto), the **product theme** (the bench itself, or one
-of the four products), and the **ground** behind the specimen. Nothing in a component
-knows which product it is in; the theme sets six variables and everything follows.
+## What is public, and who uses it
+
+Wonder Wagon is published as one React-free package, [`wonder-wagon-ui`](https://www.npmjs.com/package/wonder-wagon-ui):
+the family doorway, the `wonder-wagon-ui/cli` terminal-identity generator, and static
+tokens and themes at `wonder-wagon-ui/tokens/*` and `wonder-wagon-ui/themes/*`. The
+`@wonder-wagon/tokens` and `@wonder-wagon/themes` workspaces are where those files are
+authored; they aren't published separately.
+
+Products use it to different depths:
+
+- **Pathfinder** — its documentation site's semantic colour layer and its CLI identity. The deepest consumer.
+- **Lorekeeper** — a generated family chrome layer (day/night toggle, serial plate) and its CLI identity. The rest of its site is its own `--lk-*` design.
+- **Forge** — its CLI identity only. Its website is product-owned.
+- **Lama** — draft and unreleased; consumes nothing yet.
+
+## The components here are experimental
+
+The React components in this Storybook have **no production consumers yet** and are not
+published as a package. They're where component ideas are tested until a real product
+needs one. They are not the design system.
 
 ## The one rule
 
@@ -30,8 +45,12 @@ stylesheet, and no depth or plate type in a quiet one.
 
 ## Where to look
 
+Every story sits in a **specimen tray** on the bench. The toolbar throws three levers:
+the **environment** (day, night, auto), the **product theme** (the bench itself, or one
+of the products), and the **ground** behind the specimen.
+
 - **Foundations** — colour, type, space, radius, depth, motion, focus, breakpoints, code: as specimens, not tables.
-- **Primitives · Controls** — the six Phase A components, every state, keyboard walkthroughs as tests.
+- **Primitives · Controls** — the six experimental components, every state, keyboard walkthroughs as tests.
 - **Patterns** — the split, the dark panel in day, one signature action per screen.
-- **Theming** — the contract a product fills, and all five reference themes on one composite.
+- **Theming** — the contract a product fills, and the reference themes on one composite.
 - **Accessibility** — what is measured, what is gated, what is still by hand.

@@ -4,9 +4,10 @@ The framework-neutral contract every Wonder Wagon product builds on: colour in
 two environments, depth stacks, type roles, space, radius, motion, the syntax
 palette, and a measured contrast gate. **No React. No runtime.**
 
-```sh
-npm install @wonder-wagon/tokens
-```
+**Internal workspace, not published.** The public route to these files is the React-free
+[`wonder-wagon-ui`](../foundation) package: `wonder-wagon-ui/tokens/tokens.css`,
+`tokens.unlayered.css` and `tokens.dtcg.json`. The imports below are how workspaces in
+this repository consume the source.
 
 ```css
 @import "@wonder-wagon/tokens/css";   /* day on :root, night on [data-ww-env="night"] */

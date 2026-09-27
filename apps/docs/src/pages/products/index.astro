@@ -1,0 +1,33 @@
+---
+import ProductCard from "../../components/ProductCard.astro";
+import Base from "../../layouts/Base.astro";
+import { byId, COLUMNS, depthRow, products, url } from "../../lib/data";
+
+const rows = (["pathfinder", "lorekeeper", "forge", "lama"] as const).map((id) => ({
+  id,
+  name: id === "lama" ? "Lama" : byId(id).name,
+  cells: depthRow(id),
+}));
+---
+<Base title="Products" description="The three released products in the Wonder Wagon family and how deeply each one uses the shared system.">
+  <header class="page-head">
+    <span class="eyebrow">Products</span>
+    <h1>Three tools, three depths</h1>
+    <p class="lede">Each product took what it needed and kept the rest. Pathfinder is the deepest consumer; Lorekeeper uses the family chrome; Forge uses only the terminal identity.</p>
+  </header>
+  <h2 class="visually-hidden">Released products</h2>
+  <div class="cards">{products.map((p) => <ProductCard product={p} />)}</div>
+  <div class="table-card" tabindex="0" role="region" aria-label="Integration depth by product">
+    <table class="depth">
+      <thead><tr><th scope="col">Product</th>{COLUMNS.map((c) => <th scope="col">{c}</th>)}</tr></thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr>
+            <th scope="row">{r.id === "lama" ? <>Lama <span class="muted">(draft)</span></> : <a href={url(`products/${r.id}`)}>{r.name}</a>}</th>
+            {r.cells.map((c) => <td><span class="state" data-state={c.state}>{c.text}</span></td>)}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Base>

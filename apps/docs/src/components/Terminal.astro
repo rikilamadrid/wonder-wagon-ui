@@ -1,0 +1,48 @@
+---
+/**
+ * One real capture, drawn from its bytes. The window is the object well: the one place the
+ * system is writing into. `lines` crops to the first N lines, and the caption says so.
+ */
+import { parseAnsi } from "../lib/ansi";
+import { captureFor, TIER_LABEL } from "../lib/data";
+
+interface Props {
+  product: string;
+  tier?: string;
+  lines?: number;
+  caption?: boolean;
+  label?: string;
+}
+const { product, tier = "wide", lines, caption = true, label } = Astro.props;
+const files = import.meta.glob<string>("../evidence/terminal/**/*.ansi", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
+const capture = captureFor(product, tier);
+if (!capture) throw new Error(`no capture for ${product}/${tier}`);
+const raw = files[`../evidence/terminal/${capture.file}`];
+if (raw === undefined) throw new Error(`missing ${capture.file}`);
+const all = parseAnsi(raw);
+const shown = lines ? all.slice(0, lines) : all;
+const cropped = lines !== undefined && lines < all.length;
+const envText = Object.entries(capture.env)
+  .map(([k, v]) => `${k}=${v}`)
+  .join(" ");
+---
+<figure class="term" data-tier={tier}>
+  <div class="term__window">
+    <div class="term__bar" aria-hidden="true"><i></i><i></i><i></i><span>{TIER_LABEL[tier]}</span></div>
+    <pre class="term__screen" tabindex="0" role="region" aria-label={label ?? `Output of ${capture.command}, ${TIER_LABEL[tier]}`}>{shown.map((line) => (
+      <span class="term__line">{line.map((run) => (
+        <span style={run.fg ? `color:${run.fg}` : undefined} class:list={{ b: run.bold, d: run.dim }}>{run.text}</span>
+      ))}{"\n"}</span>
+    ))}</pre>
+  </div>
+  {caption && (
+    <figcaption>
+      <code>{capture.command}</code>
+      <span class="muted"> · {capture.tty ? `PTY ${capture.columns} cols` : "piped"}{envText ? ` · ${envText}` : ""} · exit {capture.exit}{cropped ? ` · first ${lines} of ${all.length} lines` : ""}</span>
+    </figcaption>
+  )}
+</figure>

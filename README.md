@@ -1,104 +1,94 @@
-# Wonder Wagon UI
+# Wonder Wagon
 
-**A tokens-first design system for the Wonder Wagon family of tools.**
-The contract is framework-neutral CSS and JSON. React is one consumer of it, beside a
-Node CLI and three Astro sites. Four products keep their own identities by filling six
-slots. Maker 047's bench, serial `WW-047`.
+**One family. Different tools.** Wonder Wagon is the small design system behind four
+released developer tools. It standardizes only what those products have proven they
+share and leaves the rest to each product. Maker 047's bench, serial `WW-047`.
 
-| Package | What it is | Runtime deps | Version |
-|---|---|---|---|
-| [`wonder-wagon-ui`](packages/foundation) | React-free foundations. Experimental `wonder-wagon-ui/cli` generates committed, dependency-free terminal identity modules. | none | 0.x (experimental, unpublished) |
-| [`@wonder-wagon/tokens`](packages/tokens) | The contract: colour in two environments, depth stacks, type roles, space, radius, motion, syntax palette, contrast gate. CSS · TS · DTCG. | none | 0.1.0 (unpublished) |
-| [`@wonder-wagon/themes`](packages/themes) | Five product themes as CSS, JSON and data, with the theme contract and adapters for products that regenerate rather than import. | tokens | 0.1.0 (unpublished) |
-| [`@wonder-wagon/ui`](packages/ui) | React 19 components, plain CSS beside ESM. Six in Phase A. | react, tokens (peer) | 0.1.0 (unpublished) |
+- **Catalog:** <https://rikilamadrid.github.io/wonder-wagon-ui/>. The system, the
+  products, their terminal identities, and the release evidence.
+- **Storybook laboratory:** <https://rikilamadrid.github.io/wonder-wagon-ui/storybook/>.
+  Foundations as specimens, token visualizations and experimental components.
 
-```
-wonder-wagon-ui/cli ──── terminal grammar · capability tiers · committed code generation
+## What is public
 
-@wonder-wagon/tokens ─── the family: grounds · ink · hairlines · focus · depth · space · type
-        │
-        ├── @wonder-wagon/themes ── accent · link · signal · enamel · radius · serial, per product
-        │          │
-        │          ├── Pathfinder   regenerates its Starlight --ww-* block     (no React)
-        │          ├── Forge        regenerates a terminal identity module      (no React)
-        │          └── Lorekeeper   pulls into its own tokens.json              (no React)
-        │
-        └── @wonder-wagon/ui ────── React components, one consumer among several
-                   └── Lama         the application, later
-```
+One package, React-free: [`wonder-wagon-ui`](https://www.npmjs.com/package/wonder-wagon-ui)
+(0.x, experimental API).
 
-## Why tokens first
-
-Of the four products, one runs React. Pathfinder is Astro and a byte-deterministic
-renderer with zero dependencies; Forge is a Node CLI with a verified tarball; Lorekeeper
-is a kit. A component library positioned as the shared foundation would have served one
-product and misdescribed the ecosystem. So the contract is `tokens`, every product
-consumes it through the ordinary package boundary — at run time or by regeneration with
-a `--check` — and the React library is downstream.
-
-Two proofs are in the repository:
-
-- **Pathfinder** shipped a hand-written semantic block. `bun run --filter @wonder-wagon/themes proof:pathfinder` regenerates all 34 declarations, day and night, and holds them to the shipped values at a pinned commit.
-- **Forge**, on a branch in its own repository, takes `@wonder-wagon/themes` as a devDependency, commits a generated `identity.ts` (bronze in three terminal alphabets; severity left to the terminal's own colours) and fails CI if it drifts. No React enters its graph.
-
-## How products keep their identities
-
-A theme fills six slots — `accent`, `accent-low`, `accent-ink`, `link`, `signal`,
-`signal-edge` — plus its enamel (day and night), a four-value object radius and a serial,
-inside `@layer ww.theme`. It may not touch grounds, ink, hairlines, focus, depth or
-space: those are the family. Components read the semantic tier only, and two gates make
-that mechanical: no material literal in any component stylesheet; no depth or plate type
-in a quiet one. Hero objects — Pathfinder's atlascope, Forge's furnace — stay in their
-products. The library ships physics and slots.
-
-## Install
-
-Not yet published. After the first release:
+| Entry | What it is |
+|---|---|
+| `npx wonder-wagon-ui` | The family doorway: the mark, `WW-047`, and every sibling with how to start it |
+| `wonder-wagon-ui/cli` | Build-time generator for dependency-free terminal identity modules that products commit and drift-check |
+| `wonder-wagon-ui/tokens/*` | Family tokens as `--ww-*` CSS (layered and unlayered) and DTCG JSON |
+| `wonder-wagon-ui/themes/*` | Product themes as CSS and JSON: `wonder-wagon`, `pathfinder`, `lorekeeper`, `forge` |
 
 ```sh
-npm install @wonder-wagon/tokens @wonder-wagon/themes          # any product, no React
-npm install @wonder-wagon/ui react react-dom                   # a React product
-npm install --save-dev wonder-wagon-ui                         # build-time CLI generator
+npm install --save-dev --save-exact wonder-wagon-ui
 ```
 
 ```css
-@import "@wonder-wagon/tokens/css";
-@import "@wonder-wagon/themes/forge.css";
-@import "@wonder-wagon/ui/styles.css";
+@import "wonder-wagon-ui/tokens/tokens.css";
+@import "wonder-wagon-ui/themes/forge.css";
 ```
 
-## Browse
+Theme values can change in any 0.x minor: pin an exact version and regenerate anything
+you commit from it.
 
-- **Storybook — the night workshop.** <https://rikilamadrid.github.io/wonder-wagon-ui/> (GitHub Pages, the canonical host), or `bun run storybook` at :6006. Every token as a specimen, every component in every state, every story a browser test.
-- **Docs — the daylight drafting room.** `bun run docs` at :4321. The Vercel deployment is not configured yet. What the system is, how it was engineered, how to theme a product.
+## Who uses it, and how deeply
+
+Measured at each product's release commit; the catalog's
+[Evidence page](https://rikilamadrid.github.io/wonder-wagon-ui/evidence/) has the numbers.
+
+| Product | Package | Takes from Wonder Wagon | Keeps for itself |
+|---|---|---|---|
+| Pathfinder `PF-047` | `create-pathfinder` | Its site's semantic colour layer (34 `--ww-*` declarations, proven against the themes package) and a generated CLI identity. The deepest consumer. | Trail mark, atlascope, Starlight chrome, the diagram renderer |
+| Lorekeeper `LK-047` | `create-lorekeeper` | A generated family chrome layer (the day/night toggle and serial plate) and a generated CLI identity | The reading-room site: its grounds, ink, type scale and layout as `--lk-*` tokens |
+| Forge `FG-047` | `forge-local-ai-kit` | A generated CLI identity only | Its whole website, Iron night ground (a recorded ruling), web fonts |
+| Lama | unreleased | Nothing yet (draft) | — |
+
+Three of the four release through trusted publishing with npm provenance. Forge follows
+its documented manual release process and has no provenance attestation.
+
+## What is internal
+
+This repository authors the public files in workspaces that are **not published**:
+
+| Workspace | Role |
+|---|---|
+| `packages/tokens` (`@wonder-wagon/tokens`) | The token source. CSS, TypeScript, DTCG and the contrast record are generated from one typed file. |
+| `packages/themes` (`@wonder-wagon/themes`) | Product themes, the theme contract, adapters, and the Pathfinder and Lorekeeper proofs |
+| `packages/ui` (`@wonder-wagon/ui`) | Six React components. **Experimental: no production consumers yet.** Published only once a real product needs them. |
+| `packages/foundation` (`wonder-wagon-ui`) | The public package. It re-publishes the token and theme files as static assets. |
+| `apps/docs` | The catalog (Astro), with its evidence scripts |
+| `apps/storybook` | The laboratory (Storybook 10) |
+
+## How products keep their identities
+
+A theme fills six slots (`accent`, `accent-low`, `accent-ink`, `link`, `signal`,
+`signal-edge`) plus its enamel, a four-value object radius and a serial. It doesn't touch
+grounds, ink, hairlines, focus, depth or space. The contract is narrower than the products,
+though: Forge and Lorekeeper own their grounds, and the contract has no slot for that yet.
+Hero objects stay in their products.
 
 ## How it is tested
 
-Types · Biome · tokens and themes regenerate in memory and compare to `dist/` while every
-declared pairing is measured with the WCAG 2.x formula (66 + 80 pairings, 0 failing) ·
-every story runs in Chromium through the Storybook Vitest addon with axe in error mode ·
-keyboard walkthroughs as play functions · committed Playwright snapshots, day and night,
-two widths · `publint`, `@arethetypeswrong/cli`, gzipped `size-limit` budgets · generated
-exports and generated adapters checked for drift · a changeset for every package change.
+- **Types and lint:** type checks and Biome.
+- **Contrast:** tokens and themes regenerate in memory and are compared with `dist/`, and
+  every declared pairing is measured with the WCAG 2.x formula (66 + 80 pairings, 0 failing).
+- **Storybook:** every story runs in Chromium with axe in error mode, and keyboard
+  walkthroughs run as play functions.
+- **Visual:** committed Playwright snapshots for Storybook and the catalog.
+- **Catalog:** axe on every page, day and night, desktop and phone.
+- **Catalog links:** every internal link and old Storybook deep link checked.
+- **Evidence:** catalog evidence files checked against their manifests.
+- **Packaging:** `publint`, `@arethetypeswrong/cli` and size budgets.
+
 The workflows are in [`.github/workflows`](.github/workflows).
 
 ## Release
 
-Changesets, independent versions, `0.x` (minor is breaking). Merging "chore: version
-packages" publishes through GitHub Actions with npm trusted publishing — OIDC, provenance,
-no stored token. See [`context/project-overview.md`](context/project-overview.md).
+Changesets, independent versions, `0.x` (a minor can be breaking). Publishing runs through
+GitHub Actions with npm trusted publishing. See
+[`context/project-overview.md`](context/project-overview.md).
 
-## Repository
-
-```
-apps/docs         Astro + React islands · Vercel
-apps/storybook    Storybook 10 · react-vite · addon-vitest · addon-a11y · Playwright visual
-packages/tokens   the contract
-packages/themes   product themes, contract, adapters, Pathfinder proof
-packages/ui       React components
-packages/foundation React-free root and experimental cli subpath
-context/          project truth and the twelve recorded decisions
-```
-
-MIT. Built with Bun workspaces, TypeScript 7, React 19, Vite 8, Storybook 10, Vitest 4,
-Playwright, Biome, Changesets.
+MIT. Built with Bun workspaces, TypeScript 7, Astro 7, React 19, Vite 8, Storybook 10,
+Vitest 4, Playwright, Biome and Changesets.

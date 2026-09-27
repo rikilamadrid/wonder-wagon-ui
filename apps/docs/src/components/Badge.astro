@@ -1,0 +1,30 @@
+---
+/** A maturity or status stamp. The word carries the meaning; colour only repeats it. */
+interface Props {
+  kind:
+    | "ready"
+    | "proven"
+    | "immature"
+    | "product"
+    | "experimental"
+    | "approved"
+    | "pilot"
+    | "draft"
+    | "attested"
+    | "none";
+}
+const WORDS: Record<Props["kind"], string> = {
+  ready: "Ready",
+  proven: "Proven pattern",
+  immature: "Immature",
+  product: "Product-owned",
+  experimental: "Experimental",
+  approved: "Approved",
+  pilot: "Pilot",
+  draft: "Draft",
+  attested: "Provenance attested",
+  none: "No provenance",
+};
+const { kind } = Astro.props;
+---
+<span class="badge" data-kind={kind}><slot>{WORDS[kind]}</slot></span>

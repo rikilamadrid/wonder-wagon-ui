@@ -10,3 +10,4 @@ playwright-report/
 coverage/
 # committed on purpose: **/__screenshots__ (visual baselines)
 *.tsbuildinfo
+apps/docs/.site/
