@@ -35,7 +35,7 @@ and Forge — and one draft, Lama. Each keeps its own mark, colour, metaphor and
 they share is small and has been earned: a terminal identity grammar, a serial scheme, and
 the tokens and themes that at least two products actually use.
 
-> One use belongs to the product.
+> One use belongs to the product.<br>
 > Two proven uses make it a candidate for Wonder Wagon.
 
 The [**Catalog**](https://rikilamadrid.github.io/wonder-wagon-ui/) is the front door: the
