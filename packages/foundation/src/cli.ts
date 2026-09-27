@@ -84,7 +84,16 @@ export interface RenderCliIdentityOptions {
   readonly caps: TerminalCaps;
   readonly form?: "block" | "line";
   readonly machine?: boolean;
+  /**
+   * `fixed` (the default) keeps the published 0.x bytes: a block that would
+   * wrap collapses to one line. `responsive` keeps the block wherever it fits,
+   * including the tagline, and otherwise stacks the mark, wordmark, metadata,
+   * and wrapped tagline. Frozen byte proofs stay on `fixed`.
+   */
+  readonly layout?: CliLayout;
 }
+
+export type CliLayout = "fixed" | "responsive";
 
 interface Rgb {
   readonly r: number;
@@ -365,6 +374,99 @@ function renderWithPaints(
   return `\n${lines.join("\n")}\n`;
 }
 
+function wrapIdentity(text: string, width: number): string[] {
+  if (cells(text) <= width) return [text];
+  const lines: string[] = [];
+  let line = "";
+  for (const word of text.split(/ +/)) {
+    if (line && cells(`${line} ${word}`) <= width) {
+      line += ` ${word}`;
+      continue;
+    }
+    if (line) {
+      lines.push(line);
+      line = "";
+    }
+    const characters = [...word];
+    while (characters.length > width) lines.push(characters.splice(0, width).join(""));
+    line = characters.join("");
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+function renderResponsive(
+  options: RenderCliIdentityOptions,
+  paints: { accent: TerminalPaint; secondary?: TerminalPaint },
+): string {
+  const { product, version, caps } = options;
+  if (options.machine === true || caps.tier === "contract") return "";
+  const name = spacedName(product);
+  const metadata = `v${version} ${caps.unicode ? "·" : "-"} ${product.serial}`;
+  const textWidth = Math.max(cells(name) + 2 + cells(metadata), cells(product.tagline));
+  if (options.form !== "line" && caps.columns >= 2 + product.mark.width + 4 + textWidth) {
+    return renderWithPaints(options, paints);
+  }
+  if (options.form === "line" && cells(name) + 2 + cells(metadata) <= caps.columns) {
+    return renderWithPaints(options, paints);
+  }
+
+  const indent = caps.columns >= product.mark.width + 2 ? "  " : "";
+  const width = Math.max(1, caps.columns - indent.length);
+  const lines: string[] = [];
+  if (options.form !== "line") {
+    for (const row of product.mark.rows) {
+      const raw = caps.unicode ? row.expressive.map((segment) => segment.text).join("") : row.plain;
+      if (cells(raw) > width) {
+        for (const part of wrapIdentity(raw.trim(), width)) {
+          lines.push(indent + paintAtDepth(part, paints.accent, caps));
+        }
+        continue;
+      }
+      const mark = caps.unicode
+        ? row.expressive
+            .map((segment) => {
+              if (segment.role === "dim") return dim(segment.text, caps);
+              const paint =
+                segment.role === "secondary" && paints.secondary !== undefined
+                  ? paints.secondary
+                  : paints.accent;
+              return paintAtDepth(segment.text, paint, caps);
+            })
+            .join("")
+        : paintAtDepth(row.plain, paints.accent, caps);
+      lines.push(indent + mark);
+    }
+    lines.push("");
+  }
+  for (const part of wrapIdentity(name, width)) {
+    lines.push(indent + paintAtDepth(part, paints.accent, caps));
+  }
+  for (const part of wrapIdentity(metadata, width)) lines.push(indent + dim(part, caps));
+  if (options.form !== "line") {
+    for (const part of wrapIdentity(product.tagline, width)) lines.push(indent + dim(part, caps));
+  }
+  return options.form === "line" ? lines.join("\n") : `\n${lines.join("\n")}\n`;
+}
+
+/**
+ * Paint one run of text in a product colour at the caps' depth, with the same
+ * 256- and 16-colour degradation the identity uses. Depth 0 returns it bare.
+ */
+export function paintCliText(
+  text: string,
+  hex: string,
+  caps: TerminalCaps,
+  ansi16?: Ansi16Choice,
+): string {
+  return paintAtDepth(text, terminalPaint(hex, ansi16), caps);
+}
+
+/** Dim one run of text, or return it bare at depth 0. */
+export function dimCliText(text: string, caps: TerminalCaps): string {
+  return dim(text, caps);
+}
+
 /** Render one identity from authored product geometry and already-decided caps. */
 export function renderCliIdentity(options: RenderCliIdentityOptions): string {
   validateProduct(options.product);
@@ -376,7 +478,9 @@ export function renderCliIdentity(options: RenderCliIdentityOptions): string {
           secondary: terminalPaint(options.product.secondary, options.product.ansi16?.secondary),
         }),
   };
-  return renderWithPaints(options, paints);
+  return options.layout === "responsive"
+    ? renderResponsive(options, paints)
+    : renderWithPaints(options, paints);
 }
 
 function fnv1a(input: string): string {
@@ -456,10 +560,69 @@ export function renderCliIdentity(${renderSignature}) {
 `;
 }
 
+function responsiveLayoutSource(language: "ts" | "mjs"): string {
+  const type = (value: string) => (language === "ts" ? value : "");
+  return `
+function wrapIdentity(text${type(": string")}, width${type(": number")}) {
+  if ([...text].length <= width) return [text];
+  const lines${type(": string[]")} = [];
+  let line = "";
+  for (const word of text.split(/ +/)) {
+    if (line && [...line + " " + word].length <= width) { line += " " + word; continue; }
+    if (line) { lines.push(line); line = ""; }
+    const chars = [...word];
+    while (chars.length > width) lines.push(chars.splice(0, width).join(""));
+    line = chars.join("");
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+export function renderCliIdentity(options${type(': { version: string; caps: { tier: "contract" | "plain" | "expressive"; depth: 0 | 4 | 8 | 24; unicode: boolean; columns: number }; form?: "block" | "line"; machine?: boolean }')}) {
+  const caps = options.caps;
+  if (options.machine === true || caps.tier === "contract") return "";
+  const name = spacedName();
+  const metadata = "v" + options.version + " " + (caps.unicode ? "·" : "-") + " " + PRODUCT.serial;
+  const textWidth = Math.max(cells(name) + 2 + cells(metadata), cells(PRODUCT.tagline));
+  if (options.form !== "line" && caps.columns >= 2 + PRODUCT.mark.width + 4 + textWidth) {
+    return renderLegacyIdentity(options);
+  }
+  if (options.form === "line" && cells(name) + 2 + cells(metadata) <= caps.columns) {
+    return renderLegacyIdentity(options);
+  }
+  const indent = caps.columns >= PRODUCT.mark.width + 2 ? "  " : "";
+  const width = Math.max(1, caps.columns - indent.length);
+  const lines${type(": string[]")} = [];
+  if (options.form !== "line") {
+    for (const row of PRODUCT.mark.rows) {
+      const raw = caps.unicode ? row.expressive.map((segment) => segment.text).join("") : row.plain;
+      if (cells(raw) > width) {
+        lines.push(...wrapIdentity(raw.trim(), width).map((line) => indent + paint(line, "accent", caps)));
+      } else {
+        const mark = caps.unicode ? row.expressive.map((segment) => {
+          const role${type(': "accent" | "secondary" | "dim"')} = segment.role;
+          return String(role) === "dim" ? dim(segment.text, caps)
+            : paint(segment.text, role === "secondary" && PAINTS.secondary ? "secondary" : "accent", caps);
+        }).join("") : paint(row.plain, "accent", caps);
+        lines.push(indent + mark);
+      }
+    }
+    lines.push("");
+  }
+  lines.push(...wrapIdentity(name, width).map((line) => indent + paint(line, "accent", caps)));
+  lines.push(...wrapIdentity(metadata, width).map((line) => indent + dim(line, caps)));
+  if (options.form !== "line") {
+    lines.push(...wrapIdentity(PRODUCT.tagline, width).map((line) => indent + dim(line, caps)));
+  }
+  return options.form === "line" ? lines.join("\\n") : "\\n" + lines.join("\\n") + "\\n";
+}
+`;
+}
+
 /** Emit the dependency-free module a product commits and executes at runtime. */
 export function renderCliIdentityModule(
   product: CliProduct,
-  options: { language: "ts" | "mjs" },
+  options: { language: "ts" | "mjs"; layout?: CliLayout },
 ): string {
   validateProduct(product);
   const normalizedProduct = { ...product, letterspace: product.letterspace ?? true };
@@ -481,6 +644,10 @@ export function renderCliIdentityModule(
     `export const PRODUCT = Object.freeze(${JSON.stringify(normalizedProduct, null, 2)}${suffix});`,
     `export const PAINTS = Object.freeze(${JSON.stringify(paints, null, 2)}${suffix});`,
     `export const VALUES_HASH = ${JSON.stringify(hash)};`,
-    generatedRuntime(options.language).trimStart(),
+    options.layout === "responsive"
+      ? generatedRuntime(options.language)
+          .replace("export function renderCliIdentity(", "function renderLegacyIdentity(")
+          .trimStart() + responsiveLayoutSource(options.language)
+      : generatedRuntime(options.language).trimStart(),
   ].join("\n");
 }

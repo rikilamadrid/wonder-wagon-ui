@@ -1,0 +1,21 @@
+
+    ▗▄▄▄▄▄▄▖
+    ▐▀▀▜▛▀▀▌    W O N D E R   W A G O N  v0.2.0 · WW-047
+  ╲ ▐▄▄▄▄▄▄▌    One family. Different tools.
+   ╲▟▀▀▀▀▀▀▙
+     ▜▛  ▜▛
+
+  ━━  Pathfinder  PF-047  npx create-pathfinder
+      trail markers for AI-assisted work
+
+  ✦   Lorekeeper  LK-047  npx create-lorekeeper
+      You already wrote it down. Find the passage that answers.
+
+  ▐█  Forge       FG-047  npm install forge-local-ai-kit
+      the Local AI Kit
+
+  ╱╲  Lama        draft
+      Running locally. Built by Lamadrid.
+
+  Made on Maker 047's bench.
+

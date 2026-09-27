@@ -1,7 +1,18 @@
 # wonder-wagon-ui
 
-Experimental React-free foundations for Wonder Wagon products: the
-`wonder-wagon-ui/cli` identity generator and static design-token and theme files.
+Experimental React-free foundations for Wonder Wagon products: the family
+doorway, the `wonder-wagon-ui/cli` identity generator, and static design-token
+and theme files.
+
+## The family doorway
+
+```sh
+npx wonder-wagon-ui
+```
+
+This prints the Wonder Wagon mark, `WW-047` and every sibling with its serial and
+how to start it. Piped, it prints a plain roster, and `--version` prints only the
+version. The package has no install scripts. See [`terminal/`](terminal/README.md).
 
 ## Tokens and themes
 
@@ -30,6 +41,12 @@ mark geometry, name, tagline, serial, and colours. Machine output, pipes, JSON,
 and `--version` suppress the identity block. `NO_COLOR` removes SGR bytes;
 `WW_ASCII=1` independently selects the ASCII mark for terminals whose ambiguous
 glyph widths cannot be trusted.
+
+Pass `layout: "responsive"` (to `renderCliIdentity` or `renderCliIdentityModule`)
+for the family's narrow behaviour. The block stays wherever it fits with its
+tagline. Anywhere else the mark, wordmark, version/serial and wrapped tagline
+stack. The default `fixed` layout keeps the published bytes, including
+Pathfinder's frozen one-line fallback.
 
 The 0.x API is experimental. Product geometry remains in the product repository;
 this package owns only validation, capability detection, family layout, colour

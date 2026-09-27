@@ -1,0 +1,121 @@
+[
+  {
+    "name": "wide",
+    "tty": true,
+    "columns": 100,
+    "env": {
+      "COLORTERM": "truecolor",
+      "TERM": "xterm-256color"
+    },
+    "args": ["npx", "wonder-wagon-ui"],
+    "exit": 0
+  },
+  {
+    "name": "ansi256",
+    "tty": true,
+    "columns": 100,
+    "env": {
+      "TERM": "xterm-256color"
+    },
+    "args": ["npx", "wonder-wagon-ui"],
+    "exit": 0
+  },
+  {
+    "name": "ansi16",
+    "tty": true,
+    "columns": 100,
+    "env": {
+      "TERM": "xterm"
+    },
+    "args": ["npx", "wonder-wagon-ui"],
+    "exit": 0
+  },
+  {
+    "name": "narrow",
+    "tty": true,
+    "columns": 40,
+    "env": {
+      "COLORTERM": "truecolor",
+      "TERM": "xterm-256color"
+    },
+    "args": ["npx", "wonder-wagon-ui"],
+    "exit": 0
+  },
+  {
+    "name": "no-color",
+    "tty": true,
+    "columns": 100,
+    "env": {
+      "NO_COLOR": "1",
+      "TERM": "xterm-256color"
+    },
+    "args": ["npx", "wonder-wagon-ui"],
+    "exit": 0
+  },
+  {
+    "name": "ascii",
+    "tty": true,
+    "columns": 100,
+    "env": {
+      "WW_ASCII": "1",
+      "COLORTERM": "truecolor",
+      "TERM": "xterm-256color"
+    },
+    "args": ["npx", "wonder-wagon-ui"],
+    "exit": 0
+  },
+  {
+    "name": "dumb",
+    "tty": true,
+    "columns": 100,
+    "env": {
+      "TERM": "dumb"
+    },
+    "args": ["npx", "wonder-wagon-ui"],
+    "exit": 0
+  },
+  {
+    "name": "help",
+    "tty": true,
+    "columns": 100,
+    "env": {
+      "COLORTERM": "truecolor",
+      "TERM": "xterm-256color"
+    },
+    "args": ["npx", "wonder-wagon-ui", "--help"],
+    "exit": 0
+  },
+  {
+    "name": "piped",
+    "tty": false,
+    "env": {
+      "FORCE_COLOR": "3"
+    },
+    "args": ["npx", "wonder-wagon-ui"],
+    "exit": 0,
+    "stdout_bytes": 209,
+    "stderr_bytes": 0
+  },
+  {
+    "name": "version",
+    "tty": false,
+    "env": {
+      "FORCE_COLOR": "3"
+    },
+    "args": ["npx", "wonder-wagon-ui", "--version"],
+    "exit": 0,
+    "stdout_bytes": 6,
+    "stderr_bytes": 0
+  },
+  {
+    "name": "unknown",
+    "tty": false,
+    "env": {
+      "FORCE_COLOR": "3"
+    },
+    "args": ["npx", "wonder-wagon-ui", "--json"],
+    "exit": 2,
+    "stdout_bytes": 0,
+    "stderr_bytes": 91
+  }
+]

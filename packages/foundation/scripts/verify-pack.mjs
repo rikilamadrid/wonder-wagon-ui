@@ -23,10 +23,18 @@ const [report] = reports;
 
 const expected = [
   "README.md",
+  "dist/bin.d.ts",
+  "dist/bin.d.ts.map",
+  "dist/bin.js",
+  "dist/bin.js.map",
   "dist/cli.d.ts",
   "dist/cli.d.ts.map",
   "dist/cli.js",
   "dist/cli.js.map",
+  "dist/doorway.d.ts",
+  "dist/doorway.d.ts.map",
+  "dist/doorway.js",
+  "dist/doorway.js.map",
   "dist/index.d.ts",
   "dist/index.d.ts.map",
   "dist/index.js",
@@ -64,6 +72,14 @@ const exportMap = {
 };
 if (JSON.stringify(manifest.exports) !== JSON.stringify(exportMap)) {
   throw new Error(`unexpected export map: ${JSON.stringify(manifest.exports)}`);
+}
+if (JSON.stringify(manifest.bin) !== JSON.stringify({ "wonder-wagon-ui": "./dist/bin.js" })) {
+  throw new Error(`unexpected bin: ${JSON.stringify(manifest.bin)}`);
+}
+for (const hook of ["preinstall", "install", "postinstall", "prepare"]) {
+  if (manifest.scripts?.[hook] !== undefined) {
+    throw new Error(`${hook} must not exist: the doorway runs only when a person asks`);
+  }
 }
 if (JSON.stringify(manifest.sideEffects) !== JSON.stringify(["*.css"])) {
   throw new Error('sideEffects must be exactly ["*.css"] so CSS imports are retained');

@@ -1,0 +1,7 @@
+Wonder Wagon 0.2.0 WW-047
+One family. Different tools.
+
+Pathfinder  PF-047  npx create-pathfinder
+Lorekeeper  LK-047  npx create-lorekeeper
+Forge       FG-047  npm install forge-local-ai-kit
+Lama        draft

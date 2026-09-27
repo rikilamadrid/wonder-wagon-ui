@@ -1,0 +1,2 @@
+wonder-wagon-ui: unknown argument "--json"
+Usage: npx wonder-wagon-ui [--help | --version]
