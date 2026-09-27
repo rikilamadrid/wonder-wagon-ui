@@ -1,5 +1,11 @@
 # wonder-wagon-ui
 
+## 0.3.0
+
+### Minor Changes
+
+- [#11](https://github.com/rikilamadrid/wonder-wagon-ui/pull/11) [`323d9ac`](https://github.com/rikilamadrid/wonder-wagon-ui/commit/323d9accce129640c6e31d1ac67ca4162913f26f) Thanks [@rikilamadrid](https://github.com/rikilamadrid)! - Add the `npx wonder-wagon-ui` family doorway, an opt-in `layout: "responsive"` for CLI identities, and the `paintCliText`/`dimCliText` helpers.
+
 ## 0.2.0
 
 ### Minor Changes
