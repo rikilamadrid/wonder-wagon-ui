@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 240" width="1200" height="240" role="img" aria-labelledby="t d">
+  <title id="t">Wonder Wagon</title>
+  <desc id="d">The Reference Case, a Bench Green enamel case with brass corners and latch, beside the wordmark Wonder Wagon and the line: One family. Different tools. WW-047, Maker 047's bench.</desc>
+  <!-- README header, night. The case is reference-case.svg's drawing, unchanged, scaled; colours are Wonder Wagon material tokens. -->
+  <defs>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C8863A"/><stop offset=".55" stop-color="#A96E2D"/><stop offset="1" stop-color="#6E4519"/></linearGradient>
+    <linearGradient id="enamel" x1=".15" y1="0" x2=".85" y2="1"><stop offset="0" stop-color="#3A7A2C"/><stop offset=".55" stop-color="#285A1C"/><stop offset="1" stop-color="#173A0F"/></linearGradient>
+  </defs>
+  <rect width="1200" height="240" rx="16" fill="#17191C"/>
+  <rect x=".75" y=".75" width="1198.5" height="238.5" rx="15.25" fill="none" stroke="#2C3036" stroke-width="1.5"/>
+  <g transform="translate(92 60) scale(3.6)">
+    <rect x="0" y="4" width="48" height="26" rx="4" fill="#2B2622"/>
+    <rect x="2" y="6" width="44" height="14" rx="2.5" fill="url(#enamel)"/>
+    <rect x="2" y="6" width="44" height="1.2" fill="#FFF7E6" opacity=".3"/>
+    <rect x="10" y="2" width="8" height="3" rx="1" fill="url(#brass)"/><rect x="30" y="2" width="8" height="3" rx="1" fill="url(#brass)"/>
+    <rect x="19" y="9" width="10" height="7" rx="1.5" fill="#101C10"/><rect x="21.5" y="11" width="5" height="3" rx=".5" fill="url(#brass)"/>
+    <rect x="0" y="4" width="6" height="6" fill="url(#brass)"/><rect x="42" y="4" width="6" height="6" fill="url(#brass)"/><rect x="0" y="24" width="6" height="6" fill="url(#brass)"/><rect x="42" y="24" width="6" height="6" fill="#7A5A2A"/>
+    <rect x="19" y="22" width="10" height="5" rx="1" fill="url(#brass)"/><rect x="22" y="20" width="4" height="2" fill="#E2B26A"/>
+  </g>
+  <text x="296" y="138" font-family="Georgia, 'Iowan Old Style', 'Times New Roman', serif" font-size="58" fill="#F7F0DF">Wonder Wagon</text>
+  <rect x="770" y="62" width="1.5" height="116" fill="#34383E"/>
+  <text font-family="Georgia, 'Iowan Old Style', 'Times New Roman', serif" font-style="italic" font-size="34" fill="#F7F0DF">
+    <tspan x="808" y="110">One family.</tspan>
+    <tspan x="808" y="152">Different tools.</tspan>
+  </text>
+  <text x="1108" y="206" text-anchor="end" font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace" font-size="14" font-weight="700" letter-spacing="2" fill="#E2B26A">WW-047 · MAKER 047'S BENCH</text>
+</svg>

@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 586 458" width="586" height="458" role="img" aria-label="The output of npx wonder-wagon-ui at version 0.3.0: the Reference Case on a pull wagon beside WONDER WAGON v0.3.0 · WW-047 and One family. Different tools.; then the roster: Pathfinder PF-047, npx create-pathfinder, trail markers for AI-assisted work; Lorekeeper LK-047, npx create-lorekeeper, You already wrote it down. Find the passage that answers.; Forge FG-047, npm install forge-local-ai-kit, the Local AI Kit; Lama, draft, Running locally. Built by Lamadrid. Made on Maker 047's bench.">
+<!-- Generated from a recorded terminal capture; the bytes are the capture's own.
+     Source: apps/docs/src/evidence/terminal/wonder-wagon/wide.ansi (wonder-wagon-ui@0.3.0, PTY 100 columns, truecolor) -->
+<title>The output of npx wonder-wagon-ui at version 0.3.0: the Reference Case on a pull wagon beside WONDER WAGON v0.3.0 · WW-047 and One family. Different tools.; then the roster: Pathfinder PF-047, npx create-pathfinder, trail markers for AI-assisted work; Lorekeeper LK-047, npx create-lorekeeper, You already wrote it down. Find the passage that answers.; Forge FG-047, npm install forge-local-ai-kit, the Local AI Kit; Lama, draft, Running locally. Built by Lamadrid. Made on Maker 047's bench.</title>
+<rect width="586" height="458" rx="12" fill="#17191C"/>
+<rect x=".5" y=".5" width="585" height="457" rx="11.5" fill="none" stroke="#F7F0DF" stroke-opacity=".14"/>
+<rect x="1" y="39" width="584" height="1" fill="#F7F0DF" opacity=".1"/>
+<circle cx="22" cy="20" r="5" fill="#F7F0DF" opacity=".18"/><circle cx="38" cy="20" r="5" fill="#F7F0DF" opacity=".18"/><circle cx="54" cy="20" r="5" fill="#F7F0DF" opacity=".18"/><text x="566" y="24.5" text-anchor="end" font-family="ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace" font-size="11" letter-spacing=".5" fill="#928F87">npx wonder-wagon-ui@0.3.0</text>
+<g font-family="ui-monospace,'SFMono-Regular','SF Mono',Menlo,Consolas,'Liberation Mono',monospace" font-size="14" fill="#F7F0DF">
+<rect x="65.80" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="70.00" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="74.20" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="78.40" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="82.60" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="86.80" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="91.00" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="95.20" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="99.40" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="103.60" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="107.80" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="112.00" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="116.20" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="120.40" y="62.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="65.80" y="72.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="65.80" y="82.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="70.00" y="72.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="74.20" y="72.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="78.40" y="72.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="82.60" y="72.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="86.80" y="72.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="91.00" y="72.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="91.00" y="82.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="95.20" y="72.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="99.40" y="72.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="95.20" y="82.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="103.60" y="72.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="107.80" y="72.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="112.00" y="72.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="116.20" y="72.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="120.40" y="72.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="120.40" y="82.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<text x="162.4" y="86.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">W</text>
+<text x="179.2" y="86.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">O</text>
+<text x="196.0" y="86.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">N</text>
+<text x="212.8" y="86.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">D</text>
+<text x="229.6" y="86.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">E</text>
+<text x="246.4" y="86.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">R</text>
+<text x="280.0" y="86.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">W</text>
+<text x="296.8" y="86.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">A</text>
+<text x="313.6" y="86.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">G</text>
+<text x="330.4" y="86.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">O</text>
+<text x="347.2" y="86.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">N</text>
+<text x="372.4" y="86.4" fill="#A29E95" textLength="50.4" lengthAdjust="spacingAndGlyphs">v0.3.0</text>
+<text x="431.2" y="86.4" fill="#A29E95" textLength="8.4" lengthAdjust="spacingAndGlyphs">·</text>
+<text x="448.0" y="86.4" fill="#A29E95" textLength="50.4" lengthAdjust="spacingAndGlyphs">WW-047</text>
+<text x="44.8" y="106.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">╲</text>
+<rect x="65.80" y="92.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="65.80" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="70.00" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="74.20" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="78.40" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="82.60" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="86.80" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="91.00" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="95.20" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="99.40" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="103.60" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="107.80" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="112.00" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="116.20" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="120.40" y="92.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<rect x="120.40" y="102.00" width="4.80" height="10.60" fill="#8CBF63"/>
+<text x="162.4" y="106.4" fill="#A29E95" textLength="25.2" lengthAdjust="spacingAndGlyphs">One</text>
+<text x="196.0" y="106.4" fill="#A29E95" textLength="58.8" lengthAdjust="spacingAndGlyphs">family.</text>
+<text x="263.2" y="106.4" fill="#A29E95" textLength="75.6" lengthAdjust="spacingAndGlyphs">Different</text>
+<text x="347.2" y="106.4" fill="#A29E95" textLength="50.4" lengthAdjust="spacingAndGlyphs">tools.</text>
+<text x="53.2" y="126.4" fill="#E2B26A" textLength="8.4" lengthAdjust="spacingAndGlyphs">╲</text>
+<rect x="65.80" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="61.60" y="122.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="65.80" y="122.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="70.00" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="74.20" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="78.40" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="82.60" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="86.80" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="91.00" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="95.20" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="99.40" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="103.60" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="107.80" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="112.00" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="116.20" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="120.40" y="112.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="120.40" y="122.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="124.60" y="122.00" width="4.80" height="10.60" fill="#A29E95"/>
+<rect x="70.00" y="132.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="74.20" y="132.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="74.20" y="142.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="78.40" y="132.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="82.60" y="132.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="78.40" y="142.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="103.60" y="132.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="107.80" y="132.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="107.80" y="142.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="112.00" y="132.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="116.20" y="132.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<rect x="112.00" y="142.00" width="4.80" height="10.60" fill="#E2B26A"/>
+<text x="44.8" y="186.4" fill="#E0611F" textLength="16.8" lengthAdjust="spacingAndGlyphs">━━</text>
+<text x="78.4" y="186.4" fill="#E0611F" textLength="84.0" lengthAdjust="spacingAndGlyphs">Pathfinder</text>
+<text x="179.2" y="186.4" fill="#A29E95" textLength="50.4" lengthAdjust="spacingAndGlyphs">PF-047</text>
+<text x="246.4" y="186.4" textLength="25.2" lengthAdjust="spacingAndGlyphs">npx</text>
+<text x="280.0" y="186.4" textLength="142.8" lengthAdjust="spacingAndGlyphs">create-pathfinder</text>
+<text x="78.4" y="206.4" fill="#A29E95" textLength="42.0" lengthAdjust="spacingAndGlyphs">trail</text>
+<text x="128.8" y="206.4" fill="#A29E95" textLength="58.8" lengthAdjust="spacingAndGlyphs">markers</text>
+<text x="196.0" y="206.4" fill="#A29E95" textLength="25.2" lengthAdjust="spacingAndGlyphs">for</text>
+<text x="229.6" y="206.4" fill="#A29E95" textLength="92.4" lengthAdjust="spacingAndGlyphs">AI-assisted</text>
+<text x="330.4" y="206.4" fill="#A29E95" textLength="33.6" lengthAdjust="spacingAndGlyphs">work</text>
+<text x="44.8" y="246.4" fill="#E2B45C" textLength="8.4" lengthAdjust="spacingAndGlyphs">✦</text>
+<text x="78.4" y="246.4" fill="#E2B45C" textLength="84.0" lengthAdjust="spacingAndGlyphs">Lorekeeper</text>
+<text x="179.2" y="246.4" fill="#A29E95" textLength="50.4" lengthAdjust="spacingAndGlyphs">LK-047</text>
+<text x="246.4" y="246.4" textLength="25.2" lengthAdjust="spacingAndGlyphs">npx</text>
+<text x="280.0" y="246.4" textLength="142.8" lengthAdjust="spacingAndGlyphs">create-lorekeeper</text>
+<text x="78.4" y="266.4" fill="#A29E95" textLength="25.2" lengthAdjust="spacingAndGlyphs">You</text>
+<text x="112.0" y="266.4" fill="#A29E95" textLength="58.8" lengthAdjust="spacingAndGlyphs">already</text>
+<text x="179.2" y="266.4" fill="#A29E95" textLength="42.0" lengthAdjust="spacingAndGlyphs">wrote</text>
+<text x="229.6" y="266.4" fill="#A29E95" textLength="16.8" lengthAdjust="spacingAndGlyphs">it</text>
+<text x="254.8" y="266.4" fill="#A29E95" textLength="42.0" lengthAdjust="spacingAndGlyphs">down.</text>
+<text x="305.2" y="266.4" fill="#A29E95" textLength="33.6" lengthAdjust="spacingAndGlyphs">Find</text>
+<text x="347.2" y="266.4" fill="#A29E95" textLength="25.2" lengthAdjust="spacingAndGlyphs">the</text>
+<text x="380.8" y="266.4" fill="#A29E95" textLength="58.8" lengthAdjust="spacingAndGlyphs">passage</text>
+<text x="448.0" y="266.4" fill="#A29E95" textLength="33.6" lengthAdjust="spacingAndGlyphs">that</text>
+<text x="490.0" y="266.4" fill="#A29E95" textLength="67.2" lengthAdjust="spacingAndGlyphs">answers.</text>
+<rect x="49.00" y="292.00" width="4.80" height="10.60" fill="#C8973F"/>
+<rect x="49.00" y="302.00" width="4.80" height="10.60" fill="#C8973F"/>
+<rect x="53.20" y="292.00" width="4.80" height="10.60" fill="#C8973F"/>
+<rect x="57.40" y="292.00" width="4.80" height="10.60" fill="#C8973F"/>
+<rect x="53.20" y="302.00" width="4.80" height="10.60" fill="#C8973F"/>
+<rect x="57.40" y="302.00" width="4.80" height="10.60" fill="#C8973F"/>
+<text x="78.4" y="306.4" fill="#C8973F" textLength="42.0" lengthAdjust="spacingAndGlyphs">Forge</text>
+<text x="179.2" y="306.4" fill="#A29E95" textLength="50.4" lengthAdjust="spacingAndGlyphs">FG-047</text>
+<text x="246.4" y="306.4" textLength="25.2" lengthAdjust="spacingAndGlyphs">npm</text>
+<text x="280.0" y="306.4" textLength="58.8" lengthAdjust="spacingAndGlyphs">install</text>
+<text x="347.2" y="306.4" textLength="151.2" lengthAdjust="spacingAndGlyphs">forge-local-ai-kit</text>
+<text x="78.4" y="326.4" fill="#A29E95" textLength="25.2" lengthAdjust="spacingAndGlyphs">the</text>
+<text x="112.0" y="326.4" fill="#A29E95" textLength="42.0" lengthAdjust="spacingAndGlyphs">Local</text>
+<text x="162.4" y="326.4" fill="#A29E95" textLength="16.8" lengthAdjust="spacingAndGlyphs">AI</text>
+<text x="187.6" y="326.4" fill="#A29E95" textLength="25.2" lengthAdjust="spacingAndGlyphs">Kit</text>
+<text x="44.8" y="366.4" fill="#43BD91" textLength="16.8" lengthAdjust="spacingAndGlyphs">╱╲</text>
+<text x="78.4" y="366.4" fill="#43BD91" textLength="33.6" lengthAdjust="spacingAndGlyphs">Lama</text>
+<text x="179.2" y="366.4" fill="#A29E95" textLength="42.0" lengthAdjust="spacingAndGlyphs">draft</text>
+<text x="78.4" y="386.4" fill="#A29E95" textLength="58.8" lengthAdjust="spacingAndGlyphs">Running</text>
+<text x="145.6" y="386.4" fill="#A29E95" textLength="67.2" lengthAdjust="spacingAndGlyphs">locally.</text>
+<text x="221.2" y="386.4" fill="#A29E95" textLength="42.0" lengthAdjust="spacingAndGlyphs">Built</text>
+<text x="271.6" y="386.4" fill="#A29E95" textLength="16.8" lengthAdjust="spacingAndGlyphs">by</text>
+<text x="296.8" y="386.4" fill="#A29E95" textLength="75.6" lengthAdjust="spacingAndGlyphs">Lamadrid.</text>
+<text x="44.8" y="426.4" fill="#A29E95" textLength="33.6" lengthAdjust="spacingAndGlyphs">Made</text>
+<text x="86.8" y="426.4" fill="#A29E95" textLength="16.8" lengthAdjust="spacingAndGlyphs">on</text>
+<text x="112.0" y="426.4" fill="#A29E95" textLength="42.0" lengthAdjust="spacingAndGlyphs">Maker</text>
+<text x="162.4" y="426.4" fill="#A29E95" textLength="42.0" lengthAdjust="spacingAndGlyphs">047's</text>
+<text x="212.8" y="426.4" fill="#A29E95" textLength="50.4" lengthAdjust="spacingAndGlyphs">bench.</text>
+</g>
+</svg>
