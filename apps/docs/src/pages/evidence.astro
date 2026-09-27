@@ -1,0 +1,114 @@
+---
+import Badge from "../components/Badge.astro";
+import Base from "../layouts/Base.astro";
+import { date, drafts, released, short, sites, terminal } from "../lib/data";
+
+const repo = "https://github.com/rikilamadrid/wonder-wagon-ui/tree/main/apps/docs";
+---
+<Base title="Evidence" description="Release evidence for the four public Wonder Wagon packages: versions, dates, commits, provenance, generator pins and integration measurements, read from npm and GitHub.">
+  <header class="page-head">
+    <span class="eyebrow">Evidence</span>
+    <h1>Released, not mocked</h1>
+    <p class="lede">Four public npm packages. Trusted-publishing provenance where the release process provides it; Forge follows its documented manual release process and has none. Everything below is read from npm and GitHub at a pinned version and commit, committed, and checked against the public record.</p>
+  </header>
+
+  <section class="section" aria-labelledby="packages">
+    <header>
+      <span class="eyebrow">Packages</span>
+      <h2 id="packages">The public record</h2>
+    </header>
+    <div class="table-card" tabindex="0" role="region" aria-label="Package release record">
+      <table>
+        <thead>
+          <tr><th scope="col">Package</th><th scope="col">Version</th><th scope="col">Published</th><th scope="col">Release commit</th><th scope="col">Provenance</th><th scope="col">Generator pin</th><th scope="col">Integration depth</th></tr>
+        </thead>
+        <tbody>
+          {released.map((p) => (
+            <tr>
+              <td><span class="serial muted">{p.serial}</span><br /><a href={p.npm}><code>{p.package}</code></a></td>
+              <td class="num">{p.version}</td>
+              <td class="num">{date(p.publishedAt)}</td>
+              <td><a href={`${p.repository}/commit/${p.release.commit}`}><code>{short(p.release.commit)}</code></a><br /><a href={p.release.url}>{p.release.tag}</a></td>
+              <td>
+                {p.provenance.status === "attested"
+                  ? <><Badge kind="attested">SLSA v1</Badge><br /><a href={p.provenance.source}><code>{p.provenance.workflow}</code></a></>
+                  : <><Badge kind="none" /><br /><a href={p.provenance.source}>Manual release</a></>}
+              </td>
+              <td class="num">{p.generator.self ? "is the generator" : <a href={p.generator.url}>{p.generator.version}</a>}</td>
+              <td>{p.integration.label}</td>
+            </tr>
+          ))}
+          {drafts.map((d) => (
+            <tr><td>{d.name}</td><td colspan="6"><Badge kind="draft">Draft · unreleased</Badge> {d.integration.label}. Private repository; no public version.</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      {released.map((p) => (
+        <li><strong>{p.name}</strong>: npm integrity <code style="overflow-wrap:anywhere">{p.integrity}</code>{p.gitHead ? <>, <code>gitHead</code> {short(p.gitHead)} matches the tag</> : <>, no <code>gitHead</code> recorded by the manual publish</>}.</li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="provenance">
+    <header>
+      <span class="eyebrow">Provenance</span>
+      <h2 id="provenance">Who built each tarball</h2>
+    </header>
+    <div class="cols-2">
+      {released.map((p) => (
+        <div class="card">
+          <h3>{p.name}</h3>
+          {p.provenance.status === "attested" ? (
+            <p>Built by GitHub Actions from <code>{p.provenance.workflow}</code> on <code>{p.provenance.workflowRef}</code>, source commit <code>{short(p.provenance.sourceCommit ?? "")}</code>, which is the release tag's commit. <a href={p.provenance.source}>Attestation</a>.</p>
+          ) : (
+            <p>{p.provenance.note} <a href={p.provenance.source}>RELEASING.md at the release commit</a>.</p>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="captures">
+    <header>
+      <span class="eyebrow">Terminal captures</span>
+      <h2 id="captures">{terminal.captures.length} captures from the public packages</h2>
+      <p class="lede">{terminal.about}</p>
+    </header>
+    <div class="table-card" tabindex="0" role="region" aria-label="Terminal capture record">
+      <table>
+        <thead><tr><th scope="col">Package</th><th scope="col">Command</th><th scope="col">Tiers</th><th scope="col">Installed integrity</th></tr></thead>
+        <tbody>{terminal.products.map((p) => (
+          <tr>
+            <td><code>{p.package}@{p.version}</code></td>
+            <td><code>{["npx", `${p.package}@${p.version}`, ...p.args].join(" ")}</code><br /><span class="muted">{p.why}</span></td>
+            <td>{terminal.captures.filter((c) => c.product === p.id).map((c) => c.tier).join(", ")}</td>
+            <td><code style="overflow-wrap:anywhere">{p.integrity.slice(0, 22)}…</code></td>
+          </tr>
+        ))}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="shots">
+    <header>
+      <span class="eyebrow">Site screenshots</span>
+      <h2 id="shots">{sites.shots.length} screenshots of the live sites</h2>
+      <p class="lede">{sites.about} Captured {sites.capturedOn}. Lama has no public site and isn't shown.</p>
+    </header>
+  </section>
+
+  <section class="section" aria-labelledby="regenerate">
+    <header>
+      <span class="eyebrow">Reproduce it</span>
+      <h2 id="regenerate">Every evidence file has a script that made it</h2>
+    </header>
+    <pre tabindex="0" aria-label="Commands that regenerate and check the evidence"><code>node apps/docs/scripts/evidence.mjs --check          # npm + GitHub, pinned versions
+python3 apps/docs/scripts/capture-terminal.py --check  # installs the public packages, recaptures
+docker run --rm -v "$PWD:/work" -w /work \
+  mcr.microsoft.com/playwright:v1.63.0-noble \
+  node apps/docs/scripts/capture-sites.mjs             # live sites, reference renderer</code></pre>
+    <p>The registry facts and terminal captures can be re-read and compared with <code>--check</code>. Live sites change, so screenshots are dated rather than re-checked. The catalog build reads only the committed files, and CI checks every manifest against the bytes it describes. <a href={`${repo}/scripts`}>The scripts</a> · <a href={`${repo}/src/evidence`}>the evidence files</a>.</p>
+  </section>
+</Base>

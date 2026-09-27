@@ -21,10 +21,11 @@ decision room approved twelve decisions on 2026-09-23. The decisions are recorde
 
 ## Technology
 
-Bun workspaces · TypeScript 7 · React 19 · Vite 8 · Storybook 10 (react-vite, addon-vitest,
-addon-a11y) · Vitest 4 with Playwright browser mode · Playwright for visual snapshots ·
-Biome · Changesets · GitHub Actions · npm trusted publishing (OIDC + provenance) · Vercel
-for docs · GitHub Pages for Storybook. Tests run under Node; Bun installs and runs scripts.
+Bun workspaces · TypeScript 7 · React 19 · Vite 8 · Astro 7 · Storybook 10 (react-vite,
+addon-vitest, addon-a11y) · Vitest 4 with Playwright browser mode · Playwright for visual
+snapshots · Biome · Changesets · GitHub Actions · npm trusted publishing (OIDC +
+provenance) · GitHub Pages for the catalog and Storybook, one artifact (D13). Tests run
+under Node; Bun installs and runs scripts.
 
 ## Commands
 
@@ -34,7 +35,7 @@ bun run build               tokens → themes → ui
 bun run check               typecheck + lint + token/theme gates + Pathfinder proof
 bun run test                gates and unit tests (tokens, themes, ui)
 bun run storybook           the workshop at :6006
-bun run docs                the drafting room at :4321
+bun run docs                the catalog at :4321/wonder-wagon-ui/
 cd apps/storybook && bun run test      every story as a browser test with axe
 cd apps/storybook && bun run visual    Playwright snapshots against the built Storybook
 bun run changeset           record a release note
@@ -83,7 +84,23 @@ Budgets live in `packages/ui/package.json` under `size-limit` and only ratchet d
 ## Human-only actions
 
 GitHub repository settings and branch protection; the `wonder-wagon` npm organisation;
-trusted-publisher configuration per package after its first publish; the Vercel project
-for `apps/docs` (root directory `apps/docs`, include files outside root); GitHub Pages
-enabled for the `storybook-pages` workflow (Settings → Pages → Build and deployment →
-Source: GitHub Actions, then re-run the workflow); the docs domain (D10, deferred).
+trusted-publisher configuration per package after its first publish; GitHub Pages
+enabled for the `pages` workflow (Settings → Pages → Build and deployment → Source: GitHub
+Actions). There is no Vercel project (D13).
+
+## Catalog evidence
+
+The catalog reads committed evidence only; nothing in its build touches the network.
+Refresh and check it with:
+
+```
+node apps/docs/scripts/evidence.mjs [--check]           npm + GitHub facts at pinned versions
+python3 apps/docs/scripts/capture-terminal.py [--check] PTY captures of the public packages
+docker run --rm -v "$PWD:/work" -w /work mcr.microsoft.com/playwright:v1.63.0-noble \
+  node apps/docs/scripts/capture-sites.mjs              live product-site screenshots
+cd apps/docs && bun run test                            offline: files match their manifests
+```
+
+Catalog visual baselines live in `apps/docs/tests/__screenshots__` and are generated in the
+same Playwright image as the Storybook baselines, against the assembled Pages artifact
+(`bun run build` in `apps/docs` and `apps/storybook`, then `bun run pages` in `apps/docs`).

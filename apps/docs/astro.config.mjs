@@ -1,19 +1,14 @@
 // @ts-check
-import react from "@astrojs/react";
 import { defineConfig } from "astro/config";
 
-// The deployed origin. D10 deferred the custom domain: the site initially answers at its
-// generated Vercel URL, which Vercel exposes at build time. A custom domain later means
-// setting SITE_URL once; nothing else in the site knows the host.
-const site =
-  process.env.SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:4321");
-
+// The Wonder Wagon Catalog. One GitHub Pages artifact serves the catalog at the base and
+// the Storybook laboratory under it at /storybook/ (decision D13, superseding D10's
+// Vercel docs). SITE_URL and BASE_PATH override the Pages origin for a local preview.
 export default defineConfig({
-  site,
+  site: process.env.SITE_URL ?? "https://rikilamadrid.github.io",
+  base: process.env.BASE_PATH ?? "/wonder-wagon-ui",
+  trailingSlash: "always",
   output: "static",
-  integrations: [react()],
+  build: { format: "directory" },
   vite: { server: { fs: { allow: ["../.."] } } },
 });

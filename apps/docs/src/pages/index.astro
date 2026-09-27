@@ -1,62 +1,144 @@
 ---
-import { themes } from "@wonder-wagon/themes";
-import ReferenceCase from "../components/ReferenceCase.astro";
-import { FirstScreen } from "../islands/FirstScreen";
+import Badge from "../components/Badge.astro";
+import ProductCard from "../components/ProductCard.astro";
+import Terminal from "../components/Terminal.astro";
 import Base from "../layouts/Base.astro";
+import { total } from "../lib/contrast";
+import {
+  byId,
+  COLUMNS,
+  depthRow,
+  drafts,
+  ORDER,
+  released,
+  storybook,
+  terminal,
+  url,
+} from "../lib/data";
 
-const products = [themes.pathfinder, themes.forge, themes.lorekeeper, themes.lama];
+const family = ORDER.map(byId);
+const identityLines: Record<string, number> = {
+  "wonder-wagon": 6,
+  pathfinder: 5,
+  lorekeeper: 6,
+  forge: 5,
+};
+// At 40 columns each product takes its narrow form; Pathfinder keeps its frozen one-line fallback.
+const narrowLines: Record<string, number> = {
+  "wonder-wagon": 10,
+  pathfinder: 1,
+  lorekeeper: 11,
+  forge: 9,
+};
+const rows = (["pathfinder", "lorekeeper", "forge", "lama"] as const).map((id) => ({
+  id,
+  name: id === "lama" ? "Lama" : byId(id).name,
+  cells: depthRow(id),
+}));
+const attested = released.filter((p) => p.provenance.status === "attested").length;
 ---
-<Base title="Wonder Wagon UI" description="A tokens-first design system for the Wonder Wagon family of tools: framework-neutral tokens, product themes, and React components as one consumer among several.">
-  <section class="hero">
-    <div class="stack">
-      <span class="plate muted">Wonder Wagon UI · reference objects · v0.1</span>
-      <h1>Reference objects for a family of magical tools.</h1>
-      <p class="muted" style="font-size:var(--ww-text-2)">A tokens-first design system. The contract is framework-neutral CSS and JSON; React is one consumer of it, beside a Node CLI and three Astro sites. Four products keep their own identities by filling six slots.</p>
-      <div class="row">
-        <a class="chip" href="/start"><i style="background:var(--ww-accent)"></i>Get started</a>
-        <a class="chip" href="/storybook/"><i style="background:var(--ww-m-night)"></i>Open the workshop</a>
-        <a class="chip" href="https://github.com/rikilamadrid/wonder-wagon-ui"><i style="background:var(--ww-metal)"></i>GitHub</a>
-      </div>
+<Base
+  title="Wonder Wagon Catalog"
+  description="One family. Different tools. How one small design system serves four released developer tools, standardizing only what the products have proven they share."
+>
+  <section class="showroom" aria-labelledby="hero">
+    <div class="showroom__head">
+      <span class="eyebrow">Wonder Wagon · Maker 047's bench</span>
+      <h1 id="hero">One family. Different tools.</h1>
+      <p class="thesis">Wonder Wagon standardizes only what real products have proven they share, and deliberately leaves the rest to each product.</p>
+      <p class="lede">These are four released command-line tools, captured from their public npm packages. Same grammar, same fallbacks, same serial scheme. Different marks, colours and jobs.</p>
     </div>
-    <div class="stage"><ReferenceCase /><span class="label plate">Reference Case · sketch · WW-047</span></div>
-  </section>
-
-  <section class="stack-lg">
-    <div class="section-plate"><h2>Who uses it</h2><span class="rule"></span><span class="plate muted">Four products, one bench</span></div>
-    <div class="grid-3">
-      {products.map((t) => (
-        <div class="card" style={`--ww-accent:${t.accent.day};--ww-accent-ink:${t.accentInk.day};--ww-link:${t.link.day};--ww-signal:${t.signal.day};--ww-signal-edge:${t.signalEdge.day}`}>
-          <div class="row"><span style={`width:1.1rem;height:1.1rem;border-radius:${t.radiusObject};background:linear-gradient(160deg,${t.enamel.night},${t.enamel.day});box-shadow:0 0 0 2px var(--ww-metal)`}></span><h3 style="font-size:var(--ww-text-2)">{t.name}</h3></div>
-          <span class="plate muted" style="font-size:.625rem">{t.serial}-047 · {t.status}</span>
-          <p class="muted" style="font-size:var(--ww-text-0)">{t.product}</p>
-          <p style="font-size:var(--ww-text-0)">Consumes {t.id === "lama" ? "tokens, theme and React components" : "tokens and its theme, regenerated into its own files — no React"}.</p>
-        </div>
+    <div class="family family--wide">
+      {family.map((p) => (
+        <Terminal product={p.id} lines={identityLines[p.id]} label={`${p.name} identity, captured from ${p.package}@${p.version}`} />
+      ))}
+    </div>
+    <div class="family family--narrow">
+      {family.map((p) => (
+        <Terminal product={p.id} tier="narrow" lines={narrowLines[p.id]} label={`${p.name} identity at 40 columns, captured from ${p.package}@${p.version}`} />
       ))}
     </div>
   </section>
 
-  <section class="stack-lg">
-    <div class="section-plate"><h2>Ten lines, doing a real job</h2><span class="rule"></span><span class="plate muted">Phase A · six components</span></div>
-    <div class="grid-2">
-      <FirstScreen client:load />
-      <div class="card">
-        <span class="tag">How it was engineered</span>
-        <ol style="font-size:var(--ww-text-0)">
-          <li><a href="/engineering#tokens-first"><b>Tokens first.</b></a> One source; CSS, TypeScript, DTCG and a contrast record are generated from it, and a stale output fails the build.</li>
-          <li><a href="/engineering#one-rule"><b>One rule for components.</b></a> They read the semantic tier only. A grep-based gate fails any stylesheet that carries a hex, an rgb() or a material variable.</li>
-          <li><a href="/theming"><b>Six slots per product.</b></a> A theme fills accent, link and signal, plus its enamel and object radius, and nothing the family owns.</li>
-          <li><a href="/products#pathfinder"><b>Proven against a shipped product.</b></a> Pathfinder's hand-written semantic block regenerates declaration for declaration.</li>
-          <li><a href="/products#forge"><b>Proven without React.</b></a> Forge, a Node CLI, commits a generated identity module and checks it for drift.</li>
-          <li><a href="/engineering#gates"><b>Eleven gates.</b></a> Types, lint, contrast, stories in a real browser with axe, snapshots, exports, budgets, drift, builds.</li>
-        </ol>
+  <section class="section" aria-labelledby="split">
+    <header>
+      <span class="eyebrow">What the family shares, and what it doesn't</span>
+      <h2 id="split">A small shared core. Everything else is the product's.</h2>
+    </header>
+    <div class="ledger">
+      <div class="card shared">
+        <h3>Shared: Wonder Wagon owns it</h3>
+        <ul>
+          <li>The terminal grammar<small>Mark beside a letterspaced name, version then serial, tagline below.</small></li>
+          <li>Capability and fallback rules<small>Truecolor → 256 → 16 colours, NO_COLOR, WW_ASCII, TERM=dumb, narrow widths, silent when piped.</small></li>
+          <li>Selected semantic foundations<small>Spacing, focus, reading measure, quiet shadows, where products agreed on the values.</small></li>
+          <li>The theme contract<small>Six colour slots, an enamel, an object radius and a serial per product.</small></li>
+        </ul>
+      </div>
+      <div class="card owned">
+        <h3>Owned: each product keeps it</h3>
+        <ul>
+          <li>Marks and hero objects<small>The trail mark and atlascope, the four-point star, the furnace.</small></li>
+          <li>Product metaphors<small>A field manual, a reading room, a smithy.</small></li>
+          <li>Product grounds, where ruled<small>Forge's Iron night and Lorekeeper's parchment and indigo are theirs.</small></li>
+          <li>Typography differences<small>Forge's web fonts; Lorekeeper's larger reading scale.</small></li>
+          <li>Product-specific UI<small>Navigation, diagrams, docs chrome and everything else no second product has proven.</small></li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section class="stack">
-    <div class="section-plate"><h2>Install</h2><span class="rule"></span></div>
-    <pre><code>npm install @wonder-wagon/tokens @wonder-wagon/themes        # any product, no React
-npm install @wonder-wagon/ui react react-dom                 # a React product</code></pre>
-    <p class="muted" style="font-size:var(--ww-text-0)">Not yet published. The first release lands after the Feature 05 review gate.</p>
+  <section class="section" aria-labelledby="products">
+    <header>
+      <span class="eyebrow">Released tools</span>
+      <h2 id="products">Four public packages</h2>
+    </header>
+    <div class="cards">
+      {family.map((p) => <ProductCard product={p} />)}
+      {drafts.map((d) => (
+        <article class="pcard" data-draft>
+          <span class="serial muted">No serial yet</span>
+          <h3>{d.name}</h3>
+          <Badge kind="draft">Draft · unreleased</Badge>
+          <p class="role">{d.role}</p>
+          <p class="role muted">Private repository. Nothing published, so nothing here to verify yet.</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="depth">
+    <header>
+      <span class="eyebrow">Integration depth</span>
+      <h2 id="depth">Not every product uses every layer</h2>
+      <p class="lede">Measured at each product's release commit. Pathfinder goes deepest; Forge takes only the terminal identity; the React components have no production consumer yet.</p>
+    </header>
+    <div class="table-card" tabindex="0" role="region" aria-label="Integration depth by product">
+      <table class="depth">
+        <thead><tr><th scope="col">Product</th>{COLUMNS.map((c) => <th scope="col">{c}</th>)}</tr></thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr>
+              <th scope="row">{r.id === "lama" ? <>Lama <span class="muted">(draft)</span></> : <a href={url(`products/${r.id}`)}>{r.name}</a>}</th>
+              {r.cells.map((c) => <td><span class="state" data-state={c.state}>{c.text}</span></td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="proof">
+    <header>
+      <span class="eyebrow">Released, not mocked</span>
+      <h2 id="proof">Every claim here has a receipt</h2>
+    </header>
+    <div class="facts">
+      <div class="fact"><b class="num">{released.length}</b><span>public npm packages</span></div>
+      <div class="fact"><b class="num">{attested} of {released.length}</b><span>with trusted-publishing provenance; Forge follows its documented manual release</span></div>
+      <div class="fact"><b class="num">{terminal.captures.length}</b><span>terminal captures from those packages</span></div>
+      <div class="fact"><b class="num">{total}</b><span>colour pairings measured on every build, none failing</span></div>
+    </div>
+    <p class="row"><a href={url("evidence")}>See the evidence</a><span aria-hidden="true">·</span><a href={url("terminal")}>The terminal family</a><span aria-hidden="true">·</span><a href={storybook()}>Open the Storybook laboratory</a></p>
   </section>
 </Base>

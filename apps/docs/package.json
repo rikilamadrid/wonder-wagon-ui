@@ -13,21 +13,23 @@
     "evidence:check": "node scripts/evidence.mjs --check",
     "capture:terminal": "python3 scripts/capture-terminal.py",
     "capture:terminal:check": "python3 scripts/capture-terminal.py --check",
-    "capture:sites": "node scripts/capture-sites.mjs"
+    "capture:sites": "node scripts/capture-sites.mjs",
+    "pages": "node scripts/assemble-pages.mjs",
+    "pages:check": "node scripts/check-pages.mjs",
+    "visual": "playwright test",
+    "visual:update": "playwright test --update-snapshots"
   },
   "dependencies": {
-    "@astrojs/react": "7.0.0",
     "@wonder-wagon/themes": "0.1.0",
     "@wonder-wagon/tokens": "0.1.0",
-    "@wonder-wagon/ui": "0.1.0",
-    "astro": "7.3.4",
-    "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "astro": "7.3.4"
   },
   "devDependencies": {
-    "@types/react": "19.3.0",
-    "@types/react-dom": "19.3.0",
+    "@playwright/test": "1.63.0",
+    "axe-core": "4.13.0",
+    "http-server": "^14.1.1",
     "playwright": "1.63.0",
     "typescript": "7.0.2"
-  }
+  },
+  "description": "The Wonder Wagon Catalog: the family's public front door, deployed with Storybook as one GitHub Pages artifact."
 }

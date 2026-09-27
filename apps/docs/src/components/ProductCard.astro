@@ -1,0 +1,22 @@
+---
+import { type Released, themeOf, url } from "../lib/data";
+
+interface Props {
+  product: Released;
+}
+const { product } = Astro.props;
+const theme = themeOf(product.id);
+const host = product.site ? new URL(product.site).host : null;
+const page = product.id === "wonder-wagon" ? url("terminal") : url(`products/${product.id}`);
+---
+<article class="pcard" style={`--enamel:${theme.enamel.day}`}>
+  <span class="serial muted">{product.serial}</span>
+  <h3><a href={page}>{product.name}</a></h3>
+  <p class="role">{product.role}</p>
+  <dl>
+    <dt>npm</dt><dd><a href={product.npm}><code>{product.package}@{product.version}</code></a></dd>
+    <dt>Depth</dt><dd>{product.integration.label}</dd>
+    {host && <><dt>Site</dt><dd><a href={product.site}>{host}</a></dd></>}
+  </dl>
+  <div class="links"><a href={product.repository}>Repository</a><a href={page}>{product.id === "wonder-wagon" ? "The family grammar" : "Product page"}</a></div>
+</article>

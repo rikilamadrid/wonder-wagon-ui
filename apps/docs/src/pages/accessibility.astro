@@ -1,0 +1,103 @@
+---
+import Base from "../layouts/Base.astro";
+import { failing, themePairs, tokenPairs, total } from "../lib/contrast";
+import { storybook, themeOf } from "../lib/data";
+
+const released = ["wonder-wagon", "pathfinder", "lorekeeper", "forge"];
+const shownThemes = themePairs.filter((p) => released.includes(p.theme));
+const byTheme = released.map((id) => ({
+  id,
+  name: themeOf(id).name,
+  rows: shownThemes.filter((p) => p.theme === id),
+}));
+const kinds = ["text", "non-text", "decorative", "seam"].map((kind) => ({
+  kind,
+  n: tokenPairs.filter((p) => p.kind === kind).length,
+}));
+const fmt = (r: number | null) => (r === null ? "—" : r.toFixed(2));
+---
+<Base title="Accessibility" description="What the Wonder Wagon contrast gate and browser tests check automatically, what they cover, and what is still checked by hand.">
+  <header class="page-head">
+    <span class="eyebrow">Accessibility</span>
+    <h1>Measured, and honest about the rest</h1>
+    <p class="lede">Every colour pairing the system declares is measured on every build with the WCAG 2.x formula, and a failing pair fails the build. That proves the declared pairs clear their bars. It doesn't prove a product is accessible.</p>
+  </header>
+
+  <section class="facts" aria-label="Contrast gate">
+    <div class="fact"><b class="num">{total}</b><span>pairings measured on every build</span></div>
+    <div class="fact"><b class="num">{failing}</b><span>failing</span></div>
+    <div class="fact"><b class="num">{tokenPairs.length}</b><span>family token pairings, both environments</span></div>
+    <div class="fact"><b class="num">{themePairs.length}</b><span>theme slot pairings, five themes</span></div>
+  </section>
+
+  <section class="section" aria-labelledby="bars">
+    <header>
+      <span class="eyebrow">Automated</span>
+      <h2 id="bars">What the gate checks</h2>
+    </header>
+    <div class="cols-2">
+      <div class="stack">
+        <h3>Contrast</h3>
+        <ul>
+          <li>Text pairs at 4.5:1, non-text at 3:1. {kinds.map((k) => `${k.n} ${k.kind}`).join(" · ")} among the family pairings.</li>
+          <li>Decorative pairs (a card against its page) are measured and reported, never used as the only signal.</li>
+          <li>Each product theme's slots are measured on the family grounds in both environments.</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <h3>In a real browser</h3>
+        <ul>
+          <li>Every Storybook story renders in Chromium with axe in error mode; a violation fails CI.</li>
+          <li>Keyboard walkthroughs as play functions: Tab, Space and Enter, asserting state, names and focus.</li>
+          <li>Every catalog page is checked with axe in both environments at desktop and phone widths, and fails CI on a violation.</li>
+          <li>Focus rings follow the ground: ink on paper, pale in the dark. Controls are 44px tall by token. Reduced motion collapses durations.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="manual">
+    <header>
+      <span class="eyebrow">By hand</span>
+      <h2 id="manual">What no gate covers</h2>
+    </header>
+    <ul>
+      <li>A screen-reader pass, 200% zoom at 320px, and <code>forced-colors</code>, where the depth stacks vanish and borders must carry the shape. Per release, by a person.</li>
+      <li>Colours a product uses outside the contract. Lorekeeper's and Forge's own site palettes are measured in their own repositories, not here.</li>
+      <li>Terminals on a light background: the grammar can't detect one, so accent contrast there isn't guaranteed. <code>NO_COLOR=1</code> is the escape.</li>
+      <li>Whether any of it reads well. That's a judgement, not a number.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="records">
+    <header>
+      <span class="eyebrow">The records</span>
+      <h2 id="records">Every theme pairing, measured</h2>
+    </header>
+    {byTheme.map((t) => (
+      <details class="tier">
+        <summary>{t.name}<span>{t.rows.length} pairings · {t.rows.filter((r) => !r.passes).length} failing</span></summary>
+        <div class="table-card" tabindex="0" role="region" aria-label={`Theme pairings for {t.name}`}>
+          <table>
+            <thead><tr><th scope="col">Env</th><th scope="col">Rule</th><th scope="col">Colour</th><th scope="col">On</th><th scope="col">Ratio</th><th scope="col">Bar</th></tr></thead>
+            <tbody>{t.rows.map((r) => (
+              <tr><td>{r.env}</td><td>{r.rule}</td><td><code>{r.fg}</code></td><td><code>{r.on}</code></td><td class="num">{fmt(r.ratio)}</td><td class="num">{r.bar ? r.bar.toFixed(1) : "measured"}</td></tr>
+            ))}</tbody>
+          </table>
+        </div>
+      </details>
+    ))}
+    <details class="tier">
+      <summary>Family tokens<span>{tokenPairs.length} pairings · {tokenPairs.filter((r) => !r.passes).length} failing</span></summary>
+      <div class="table-card" tabindex="0" role="region" aria-label="Family token pairings">
+        <table>
+          <thead><tr><th scope="col">Env</th><th scope="col">Colour</th><th scope="col">On</th><th scope="col">Kind</th><th scope="col">Ratio</th><th scope="col">Bar</th></tr></thead>
+          <tbody>{tokenPairs.map((r) => (
+            <tr><td>{r.env}</td><td><code>{r.fg} {r.fgHex}</code></td><td><code>{r.on} {r.onHex}</code></td><td>{r.kind}</td><td class="num">{fmt(r.ratio)}</td><td class="num">{r.bar ? r.bar.toFixed(1) : "measured"}</td></tr>
+          ))}</tbody>
+        </table>
+      </div>
+    </details>
+    <p><a href={storybook("?path=/docs/accessibility-what-is-gated--docs")}>The gate as the laboratory describes it</a></p>
+  </section>
+</Base>

@@ -1,0 +1,11 @@
+---
+import Base from "../layouts/Base.astro";
+import { url } from "../lib/data";
+---
+<Base title="Not found" description="This page is not in the Wonder Wagon Catalog.">
+  <header class="page-head">
+    <span class="eyebrow">404</span>
+    <h1>Off the map</h1>
+    <p class="lede">This page isn't in the catalog. <a href={url()}>Back to the overview</a>, or into the <a href={url("storybook")}>Storybook laboratory</a>.</p>
+  </header>
+</Base>

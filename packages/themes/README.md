@@ -5,6 +5,11 @@ its enamel, six semantic slots, an object radius set and a serial. Five themes â
 `wonder-wagon` (the system itself), `pathfinder`, `forge`, `lorekeeper`, `lama` â€”
 as CSS, JSON and typed data. **No React.**
 
+**Internal workspace, not published.** Released products get these themes from
+[`wonder-wagon-ui`](../foundation) as `wonder-wagon-ui/themes/<theme>.css` and `.json`
+(the four non-draft themes). The imports below are how workspaces in this repository
+consume the source.
+
 ```css
 @import "@wonder-wagon/tokens/css";
 @import "@wonder-wagon/themes/forge.css";   /* @layer ww.theme overrides */

@@ -1,0 +1,154 @@
+---
+import Badge from "../../components/Badge.astro";
+import Shot from "../../components/Shot.astro";
+import Terminal from "../../components/Terminal.astro";
+import Base from "../../layouts/Base.astro";
+import { byId, date, products, type Released, short, themeOf, url } from "../../lib/data";
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { id: p.id }, props: { product: p } }));
+}
+interface Props {
+  product: Released;
+}
+const { product } = Astro.props;
+const theme = themeOf(product.id);
+const commit = product.release.commit;
+const blob = (file: string) => `${product.repository}/blob/${commit}/${file}`;
+
+/** Where each product keeps its own terminal-identity evidence, at the release commit. */
+const PROOFS: Record<string, { text: string; href: string }[]> = {
+  pathfinder: [
+    {
+      text: "Frozen terminal contracts: 42 command/environment comparisons, byte-equal",
+      href: blob("docs/terminal-identity/README.md"),
+    },
+    {
+      text: "Its site's semantic layer, regenerated 34/34 by the themes package's Pathfinder proof",
+      href: "https://github.com/rikilamadrid/wonder-wagon-ui/blob/main/packages/themes/src/proof/pathfinder.ts",
+    },
+  ],
+  lorekeeper: [
+    { text: "Terminal specimens and their capture script", href: blob("brand/terminal/README.md") },
+    {
+      text: "Its theme values held to Lorekeeper's own tokens.json by a pinned fixture",
+      href: "https://github.com/rikilamadrid/wonder-wagon-ui/blob/main/packages/themes/src/proof/lorekeeper.ts",
+    },
+  ],
+  forge: [
+    {
+      text: "Terminal identity audit, captures and contract proof",
+      href: blob("docs/terminal-identity/README.md"),
+    },
+    { text: "Its documented manual release process", href: blob("RELEASING.md") },
+  ],
+};
+const narrowLines: Record<string, number> = { pathfinder: 1, lorekeeper: 11, forge: 9 };
+const others = products.filter((p) => p.id !== product.id);
+---
+<Base title={product.name} description={`${product.name} (${product.serial}) in the Wonder Wagon family: what it takes from the shared system, what it keeps, and the public evidence for both.`}>
+  <header class="page-head" style={`--enamel:${theme.enamel.day}`}>
+    <span class="eyebrow">Products · {product.serial}</span>
+    <h1>{product.name}</h1>
+    <p class="lede">{product.role}</p>
+    <div class="row">
+      <Badge kind={theme.status === "approved" ? "approved" : "pilot"}>Theme {theme.status}</Badge>
+      <Badge kind={product.provenance.status === "attested" ? "attested" : "none"} />
+      <span class="badge">{product.integration.label}</span>
+    </div>
+  </header>
+
+  <section class="facts" aria-label="Release facts">
+    <div class="fact"><b><a href={product.npm}>{product.version}</a></b><span><code>{product.package}</code> on npm</span></div>
+    <div class="fact"><b>{date(product.publishedAt)}</b><span>published</span></div>
+    <div class="fact"><b><a href={`${product.repository}/commit/${commit}`}><code>{short(commit)}</code></a></b><span>release commit · <a href={product.release.url}>{product.release.tag}</a></span></div>
+    <div class="fact"><b>{product.generator.version}</b><span>pinned <code>wonder-wagon-ui</code> generator</span></div>
+  </section>
+
+  <section class="section" aria-labelledby="identity">
+    <header>
+      <span class="eyebrow">Identity</span>
+      <h2 id="identity">What its terminal prints</h2>
+    </header>
+    <div class="cols-2">
+      <Terminal product={product.id} tier="wide" />
+      <Terminal product={product.id} tier="narrow" lines={narrowLines[product.id]} />
+    </div>
+  </section>
+
+  {product.site && (
+    <section class="section" aria-labelledby="site">
+      <header>
+        <span class="eyebrow">The live site</span>
+        <h2 id="site">{new URL(product.site).host}</h2>
+        <p class="lede">Screenshots of the public site as a first-time visitor sees it, in each colour scheme.</p>
+      </header>
+      <div class="shots">
+        <Shot product={product.id} env="day" device="desktop" eager />
+        <Shot product={product.id} env="day" device="mobile" />
+      </div>
+      <div class="shots">
+        <Shot product={product.id} env="night" device="desktop" />
+        <Shot product={product.id} env="night" device="mobile" />
+      </div>
+    </section>
+  )}
+
+  <section class="section" aria-labelledby="depth">
+    <header>
+      <span class="eyebrow">Integration depth</span>
+      <h2 id="depth">{product.integration.label}</h2>
+    </header>
+    <div class="ledger">
+      <div class="card shared">
+        <h3>Takes from Wonder Wagon</h3>
+        <ul>{product.integration.consumes.map((line) => <li>{line}</li>)}</ul>
+      </div>
+      <div class="card owned">
+        <h3>Keeps for itself</h3>
+        <ul>{product.integration.owns.map((line) => <li>{line}</li>)}</ul>
+      </div>
+      <div class="card owned">
+        <h3>Does not consume</h3>
+        <ul>{product.integration.notConsumed.map((line) => <li>{line}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="measured">
+    <header>
+      <span class="eyebrow">Evidence</span>
+      <h2 id="measured">Measured at <code>{short(commit)}</code></h2>
+    </header>
+    <div class="table-card" tabindex="0" role="region" aria-label="Measurements at the release commit">
+      <table>
+        <thead><tr><th scope="col">File</th><th scope="col">What was measured</th><th scope="col">Result</th></tr></thead>
+        <tbody>
+          {product.integration.measured.map((m) => (
+            <tr>
+              <td><a href={m.url}><code>{m.file}</code></a></td>
+              <td>{m.about}</td>
+              <td class="num">{typeof m.value === "object" && m.value !== null ? Object.entries(m.value).map(([k, v]) => `${k} ${v}`).join(" · ") : String(m.value)}</td>
+            </tr>
+          ))}
+          <tr>
+            <td><a href={product.generator.url}><code>{product.generator.file}</code></a></td>
+            <td>Pinned wonder-wagon-ui generator</td>
+            <td class="num">{product.generator.version}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li>Provenance: {product.provenance.status === "attested"
+        ? <>SLSA provenance from <code>{product.provenance.workflow}</code>, source commit <code>{short(product.provenance.sourceCommit ?? "")}</code> (<a href={product.provenance.source}>attestation</a>).</>
+        : <>{product.provenance.note} (<a href={product.provenance.source}>source</a>)</>}</li>
+      {PROOFS[product.id]!.map((p) => <li><a href={p.href}>{p.text}</a></li>)}
+    </ul>
+  </section>
+
+  <nav class="row" aria-label="Other products">
+    {others.map((p) => <a href={url(`products/${p.id}`)}>{p.name} · {p.serial}</a>)}
+    <a href={url("evidence")}>All evidence</a>
+  </nav>
+</Base>

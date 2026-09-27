@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Moved to /storybook/</title>
+    <meta name="robots" content="noindex" />
+    <script>
+      // The Storybook laboratory used to answer at the site root. Its preview frame now lives
+      // under /storybook/; a saved link to the old frame keeps its query and hash.
+      location.replace(location.pathname.replace(/iframe\.html$/, "storybook/iframe.html") + location.search + location.hash);
+    </script>
+  </head>
+  <body>
+    <p>The Storybook preview moved to <a href="storybook/iframe.html">storybook/iframe.html</a>.</p>
+  </body>
+</html>

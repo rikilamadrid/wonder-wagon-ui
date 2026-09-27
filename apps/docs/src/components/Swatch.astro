@@ -1,0 +1,22 @@
+---
+/** One slot's day and night values, side by side, as the colour and its hex. */
+interface Props {
+  name: string;
+  day: string;
+  night: string;
+  note?: string;
+}
+const { name, day, night, note } = Astro.props;
+const same = day === night;
+---
+<div class="swatch">
+  <div class="swatch__chips" aria-hidden="true">
+    <span style={`background:${day}`}></span>
+    <span style={`background:${night}`}></span>
+  </div>
+  <div class="swatch__text">
+    <code>{name}</code>
+    <span class="muted">{same ? day : `${day} · ${night}`}</span>
+    {note && <span class="swatch__note">{note}</span>}
+  </div>
+</div>

@@ -1,0 +1,110 @@
+---
+import { semanticValues } from "@wonder-wagon/tokens";
+import Badge from "../components/Badge.astro";
+import Swatch from "../components/Swatch.astro";
+import Base from "../layouts/Base.astro";
+import { storybook, themeOf, url } from "../lib/data";
+
+const ids = ["wonder-wagon", "pathfinder", "lorekeeper", "forge"] as const;
+const day = semanticValues("day");
+const night = semanticValues("night");
+
+const STATUS: Record<string, { kind: "approved" | "pilot"; text: string }> = {
+  "wonder-wagon": { kind: "pilot", text: "Pilot · one refinement pass pending before stable" },
+  pathfinder: { kind: "approved", text: "Approved · proven against the shipped site" },
+  lorekeeper: { kind: "pilot", text: "Pilot · consumed by the CLI and the site's family chrome" },
+  forge: { kind: "pilot", text: "Pilot · consumed by the CLI identity" },
+};
+
+/** What each product keeps outside the six slots. Curated; each line traces to a decision or a product file. */
+const BEYOND: Record<string, string[]> = {
+  "wonder-wagon": [
+    "The bench, the Reference Case and the wagon mark are the system's own objects.",
+    "Worn brass is emissive at night and carries an Edge outline on paper.",
+  ],
+  pathfinder: [
+    "The four-bar trail mark, the atlascope and the wordmark.",
+    "Starlight navigation, search and documentation chrome.",
+    "The render-artifact engine's --pf-* palette: a hand-kept copy of family values in a zero-dependency renderer.",
+  ],
+  lorekeeper: [
+    "Its own grounds, ink and lines (page #FAF7F1 by day, #141521 at night) as --lk-* tokens; the family grounds are not used on its site.",
+    "A reading scale one step larger than the family's, and symmetric radii of 6 and 10px.",
+    "At night the accent is a periwinkle fill under dark ink, not the family's light-ink convention (Atelier decision T).",
+  ],
+  forge: [
+    "Iron #17130D as its night ground: a recorded ruling (F1), not drift. Workshop Night stays the system's night.",
+    "Bronze is the one visible signal; Ember is enamel for objects and branded surfaces, never a competing UI accent (F2).",
+    "Web fonts: Bricolage Grotesque, Instrument Sans, IBM Plex Mono.",
+    "Whiteheat #FFD96B, the furnace's core glow, is an object colour and not a slot.",
+  ],
+};
+const PLACEHOLDER: Record<string, string[]> = {
+  lorekeeper: ["accent-low", "radius"],
+  forge: ["radius"],
+};
+---
+<Base title="Themes" description="The Wonder Wagon theme contract: six colour slots, an enamel, an object radius and a serial per product, with each product's day and night values and maturity.">
+  <header class="page-head">
+    <span class="eyebrow">Themes · the contract</span>
+    <h1>Six slots, and nothing the family owns</h1>
+    <p class="lede">A product theme fills <code>accent</code>, <code>accent-low</code>, <code>accent-ink</code>, <code>link</code>, <code>signal</code> and <code>signal-edge</code>, plus an enamel, an object radius and a serial, each for day and night. The family keeps grounds, ink, hairlines, focus, depth and space. Every slot pairing is contrast-measured on each build.</p>
+  </header>
+
+  <div class="callout">
+    <p><strong>The contract is narrower than the products.</strong> Two of the four products own their grounds outright: Forge by a recorded ruling, Lorekeeper because its reading room predates the system. The contract has no product-ground slot yet, so those values live in the products, and each card below says so.</p>
+  </div>
+
+  <h2 class="visually-hidden">The four released themes</h2>
+  <section class="section" aria-label="Themes">
+    {ids.map((id) => {
+      const t = themeOf(id);
+      const ph = PLACEHOLDER[id] ?? [];
+      return (
+        <article class="theme-card" id={id}>
+          <header>
+            <span class="object" aria-hidden="true" style={`--r:${t.radiusObject};--day:${t.enamel.day};--night:${t.enamel.night}`}></span>
+            <h3>{t.name}</h3>
+            <span class="serial muted">{t.serial}-047</span>
+            <Badge kind={STATUS[id]!.kind}>{STATUS[id]!.text}</Badge>
+          </header>
+          <p class="muted">{t.product}</p>
+          <div class="swatches">
+            <Swatch name="enamel" day={t.enamel.day} night={t.enamel.night} />
+            <Swatch name="accent" day={t.accent.day} night={t.accent.night} />
+            <Swatch name="accent-low" day={t.accentLow.day} night={t.accentLow.night} note={ph.includes("accent-low") ? "placeholder: no product source" : undefined} />
+            <Swatch name="accent-ink" day={t.accentInk.day} night={t.accentInk.night} />
+            <Swatch name="link" day={t.link.day} night={t.link.night} />
+            <Swatch name="signal" day={t.signal.day} night={t.signal.night} />
+          </div>
+          <p class="swatch__text"><span><code>radius-object</code> <span class="muted">{t.radiusObject}</span>{ph.includes("radius") && <span class="swatch__note"> · placeholder until the product's object pilot</span>}</span></p>
+          <div class="specimen-pair" aria-label={`${t.name} slots on the family grounds`}>
+            {[["Day", day, "day"], ["Night", night, "night"]].map(([label, g, env]) => {
+              const e = env as "day" | "night";
+              const gv = g as Record<string, string>;
+              return (
+                <div class="mini" style={`--g:${gv.ground};--i:${gv.ink};--a:${t.accent[e]};--ai:${t.accentInk[e]};--l:${t.link[e]};--s:${t.signal[e]};--se:${t.signalEdge[e]}`}>
+                  <span class="plate"><span class="sig" aria-hidden="true"></span>{label} · on the family ground</span>
+                  <span class="fill">Signature action</span>
+                  <span>Body text with <span class="lnk">a link</span>.</span>
+                </div>
+              );
+            })}
+          </div>
+          <div>
+            <h4 class="eyebrow">Owned beyond the contract</h4>
+            <ul>{BEYOND[id]!.map((line) => <li>{line}</li>)}</ul>
+          </div>
+          <p class="muted" style="font-size:var(--ww-text--1)">Source: {t.source}</p>
+        </article>
+      );
+    })}
+  </section>
+
+  <section class="section" aria-labelledby="lama">
+    <h2 id="lama">Lama</h2>
+    <p><span class="badge" data-kind="draft">Draft</span> A draft theme exists in the themes package from early art direction. It doesn't match the app as it is built today, and Lama is unreleased, so it isn't shown as a product theme here.</p>
+  </section>
+
+  <p class="row"><a href={storybook("?path=/docs/theming-products--docs")}>Every theme on the component laboratory</a><span aria-hidden="true">·</span><a href={url("accessibility")}>How the slots are measured</a></p>
+</Base>

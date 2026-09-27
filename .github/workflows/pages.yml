@@ -1,7 +1,9 @@
-name: storybook-pages
+name: pages
 
-# The public Storybook on GitHub Pages (decision D9). Built from main; the URL is recorded
-# in the README's parts manifest once Pages is enabled in repository settings (human).
+# The one GitHub Pages artifact (decision D13, superseding D10): the Wonder Wagon Catalog at
+# the site root and the Storybook laboratory at /storybook/, built from main. Old Storybook
+# links at the root forward to /storybook/. The catalog reads committed evidence only; no
+# step here reaches npm or GitHub for content.
 
 on:
   push:
@@ -30,11 +32,19 @@ jobs:
           node-version: 24
       - run: bun install --frozen-lockfile
       - run: bun run build
-      - run: bun run build
+      - name: Build the Storybook laboratory
+        run: bun run build
         working-directory: apps/storybook
+      - name: Build the catalog, check its evidence, assemble and validate the artifact
+        working-directory: apps/docs
+        run: |
+          bun run test
+          bun run build
+          bun run pages
+          bun run pages:check
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/storybook/storybook-static
+          path: apps/docs/.site/wonder-wagon-ui
   deploy:
     needs: build
     runs-on: ubuntu-latest

@@ -14,9 +14,19 @@ Approved at the Feature 04 decision gate on 2026-09-23. Source: the Atelier stud
 | D7 | The system's serial | `WW-047` |
 | D8 | Visual regression | Committed Playwright snapshots are canonical; Chromatic deferred and addable without replacing the baseline |
 | D9 | Storybook host | GitHub Pages |
-| D10 | Docs domain | Deferred; deploy to the generated Vercel URL; `SITE_URL` attaches a domain later |
+| D10 | Docs domain | ~~Deferred; deploy to the generated Vercel URL~~ **Superseded by D13** (2026-09-27): no Vercel project; the docs app became the catalog on GitHub Pages |
 | D11 | Art direction | Maker 047's bench — Bench Green, the Reference Case, night workshop / daylight drafting room; silhouette and secondary values get one refinement pass before stable |
 | D12 | License | MIT |
+
+## Feature 10 decisions
+
+Approved by the human on 2026-09-27 at the Feature 10 architecture gate.
+
+| # | Decision | Outcome |
+|---|---|---|
+| D13 | Public front door and hosting | **Option B.** `apps/docs` becomes the Wonder Wagon Catalog (Astro), the system's public narrative. The existing Storybook stays the laboratory for foundations, token visualisation, component states and experiments. Both deploy as **one GitHub Pages artifact**: the catalog at `/`, Storybook at `/storybook/`. Old Storybook links at the root (`?path=`, `iframe.html`) forward to `/storybook/`. Supersedes D10; no Vercel project is created. |
+| D14 | Public package boundary | Public: `wonder-wagon-ui` root and `wonder-wagon-ui/cli` (both React-free), `wonder-wagon-ui/tokens/*`, `wonder-wagon-ui/themes/*`. Internal and unpublished: `@wonder-wagon/tokens`, `@wonder-wagon/themes`. No duplicate packages. The React components stay experimental and unpublished until a real product consumes them, then ship as their own package, never a subpath of `wonder-wagon-ui`. |
+| D15 | Public narrative | The catalog uses the measured integration depth: Pathfinder, semantic site layer + CLI identity (deepest); Lorekeeper, family chrome layer + CLI identity; Forge, CLI identity only; Lama, draft, consumes nothing. Provenance is stated per package: Forge 0.2.0 was published by hand under its documented process and has no attestation. Nothing implies every product consumes every layer. |
 
 ## Implementation decisions recorded during Feature 05
 
