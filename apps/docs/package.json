@@ -7,7 +7,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "test": "node scripts/check-evidence.mjs",
+    "evidence": "node scripts/evidence.mjs",
+    "evidence:check": "node scripts/evidence.mjs --check",
+    "capture:terminal": "python3 scripts/capture-terminal.py",
+    "capture:terminal:check": "python3 scripts/capture-terminal.py --check",
+    "capture:sites": "node scripts/capture-sites.mjs"
   },
   "dependencies": {
     "@astrojs/react": "7.0.0",
@@ -21,6 +27,7 @@
   "devDependencies": {
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "playwright": "1.63.0",
     "typescript": "7.0.2"
   }
 }

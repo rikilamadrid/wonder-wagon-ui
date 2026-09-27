@@ -1,0 +1,536 @@
+{
+  "about": "Real PTY captures of the public npm packages. Bytes as received; CRLF -> LF only. The temporary working directory is written as /tmp/ww-catalog.",
+  "registry": "https://registry.npmjs.org/",
+  "products": [
+    {
+      "id": "wonder-wagon",
+      "package": "wonder-wagon-ui",
+      "version": "0.3.0",
+      "bin": "wonder-wagon-ui",
+      "why": "the family doorway: npx wonder-wagon-ui",
+      "integrity": "sha512-uxbkSLSweB4NxSAlObUQ0ZXZvbUdSsSNC4A4alSRxKfRf6nX4qjGgXaRJnPp+PctQmalyTu7skg+ry3Nhs0IYQ==",
+      "args": []
+    },
+    {
+      "id": "pathfinder",
+      "package": "create-pathfinder",
+      "version": "4.5.0",
+      "bin": "create-pathfinder",
+      "why": "a dry run in an empty Git repository; nothing is written",
+      "integrity": "sha512-IwQrNn6mbOcOq2LNk11riLGwUqeHshRkqkDuf0Dv2Xq/tM0BObDWijAXuayxoZChCTFGdSxLwLNusOCPXB82sg==",
+      "args": [
+        "--dry-run",
+        "--yes"
+      ]
+    },
+    {
+      "id": "lorekeeper",
+      "package": "create-lorekeeper",
+      "version": "0.3.0",
+      "bin": "lore",
+      "why": "the CLI's help, where its identity block is shown",
+      "integrity": "sha512-SLIV+2j7V8vMu85r32bRKhtYrJAgBX2D++osoqTbqvrieAahxzgHiO8oUsfjg1kIyTW1we9b9OtYMgewe+SQ6Q==",
+      "args": [
+        "--help"
+      ]
+    },
+    {
+      "id": "forge",
+      "package": "forge-local-ai-kit",
+      "version": "0.2.0",
+      "bin": "forge",
+      "why": "the CLI's help, where its identity block is shown",
+      "integrity": "sha512-HKUfdwUrVofZM1tnCCt57R0SuGBaa7tzB6Pj77fX9XE4bYKUegNACC8K9iFKHAYZpxgn6U0+7MZHAmzPARZV5g==",
+      "args": [
+        "--help"
+      ]
+    }
+  ],
+  "tiers": [
+    {
+      "name": "wide",
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "tty": true
+    },
+    {
+      "name": "narrow",
+      "columns": 40,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "tty": true
+    },
+    {
+      "name": "ansi256",
+      "columns": 100,
+      "env": {
+        "TERM": "xterm-256color"
+      },
+      "tty": true
+    },
+    {
+      "name": "no-color",
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color",
+        "NO_COLOR": "1"
+      },
+      "tty": true
+    },
+    {
+      "name": "ascii",
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color",
+        "WW_ASCII": "1"
+      },
+      "tty": true
+    },
+    {
+      "name": "dumb",
+      "columns": 100,
+      "env": {
+        "TERM": "dumb"
+      },
+      "tty": true
+    },
+    {
+      "name": "piped",
+      "columns": null,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "tty": false
+    }
+  ],
+  "captures": [
+    {
+      "product": "wonder-wagon",
+      "tier": "wide",
+      "file": "wonder-wagon/wide.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx wonder-wagon-ui@0.3.0",
+      "exit": 0,
+      "bytes": 1087,
+      "sha256": "fc9d69374d28d55a54b927b7ce6cf3647b14b95688411e95f10d926aea141e6d"
+    },
+    {
+      "product": "wonder-wagon",
+      "tier": "narrow",
+      "file": "wonder-wagon/narrow.ansi",
+      "tty": true,
+      "columns": 40,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx wonder-wagon-ui@0.3.0",
+      "exit": 0,
+      "bytes": 1130,
+      "sha256": "5c55f6b04d8877a4f2e1199a4169fe75940125299b86ce8c6ee53d530be7941d"
+    },
+    {
+      "product": "wonder-wagon",
+      "tier": "ansi256",
+      "file": "wonder-wagon/ansi256.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "TERM": "xterm-256color"
+      },
+      "command": "npx wonder-wagon-ui@0.3.0",
+      "exit": 0,
+      "bytes": 963,
+      "sha256": "59cf62973192e154a6ca8e952bb475186e6de57f5afc7fbd465c235b0f4c0086"
+    },
+    {
+      "product": "wonder-wagon",
+      "tier": "no-color",
+      "file": "wonder-wagon/no-color.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color",
+        "NO_COLOR": "1"
+      },
+      "command": "npx wonder-wagon-ui@0.3.0",
+      "exit": 0,
+      "bytes": 614,
+      "sha256": "05dec3c35d257ae8a9ae11926b15f8fd50660cbad29a71a8c13afb69f3cec18d"
+    },
+    {
+      "product": "wonder-wagon",
+      "tier": "ascii",
+      "file": "wonder-wagon/ascii.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color",
+        "WW_ASCII": "1"
+      },
+      "command": "npx wonder-wagon-ui@0.3.0",
+      "exit": 0,
+      "bytes": 923,
+      "sha256": "75e03a78d554d0556ebba3fe5c75b25dc76a7e248a521899632a86f3b901c66c"
+    },
+    {
+      "product": "wonder-wagon",
+      "tier": "dumb",
+      "file": "wonder-wagon/dumb.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "TERM": "dumb"
+      },
+      "command": "npx wonder-wagon-ui@0.3.0",
+      "exit": 0,
+      "bytes": 614,
+      "sha256": "05dec3c35d257ae8a9ae11926b15f8fd50660cbad29a71a8c13afb69f3cec18d"
+    },
+    {
+      "product": "wonder-wagon",
+      "tier": "piped",
+      "file": "wonder-wagon/piped.ansi",
+      "tty": false,
+      "columns": null,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx wonder-wagon-ui@0.3.0",
+      "exit": 0,
+      "bytes": 209,
+      "sha256": "4cf28a1698f4cd13edbde80106c618eac26a1189547b75883ff26360e730e4df"
+    },
+    {
+      "product": "pathfinder",
+      "tier": "wide",
+      "file": "pathfinder/wide.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx create-pathfinder@4.5.0 --dry-run --yes",
+      "exit": 0,
+      "bytes": 1165,
+      "sha256": "9abf323a67439504ec32d74e7399d19c24bb73e1164a1832bcddff3b3730b073"
+    },
+    {
+      "product": "pathfinder",
+      "tier": "narrow",
+      "file": "pathfinder/narrow.ansi",
+      "tty": true,
+      "columns": 40,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx create-pathfinder@4.5.0 --dry-run --yes",
+      "exit": 0,
+      "bytes": 937,
+      "sha256": "f38fb558dbd58c201bc8b96ca6f1e47405aac40d9365b04a55b3abebe7b0f590"
+    },
+    {
+      "product": "pathfinder",
+      "tier": "ansi256",
+      "file": "pathfinder/ansi256.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "TERM": "xterm-256color"
+      },
+      "command": "npx create-pathfinder@4.5.0 --dry-run --yes",
+      "exit": 0,
+      "bytes": 1105,
+      "sha256": "db1c5716d72fd59e17051a6e349b407f64cd3e8023c5f821749c012ce91da125"
+    },
+    {
+      "product": "pathfinder",
+      "tier": "no-color",
+      "file": "pathfinder/no-color.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color",
+        "NO_COLOR": "1"
+      },
+      "command": "npx create-pathfinder@4.5.0 --dry-run --yes",
+      "exit": 0,
+      "bytes": 773,
+      "sha256": "b531a88550a6729947da70a801227ef432d8b8b76a9c28d24e47bb020aa0082f"
+    },
+    {
+      "product": "pathfinder",
+      "tier": "ascii",
+      "file": "pathfinder/ascii.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color",
+        "WW_ASCII": "1"
+      },
+      "command": "npx create-pathfinder@4.5.0 --dry-run --yes",
+      "exit": 0,
+      "bytes": 1046,
+      "sha256": "81c31710c5f9f5efe9781f0e2d22f472ff0fae46b48fe539786e476b870af7f7"
+    },
+    {
+      "product": "pathfinder",
+      "tier": "dumb",
+      "file": "pathfinder/dumb.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "TERM": "dumb"
+      },
+      "command": "npx create-pathfinder@4.5.0 --dry-run --yes",
+      "exit": 0,
+      "bytes": 773,
+      "sha256": "b531a88550a6729947da70a801227ef432d8b8b76a9c28d24e47bb020aa0082f"
+    },
+    {
+      "product": "pathfinder",
+      "tier": "piped",
+      "file": "pathfinder/piped.ansi",
+      "tty": false,
+      "columns": null,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx create-pathfinder@4.5.0 --dry-run --yes",
+      "exit": 0,
+      "bytes": 264,
+      "sha256": "b52f50356c53e9ba5da56a0f042920d522b7209fc966e6e309b2460193ed472c"
+    },
+    {
+      "product": "lorekeeper",
+      "tier": "wide",
+      "file": "lorekeeper/wide.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx create-lorekeeper@0.3.0 --help",
+      "exit": 0,
+      "bytes": 1922,
+      "sha256": "c8597701ca9ffe611fa6208643777ef5ce51996db8df904a69fbafeb9d604a35"
+    },
+    {
+      "product": "lorekeeper",
+      "tier": "narrow",
+      "file": "lorekeeper/narrow.ansi",
+      "tty": true,
+      "columns": 40,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx create-lorekeeper@0.3.0 --help",
+      "exit": 0,
+      "bytes": 1933,
+      "sha256": "bda5f864e6a2f637b73ceb258b9931bc75ad78fcf35fa32dcc8510f108535a05"
+    },
+    {
+      "product": "lorekeeper",
+      "tier": "ansi256",
+      "file": "lorekeeper/ansi256.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "TERM": "xterm-256color"
+      },
+      "command": "npx create-lorekeeper@0.3.0 --help",
+      "exit": 0,
+      "bytes": 1859,
+      "sha256": "027312c9618bb7bc41944faeb51ddd9cfe89ce0189c6f0d9eef9ae35a17a75ca"
+    },
+    {
+      "product": "lorekeeper",
+      "tier": "no-color",
+      "file": "lorekeeper/no-color.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color",
+        "NO_COLOR": "1"
+      },
+      "command": "npx create-lorekeeper@0.3.0 --help",
+      "exit": 0,
+      "bytes": 1723,
+      "sha256": "55664446c85388169a44a2786169d4b27bfc44bc4491d8854be90a9ec55dd940"
+    },
+    {
+      "product": "lorekeeper",
+      "tier": "ascii",
+      "file": "lorekeeper/ascii.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color",
+        "WW_ASCII": "1"
+      },
+      "command": "npx create-lorekeeper@0.3.0 --help",
+      "exit": 0,
+      "bytes": 1834,
+      "sha256": "8980558c320790cad4637cddde862028034f5e24f39a8167553d8100e6c65744"
+    },
+    {
+      "product": "lorekeeper",
+      "tier": "dumb",
+      "file": "lorekeeper/dumb.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "TERM": "dumb"
+      },
+      "command": "npx create-lorekeeper@0.3.0 --help",
+      "exit": 0,
+      "bytes": 1723,
+      "sha256": "55664446c85388169a44a2786169d4b27bfc44bc4491d8854be90a9ec55dd940"
+    },
+    {
+      "product": "lorekeeper",
+      "tier": "piped",
+      "file": "lorekeeper/piped.ansi",
+      "tty": false,
+      "columns": null,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx create-lorekeeper@0.3.0 --help",
+      "exit": 0,
+      "bytes": 1602,
+      "sha256": "441f054393d80d9432b50d000f994ae9622b713afe5b8d5c675660fbf252a504"
+    },
+    {
+      "product": "forge",
+      "tier": "wide",
+      "file": "forge/wide.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx forge-local-ai-kit@0.2.0 --help",
+      "exit": 0,
+      "bytes": 960,
+      "sha256": "2245eb4b44f3b831f53adac935c5e45f6e003e89dfd574ef4dacc6443233a157"
+    },
+    {
+      "product": "forge",
+      "tier": "narrow",
+      "file": "forge/narrow.ansi",
+      "tty": true,
+      "columns": 40,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx forge-local-ai-kit@0.2.0 --help",
+      "exit": 0,
+      "bytes": 960,
+      "sha256": "cef613db9dbcb6f1172085510aad4f12ac6ab1dbdeab844aafd48f4e9a786b7b"
+    },
+    {
+      "product": "forge",
+      "tier": "ansi256",
+      "file": "forge/ansi256.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "TERM": "xterm-256color"
+      },
+      "command": "npx forge-local-ai-kit@0.2.0 --help",
+      "exit": 0,
+      "bytes": 910,
+      "sha256": "bca287a3858984f906ad3e7db3245b150e63d44ab96a03c005033ba43b254ce7"
+    },
+    {
+      "product": "forge",
+      "tier": "no-color",
+      "file": "forge/no-color.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color",
+        "NO_COLOR": "1"
+      },
+      "command": "npx forge-local-ai-kit@0.2.0 --help",
+      "exit": 0,
+      "bytes": 781,
+      "sha256": "aee6de8e2230a7f54f03f4dbecb7e6720f95766c60fac439d3cbe805d227d672"
+    },
+    {
+      "product": "forge",
+      "tier": "ascii",
+      "file": "forge/ascii.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color",
+        "WW_ASCII": "1"
+      },
+      "command": "npx forge-local-ai-kit@0.2.0 --help",
+      "exit": 0,
+      "bytes": 868,
+      "sha256": "b65ae3fb3d6584f89456bb48946c24bdca40fae45ec1835decf86a884575db79"
+    },
+    {
+      "product": "forge",
+      "tier": "dumb",
+      "file": "forge/dumb.ansi",
+      "tty": true,
+      "columns": 100,
+      "env": {
+        "TERM": "dumb"
+      },
+      "command": "npx forge-local-ai-kit@0.2.0 --help",
+      "exit": 0,
+      "bytes": 781,
+      "sha256": "aee6de8e2230a7f54f03f4dbecb7e6720f95766c60fac439d3cbe805d227d672"
+    },
+    {
+      "product": "forge",
+      "tier": "piped",
+      "file": "forge/piped.ansi",
+      "tty": false,
+      "columns": null,
+      "env": {
+        "COLORTERM": "truecolor",
+        "TERM": "xterm-256color"
+      },
+      "command": "npx forge-local-ai-kit@0.2.0 --help",
+      "exit": 0,
+      "bytes": 612,
+      "sha256": "25f4b4cc315ad902fff448b6265e802d35f4b7861d2ed602e4a9617df19d9f0b"
+    }
+  ]
+}
