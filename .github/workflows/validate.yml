@@ -111,6 +111,9 @@ jobs:
           node-version: 24
       - run: bun install --frozen-lockfile
       - run: bun run build
+      - name: G12 · catalog evidence files match their manifests
+        run: bun run test
+        working-directory: apps/docs
       - name: G11 · docs build
         run: bun run build
         working-directory: apps/docs

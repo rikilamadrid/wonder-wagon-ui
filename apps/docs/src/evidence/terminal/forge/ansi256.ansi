@@ -1,0 +1,24 @@
+
+  [38;5;173m  ▗▄▄▄▄▖[0m
+  [38;5;173m ▐ █▀▀▀ ▌[0m    [38;5;173mF O R G E[0m  [2mv0.2.0 · FG-047[0m
+  [38;5;173m ▐ [0m[38;5;246m█▀▀[0m[38;5;173m  ▌[0m    [2mthe Local AI Kit[0m
+  [38;5;173m  ▝▀▀▀▀▘[0m
+
+Forge calls language models running on machines you control.
+
+Usage:
+  forge ask "<prompt>" [--json]   Delegate a prompt to the local runtime
+  forge --help                    Show this help and exit
+  forge --version                 Print the version and exit
+
+Flags:
+  --json      Emit the result or failure as a single JSON object
+  --help      Show this help and exit
+  --version   Print the version and exit
+
+Configuration (environment variables):
+  OLLAMA_HOST      Base URL of the Ollama API (required)
+  FORGE_MODEL      Model to run (required)
+  FORGE_TIMEOUT_MS Request timeout in milliseconds (optional)
+
+[2ma Wonder Wagon tool[0m

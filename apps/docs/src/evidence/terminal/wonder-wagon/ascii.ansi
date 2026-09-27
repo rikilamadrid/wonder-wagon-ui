@@ -1,0 +1,21 @@
+
+  [38;2;226;178;106m  .------.[0m
+  [38;2;226;178;106m  |==[]==|[0m    [38;2;226;178;106mW O N D E R   W A G O N[0m  [2mv0.3.0 - WW-047[0m
+  [38;2;226;178;106m\ |______|[0m    [2mOne family. Different tools.[0m
+  [38;2;226;178;106m \/------\[0m
+  [38;2;226;178;106m   oo  oo[0m
+
+  [38;2;224;97;31m==[0m  [38;2;224;97;31mPathfinder[0m  [2mPF-047[0m  npx create-pathfinder
+      [2mtrail markers for AI-assisted work[0m
+
+  [38;2;226;180;92m* [0m  [38;2;226;180;92mLorekeeper[0m  [2mLK-047[0m  npx create-lorekeeper
+      [2mYou already wrote it down. Find the passage that answers.[0m
+
+  [38;2;200;151;63m[F[0m  [38;2;200;151;63mForge[0m       [2mFG-047[0m  npm install forge-local-ai-kit
+      [2mthe Local AI Kit[0m
+
+  [38;2;67;189;145m/\[0m  [38;2;67;189;145mLama[0m        [2mdraft[0m
+      [2mRunning locally. Built by Lamadrid.[0m
+
+  [2mMade on Maker 047's bench.[0m
+

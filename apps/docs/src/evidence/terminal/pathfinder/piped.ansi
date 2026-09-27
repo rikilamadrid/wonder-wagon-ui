@@ -1,0 +1,8 @@
+Would install the Pathfinder kit into /tmp/ww-catalog/demo-project
+
+  139 files to write
+
+Next step — give your agent this prompt:
+
+  Use skills/kickstart-pathfinder/SKILL.md. Help me initialize this
+  project. Do not install packages or write product code yet.

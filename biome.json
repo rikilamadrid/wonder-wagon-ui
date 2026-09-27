@@ -11,6 +11,7 @@
       "!**/dist",
       "!**/storybook-static",
       "!**/.astro",
+      "!apps/docs/src/evidence",
       "!**/node_modules",
       "!**/*.snap",
       "!**/__screenshots__"

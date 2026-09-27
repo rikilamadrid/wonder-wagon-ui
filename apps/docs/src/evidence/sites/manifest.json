@@ -1,0 +1,174 @@
+{
+  "about": "Viewport screenshots of the live public product sites: fresh browser context, colour scheme emulated, reduced motion, no browser chrome. Rendered in mcr.microsoft.com/playwright:v1.63.0-noble.",
+  "capturedOn": "2026-09-27",
+  "shots": [
+    {
+      "product": "pathfinder",
+      "url": "https://pathfinder-kit.vercel.app",
+      "status": 200,
+      "env": "day",
+      "device": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "deviceScaleFactor": 1,
+      "file": "pathfinder-day-desktop.png",
+      "sha256": "155e01745c266425127c0893fe0593f36003e4b789a7e9a9689198560f8e2ebe"
+    },
+    {
+      "product": "pathfinder",
+      "url": "https://pathfinder-kit.vercel.app",
+      "status": 200,
+      "env": "night",
+      "device": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "deviceScaleFactor": 1,
+      "file": "pathfinder-night-desktop.png",
+      "sha256": "8efc37b879430209a881733fb1c957acc7c1994a913a518a617149b7c2ec3317"
+    },
+    {
+      "product": "pathfinder",
+      "url": "https://pathfinder-kit.vercel.app",
+      "status": 200,
+      "env": "day",
+      "device": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 2,
+      "file": "pathfinder-day-mobile.png",
+      "sha256": "9863261ae92b6f493bf11c5b9c82110b0b17e8a452500fc8495123db71ae7084"
+    },
+    {
+      "product": "pathfinder",
+      "url": "https://pathfinder-kit.vercel.app",
+      "status": 200,
+      "env": "night",
+      "device": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 2,
+      "file": "pathfinder-night-mobile.png",
+      "sha256": "afc3abb449a8a72bce56f7570c3198621c851d3908e84f64e01c1c48e9367e49"
+    },
+    {
+      "product": "lorekeeper",
+      "url": "https://lorekeeper-bay.vercel.app",
+      "status": 200,
+      "env": "day",
+      "device": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "deviceScaleFactor": 1,
+      "file": "lorekeeper-day-desktop.png",
+      "sha256": "abf22042d40630c68c006c2705a48f7b9078abdb007f1eaa81b15a5bb5272ac7"
+    },
+    {
+      "product": "lorekeeper",
+      "url": "https://lorekeeper-bay.vercel.app",
+      "status": 200,
+      "env": "night",
+      "device": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "deviceScaleFactor": 1,
+      "file": "lorekeeper-night-desktop.png",
+      "sha256": "5efebff62e0d7b843434b23ca28f7f135c4aa76551856b2e9bb0b2509a1caae2"
+    },
+    {
+      "product": "lorekeeper",
+      "url": "https://lorekeeper-bay.vercel.app",
+      "status": 200,
+      "env": "day",
+      "device": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 2,
+      "file": "lorekeeper-day-mobile.png",
+      "sha256": "9cf9dddbd0305cac8b3bca93930fc33c991adc88f9d97e02c4798ffb06e862c6"
+    },
+    {
+      "product": "lorekeeper",
+      "url": "https://lorekeeper-bay.vercel.app",
+      "status": 200,
+      "env": "night",
+      "device": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 2,
+      "file": "lorekeeper-night-mobile.png",
+      "sha256": "4619b5c4a05789c34f96ecc2759ec394113993b71790eb2ac84b87cd338b67a3"
+    },
+    {
+      "product": "forge",
+      "url": "https://forge-kit-nu.vercel.app",
+      "status": 200,
+      "env": "day",
+      "device": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "deviceScaleFactor": 1,
+      "file": "forge-day-desktop.png",
+      "sha256": "8932298f69c1d9f910e18fadcbae8af34d38b225cb4f1755bcc432aa2e1f0a32"
+    },
+    {
+      "product": "forge",
+      "url": "https://forge-kit-nu.vercel.app",
+      "status": 200,
+      "env": "night",
+      "device": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "deviceScaleFactor": 1,
+      "file": "forge-night-desktop.png",
+      "sha256": "9b19213375dec8a2896af11aff90638791f8cb63290a818e47a853524b39c5cc"
+    },
+    {
+      "product": "forge",
+      "url": "https://forge-kit-nu.vercel.app",
+      "status": 200,
+      "env": "day",
+      "device": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 2,
+      "file": "forge-day-mobile.png",
+      "sha256": "2af4526aec12f8c4de55eb00d303a90d825dd308721ee2b3c2b3e4ea814c652b"
+    },
+    {
+      "product": "forge",
+      "url": "https://forge-kit-nu.vercel.app",
+      "status": 200,
+      "env": "night",
+      "device": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 2,
+      "file": "forge-night-mobile.png",
+      "sha256": "7b66bd49944053f2d2aa636d06467a4361e2247126ea2fb3df6485a3acd7eaf0"
+    }
+  ]
+}

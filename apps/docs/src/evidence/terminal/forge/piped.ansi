@@ -1,0 +1,18 @@
+Forge — the Local AI Kit
+
+Usage:
+  forge ask "<prompt>" [--json]   Delegate a prompt to the local runtime
+  forge --help                    Show this help and exit
+  forge --version                 Print the version and exit
+
+Flags:
+  --json      Emit the result or failure as a single JSON object
+  --help      Show this help and exit
+  --version   Print the version and exit
+
+Configuration (environment variables):
+  OLLAMA_HOST      Base URL of the Ollama API (required)
+  FORGE_MODEL      Model to run (required)
+  FORGE_TIMEOUT_MS Request timeout in milliseconds (optional)
+
+FG-047 · a Wonder Wagon tool
