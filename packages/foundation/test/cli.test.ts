@@ -176,3 +176,74 @@ describe("generated committed modules", () => {
     expect(() => renderCliIdentityModule(pathfinder, { language: "ts" })).not.toThrow();
   });
 });
+
+describe("opt-in responsive layout", () => {
+  const caps = (columns: number, env: Record<string, string> = { NO_COLOR: "1" }) =>
+    detectTerminal({ env: { LANG: "en_US.UTF-8", ...env }, isTTY: true, columns });
+
+  it("leaves the default fixed layout's frozen bytes alone", () => {
+    const narrow = caps(42, { COLORTERM: "truecolor" });
+    expect(
+      renderCliIdentity({ product: pathfinder, version: "4.4.0", caps: narrow, layout: "fixed" }),
+    ).toBe(renderCliIdentity({ product: pathfinder, version: "4.4.0", caps: narrow }));
+  });
+
+  it("keeps the block where it fits and stacks it where it would wrap", () => {
+    const wide = caps(80);
+    expect(
+      renderCliIdentity({
+        product: pathfinder,
+        version: "4.4.0",
+        caps: wide,
+        layout: "responsive",
+      }),
+    ).toBe(renderCliIdentity({ product: pathfinder, version: "4.4.0", caps: wide }));
+    expect(
+      renderCliIdentity({
+        product: pathfinder,
+        version: "4.4.0",
+        caps: caps(32),
+        layout: "responsive",
+      }),
+    ).toBe(
+      "\n     ━━━\n    ━━━━━\n   ━━━━━━━\n  ━━━━━━━━━\n\n" +
+        "  P A T H F I N D E R\n  v4.4.0 · PF-047\n  trail markers for AI-assisted\n  work\n",
+    );
+  });
+
+  it("wraps only what does not fit, keeping a letterspaced word gap intact", () => {
+    const twoWords: CliProduct = { ...pathfinder, name: "Wonder Wagon", serial: "WW-047" };
+    const stacked = renderCliIdentity({
+      product: twoWords,
+      version: "0.2.0",
+      caps: caps(40),
+      layout: "responsive",
+    });
+    expect(stacked).toContain("\n  W O N D E R   W A G O N\n");
+  });
+
+  it("generates a runtime that renders exactly what the library renders", async () => {
+    const folder = mkdtempSync(join(tmpdir(), "ww-cli-"));
+    folders.push(folder);
+    const file = join(folder, "identity.mjs");
+    writeFileSync(
+      file,
+      renderCliIdentityModule(pathfinder, { language: "mjs", layout: "responsive" }),
+    );
+    const generated = await import(`${pathToFileURL(file).href}?${Date.now()}`);
+    for (const columns of [12, 32, 42, 60, 80]) {
+      for (const form of ["block", "line"] as const) {
+        const observed = caps(columns, { COLORTERM: "truecolor" });
+        expect(generated.renderCliIdentity({ version: "4.4.0", caps: observed, form })).toBe(
+          renderCliIdentity({
+            product: pathfinder,
+            version: "4.4.0",
+            caps: observed,
+            form,
+            layout: "responsive",
+          }),
+        );
+      }
+    }
+  });
+});
