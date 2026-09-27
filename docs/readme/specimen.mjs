@@ -188,7 +188,7 @@ const title = TITLE
   : "";
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(LABEL)}">
-<!-- Generated from a recorded terminal capture; the bytes are the capture's own.${SOURCE ? `\n     Source: ${esc(SOURCE)}` : ""} -->
+<!-- Generated from a recorded terminal capture; the bytes are the capture's own. -->${SOURCE ? `\n<metadata>Source: ${esc(SOURCE)}</metadata>` : ""}
 <title>${esc(LABEL)}</title>
 <rect width="${W}" height="${H}" rx="12" fill="${GROUND}"/>
 <rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" rx="11.5" fill="none" stroke="${FG}" stroke-opacity=".14"/>
